@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-14T12:10:59.530Z</updated>
+  <updated>2017-10-14T12:12:35.621Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="http://yoursite.com/2017/10/14/hello-world/"/>
     <id>http://yoursite.com/2017/10/14/hello-world/</id>
     <published>2017-10-14T08:35:27.597Z</published>
-    <updated>2017-10-14T12:10:59.530Z</updated>
+    <updated>2017-10-14T12:12:35.621Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello , 个人博客搭好了，老规矩，先来个 Hello World！，然后，撸起袖子就是干！</div></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="To-be-a-better-man"><a href="#To-be-a-better-man" class="headerlink" title="To be a better man"></a>To be a better man</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello , 个人博客搭好了，老规矩，先来个 Hello World！，然后，撸起袖子就是干！</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+        &lt;h2 id=&quot;To-be-a-better-man&quot;&gt;&lt;a href=&quot;#To-be-a-better-man&quot; class=&quot;headerlink&quot; title=&quot;To be a better man&quot;&gt;&lt;/a&gt;To be a better man&lt;/h2&gt;&lt;figure c
       
     
     </summary>
