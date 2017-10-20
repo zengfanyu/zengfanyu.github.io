@@ -5,9 +5,9 @@
   <subtitle>Every little makes a mickel</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://zengfanyu.top/"/>
   <updated>2017-10-20T02:03:59.373Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://zengfanyu.top/</id>
   
   <author>
     <name>曾凡宇</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Android当中的MVP模式（一）基本概念</title>
-    <link href="http://yoursite.com/2017/10/20/MVP1/"/>
-    <id>http://yoursite.com/2017/10/20/MVP1/</id>
+    <link href="http://zengfanyu.top/2017/10/20/MVP1/"/>
+    <id>http://zengfanyu.top/2017/10/20/MVP1/</id>
     <published>2017-10-20T12:37:15.000Z</published>
     <updated>2017-10-20T02:03:59.373Z</updated>
     
@@ -34,19 +34,19 @@
     
     </summary>
     
-      <category term="MVP" scheme="http://yoursite.com/categories/MVP/"/>
+      <category term="MVP" scheme="http://zengfanyu.top/categories/MVP/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+      <category term="Android" scheme="http://zengfanyu.top/tags/Android/"/>
     
-      <category term="MVP" scheme="http://yoursite.com/tags/MVP/"/>
+      <category term="MVP" scheme="http://zengfanyu.top/tags/MVP/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2017/10/14/hello-world/"/>
-    <id>http://yoursite.com/2017/10/14/hello-world/</id>
+    <link href="http://zengfanyu.top/2017/10/14/hello-world/"/>
+    <id>http://zengfanyu.top/2017/10/14/hello-world/</id>
     <published>2017-10-14T08:35:27.597Z</published>
     <updated>2017-10-14T12:12:35.621Z</updated>
     
