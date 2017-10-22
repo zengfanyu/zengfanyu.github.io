@@ -1,207 +1,128 @@
 <!DOCTYPE html>
 <html>
-<head>
-    
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="曾凡宇">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="Android当中的MVP模式（一）基本概念"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="THIS IS ZENGFANYU"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://zengfanyu.top"/>
+  
+    <link rel="alternate" href="/atom.xml" title="THIS IS ZENGFANYU" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
 
-    
+  <!-- Site Title -->
+  <title>THIS IS ZENGFANYU</title>
 
-    
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
 
-
-
-    <meta charset="utf-8">
-    
-    
-    
-    <title>Android当中的MVP模式（一）基本概念 | THIS IS ZENGFANYU | Every little makes a mickel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="Android,MVP">
-    <meta name="description" content="Android当中的MVP模式（一）基本概念为什么要使用MVP在传统的Android开发中，我们一般是使用MVC模式进行开发的。 传统MVC模式介绍： View: 视图层，对应xml文件 Controller: 控制层，对应Activity和Fragment层，进行数据处理 Model：实体层，负责获取实体数据  采用MVC模式的一个最大的弊端就是xml作为View层视图能力实在太弱，所以一般情况">
-<meta name="keywords" content="Android,MVP">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Android当中的MVP模式（一）基本概念">
-<meta property="og:url" content="http://zengfanyu.top/2017/10/20/MVP1/index.html">
-<meta property="og:site_name" content="THIS IS ZENGFANYU">
-<meta property="og:description" content="Android当中的MVP模式（一）基本概念为什么要使用MVP在传统的Android开发中，我们一般是使用MVC模式进行开发的。 传统MVC模式介绍： View: 视图层，对应xml文件 Controller: 控制层，对应Activity和Fragment层，进行数据处理 Model：实体层，负责获取实体数据  采用MVC模式的一个最大的弊端就是xml作为View层视图能力实在太弱，所以一般情况">
-<meta property="og:locale" content="Chinese">
-<meta property="og:image" content="https://i.imgur.com/hgsDXjX.png">
-<meta property="og:image" content="https://i.imgur.com/TbM6JQs.png">
-<meta property="og:image" content="https://i.imgur.com/UgftH96.png">
-<meta property="og:image" content="https://i.imgur.com/oZw0oAl.png">
-<meta property="og:image" content="https://i.imgur.com/BldAn6r.png">
-<meta property="og:image" content="https://i.imgur.com/qaDLXA2.png">
-<meta property="og:image" content="https://i.imgur.com/aeBpO2l.png">
-<meta property="og:image" content="https://i.imgur.com/ov0me7r.png">
-<meta property="og:image" content="https://i.imgur.com/bJXqwgD.png">
-<meta property="og:updated_time" content="2017-10-20T02:03:59.373Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android当中的MVP模式（一）基本概念">
-<meta name="twitter:description" content="Android当中的MVP模式（一）基本概念为什么要使用MVP在传统的Android开发中，我们一般是使用MVC模式进行开发的。 传统MVC模式介绍： View: 视图层，对应xml文件 Controller: 控制层，对应Activity和Fragment层，进行数据处理 Model：实体层，负责获取实体数据  采用MVC模式的一个最大的弊端就是xml作为View层视图能力实在太弱，所以一般情况">
-<meta name="twitter:image" content="https://i.imgur.com/hgsDXjX.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="THIS IS ZENGFANYU" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/img/MM.jpg">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
-
-    <!-- custom head -->
-    
+  <!-- Google Analytics -->
+  
 
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
+  <body>
+    <!-- Page Header -->
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/MM.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">曾凡宇</h5>
-          <a href="mailto:zengfanyunb@gmail.com" title="zengfanyunb@gmail.com" class="mail">zengfanyunb@gmail.com</a>
-        </hgroup>
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Android当中的MVP模式（一）基本概念</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                标签
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                分类
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/zengfanyu" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/android_tools"  >
-                <i class="icon icon-lg icon-adnroid_tools"></i>
-                工具
-              </a>
-            </li>
-        
-      </ul>
-    </div>
   </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Android当中的MVP模式（一）基本概念</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">Android当中的MVP模式（一）基本概念</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2017-10-20T12:37:15.000Z" itemprop="datePublished" class="page-time">
-  2017-10-20
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MVP/">MVP</a></li></ul>
-
-            
-        </h5>
-    </div>
-
-    
-
-
 </header>
 
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By 曾凡宇</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2017-10-20</span>
+            <span class="time">18:35:25</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
 
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Android当中的MVP模式（一）基本概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">Android当中的MVP模式（一）基本概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么要使用MVP"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">为什么要使用MVP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#传统MVC模式介绍："><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">传统MVC模式介绍：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MVP模式介绍："><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">MVP模式介绍：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#采用MVP模式的优势是："><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">采用MVP模式的优势是：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#采用MVP模式的缺点："><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">采用MVP模式的缺点：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一个简单的应用"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">一个简单的应用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#界面"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">界面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#项目结构"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">项目结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码实现"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">代码实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小结"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">小结</span></a></li></ol></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-MVP1"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Android当中的MVP模式（一）基本概念</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2017-10-20 20:37:15" datetime="2017-10-20T12:37:15.000Z"  itemprop="datePublished">2017-10-20</time>
-
-            
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MVP/">MVP</a></li></ul>
-
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+<a href="/categories/MVP/">MVP</a>
 </span>
-
-
+          
         </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="Android当中的MVP模式（一）基本概念"><a href="#Android当中的MVP模式（一）基本概念" class="headerlink" title="Android当中的MVP模式（一）基本概念"></a>Android当中的MVP模式（一）基本概念</h1><h2 id="为什么要使用MVP"><a href="#为什么要使用MVP" class="headerlink" title="为什么要使用MVP"></a>为什么要使用MVP</h2><p>在传统的Android开发中，我们一般是使用MVC模式进行开发的。</p><p></p>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/Android/">#Android</a> <a class="tag" href="/tags/MVP/">#MVP</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h1 id="Android当中的MVP模式（一）基本概念"><a href="#Android当中的MVP模式（一）基本概念" class="headerlink" title="Android当中的MVP模式（一）基本概念"></a>Android当中的MVP模式（一）基本概念</h1><h2 id="为什么要使用MVP"><a href="#为什么要使用MVP" class="headerlink" title="为什么要使用MVP"></a>为什么要使用MVP</h2><p>在传统的Android开发中，我们一般是使用MVC模式进行开发的。</p><p></p>
 <h3 id="传统MVC模式介绍："><a href="#传统MVC模式介绍：" class="headerlink" title="传统MVC模式介绍："></a>传统MVC模式介绍：</h3><ol>
 <li>View: 视图层，对应xml文件</li>
 <li>Controller: 控制层，对应Activity和Fragment层，进行数据处理</li>
@@ -331,257 +252,41 @@
 </blockquote>
 
         </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    Last updated: <time datetime="2017-10-20T02:03:59.373Z" itemprop="dateUpdated">2017-10-20 10:03:59</time>
-</span><br>
-
-
-        
-        不积跬步，无以至千里；不积小流，无以成江海。一个正在路上的程序员...
-        
+      </div>
     </div>
-    <footer>
-        <a href="http://zengfanyu.top">
-            <img src="/img/MM.jpg" alt="曾凡宇">
-            曾凡宇
-        </a>
-    </footer>
-</blockquote>
-
-        
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVP/">MVP</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zengfanyu.top/2017/10/20/MVP1/&title=《Android当中的MVP模式（一）基本概念》 — THIS IS ZENGFANYU&pic=http://zengfanyu.top/img/MM.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zengfanyu.top/2017/10/20/MVP1/&title=《Android当中的MVP模式（一）基本概念》 — THIS IS ZENGFANYU&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zengfanyu.top/2017/10/20/MVP1/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android当中的MVP模式（一）基本概念》 — THIS IS ZENGFANYU&url=http://zengfanyu.top/2017/10/20/MVP1/&via=http://zengfanyu.top" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zengfanyu.top/2017/10/20/MVP1/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2017/10/14/hello-world/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Hello World</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
+  </div>
 </article>
 
 
 
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
         </p>
+      </div>
     </div>
-    <div class="bottom">
-        <p><span>曾凡宇 &copy; 2017</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
+  </div>
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zengfanyu.top/2017/10/20/MVP1/&title=《Android当中的MVP模式（一）基本概念》 — THIS IS ZENGFANYU&pic=http://zengfanyu.top/img/MM.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zengfanyu.top/2017/10/20/MVP1/&title=《Android当中的MVP模式（一）基本概念》 — THIS IS ZENGFANYU&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zengfanyu.top/2017/10/20/MVP1/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android当中的MVP模式（一）基本概念》 — THIS IS ZENGFANYU&url=http://zengfanyu.top/2017/10/20/MVP1/&via=http://zengfanyu.top" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zengfanyu.top/2017/10/20/MVP1/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvUlEQVR42u3aMQ7CMAwFUO5/6bKyNHzHTQjSy4REaV4YLMf26xWv62PdfVv97fhXrYWLi9vmXsN190wOHe+SG3Bxcfdz883Gz8yFtkKIxMXFPZI7PsbdkfKj4uLi/iN3zEqSJ1xc3H/hVl/dvzItv6vh4uI2uHmVct3nJfVdXFzcKe41tfLDPLs7Li7uHu7cxaZTRklCGy4u7gncuULnilGMpHmDi4u7mlsNWNXmaP626C/AxcXdyM0LndURq/6RcHFxT+AmCUqeb3TSpkLPBxcX91FuNWzll5nkzXNhERcXdw+3Gmiq6UsnYSp0Y3BxcTdy5xohSZKU71sIZLi4uG1udbPO2FZeNsXFxT2Bm1w/ysWLxlhGNCeCi4u7jNsfqMpHrPIxrCgLw8XFXcbtlzKrU2BJMvQlhOHi4i7mdgJQtbHaT4lwcXH3cK/iqnY08iRpcvACFxd3AbdaEh2z5oosTxVfcHFxn+U+VTatFkDn9sLFxd3J7RRS80ZIHkGjsgguLu4B3M4gRZ5nfdkLFxf3MG5+gLw1kl+QcHFx93Pzi0qSrFTLrIVRDFxc3C3c6lUkT3c6lxxcXNwfcd/43GzDTjtE1QAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
     });
-})();
+  });
 </script>
 
-
-
-</body>
+  </body>
 </html>
+
