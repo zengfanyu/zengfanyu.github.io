@@ -182,7 +182,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Android 当中的 MVP 模式（二）封装 在Android当中的MVP模式（一）基本概念中，用了一个简单的的登录Demo展示了一下 MVP 模式的基本姿势，虽然项目结构是更加清晰了，但是代码量明显增多了，原来的网络请求操作只用 1 个类可以搞定，现在需要 4 个类，并且每当有不同作用的 model 出现时，我们就需要相应的为他们添加 presenter 层的对象，但是细细查看，这些mo...
+        在Android当中的MVP模式（一）基本概念中，用了一个简单的的登录Demo展示了一下 MVP 模式的基本姿势，虽然项目结构是更加清晰了，但是代码量明显增多了，原来的网络请求操作只用 1 个类可以搞定，现在需要 4 个类，并且每当有不同作用的 model 出现时，我们就需要相应的为他们添加 presenter 层的对象，但是细细查看，这些model 的作用都大体相似，与获取数据相关，类似于...
     
 
         <a href="/2017/10/22/MVP2/" class="post-more waves-effect waves-button">
@@ -229,13 +229,13 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Android当中的MVP模式（一）基本概念为什么要使用MVP在传统的Android开发中，我们一般是使用MVC模式进行开发的。
+        为什么要使用MVP在传统的Android开发中，我们一般是使用MVC模式进行开发的。
 传统MVC模式介绍：
 View: 视图层，对应xml文件
 Controller: 控制层，对应Activity和Fragment层，进行数据处理
 Model：实体层，负责获取实体数据
 
-采用MVC模式的一个最大的弊端就是xml作为View层视图能力实在太弱，所以一...
+采用MVC模式的一个最大的弊端就是xml作为View层视图能力实在太弱，所以一般情况下我们都是通过Controller层来...
     
 
         <a href="/2017/10/20/MVP1/" class="post-more waves-effect waves-button">
