@@ -198,7 +198,27 @@
             
               <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Home
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Kategorien
           </a>
         </li>
       
@@ -208,7 +228,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -272,7 +292,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T20:37:15+08:00">
                 2017-10-20
@@ -293,7 +313,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -346,13 +366,7 @@
 <li>Presenter: 逻辑控制层，同时持有View和Model对象</li>
 <li>Model: 实体层，负责获取实体数据<p></p></li>
 </ol>
-<p>MVP模式的流程图如下：<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/YiW40TM.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure></p>
+<p>MVP模式的流程图如下：<br><img src="https://i.imgur.com/YiW40TM.png" alt=""></p>
 <h3 id="采用MVP模式的优势是："><a href="#采用MVP模式的优势是：" class="headerlink" title="采用MVP模式的优势是："></a>采用MVP模式的优势是：</h3><ol>
 <li>把业务逻辑抽离到Presenter层中，View层专注于UI的处理。</li>
 <li>分离视图逻辑与业务逻辑，达到解耦的目的。</li>
@@ -365,87 +379,33 @@
 <li>有一定的学习成本。<br>综上所述，在Android上采用MVP模式的优势是：大大优化代码的维护性与拓展性的同时对代码进行深度解耦，使各个层级的分工更加明晰。<p></p></li>
 </ol>
 <h2 id="一个简单的应用"><a href="#一个简单的应用" class="headerlink" title="一个简单的应用"></a>一个简单的应用</h2><p>模拟Android中登陆的功能</p><p></p>
-<h3 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/TbM6JQs.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/UgftH96.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h3 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h3><p><img src="https://i.imgur.com/TbM6JQs.png" alt=""></p>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p><img src="https://i.imgur.com/UgftH96.png" alt=""></p>
 <p></p><p>从上图中可以看到，一个简单的基于 MVP 的项目，最少也需要创建 6 个文件夹，分别是 M、V、P 的接口和它们各自的实现类，其中 LoginActivity 就是 View 层的具体实现，它只需要负责处理 UI 的逻辑，而业务相关的逻辑都抽象到 LoginPresenter 中，这样就避免了传统开发中 Activity 、Fragment 既处理 UI 又负责业务逻辑的情况。</p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p><strong>ILoginView：</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/oZw0oAl.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<pre><code>view层只负责和 UI 相关的操作，那么在这个小 Demo 中，和 UI 相关的操作有如下几点：
-
-1. 从EditText中拿到用户输入的userName
+<p><img src="https://i.imgur.com/oZw0oAl.png" alt=""><br>    view层只负责和 UI 相关的操作，那么在这个小 Demo 中，和 UI 相关的操作有如下几点：</p>
+<pre><code>1. 从EditText中拿到用户输入的userName
 2. 从EditText中拿到用户输入的password
 3. 在登录过程中需要展示一个progressbar，登录过程结束之后隐藏这个progressbar
 4. 展示登录成功后的view
 5. 展示登录失败后的view
 </code></pre><p>综上五个操作，所以有了ILoginView中的五个接口</p>
 <p><strong>LoginActivity：</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/BldAn6r.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="https://i.imgur.com/BldAn6r.png" alt=""></p>
 <p>当点击登录按钮时，会将请求服务器合适账号密码这个过程交给presenter层去处理，所以在LoginActivity里，会有preserent的引用。</p>
 <p><strong>ILoginPersenter：</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/qaDLXA2.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<pre><code>presenter层处理业务逻辑，有如下几点:
-
-1. 负责接收model的返回结果并且处理
+<p><img src="https://i.imgur.com/qaDLXA2.png" alt=""><br>    presenter层处理业务逻辑，有如下几点:</p>
+<pre><code>1. 负责接收model的返回结果并且处理
 2. 将处理的结果以特定的形式，传递给view层，让view层去展示
 3. 通知model层去向数据源请求数据
 </code></pre><p><strong>LoginPresenter：</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/aeBpO2l.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="https://i.imgur.com/aeBpO2l.png" alt=""></p>
 <p>因为presenter层相当于一个中间交互人，所以它必须要持有对 view 、model 层对象的引用。</p>
 <p><strong>ILoginModel：</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/ov0me7r.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<pre><code>model负责数据的存取：
-
-在这个Demo中，数据的存取使用一个线程和简单的字符串判断来模拟。
+<p><img src="https://i.imgur.com/ov0me7r.png" alt=""><br>    model负责数据的存取：</p>
+<pre><code>在这个Demo中，数据的存取使用一个线程和简单的字符串判断来模拟。
 </code></pre><p><strong>LoginModel：</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://i.imgur.com/bJXqwgD.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="https://i.imgur.com/bJXqwgD.png" alt=""></p>
 <p>因为model层需要将获取的数据传递给presenter层去做处理，所以此处也需要持有对presenter层的引用。</p>
 <p>这样一来就成功的将简单的登录案例，由MVP模式来实现了,</p>
 <ul>
@@ -560,10 +520,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -584,7 +544,7 @@
                 <a href="/archives">
               
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -595,7 +555,7 @@
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 
               </div>
             
@@ -606,7 +566,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 
               </div>
             
@@ -677,7 +637,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
