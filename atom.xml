@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>THIS IS ZENGFANYU</title>
+  <title>THIS IS BIGZ</title>
   
   <subtitle>Every little makes a mickel</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://zengfanyu.top/</id>
   
   <author>
-    <name>曾凡宇</name>
+    <name>BigZ</name>
     
   </author>
   
