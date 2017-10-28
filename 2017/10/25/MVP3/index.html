@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,MVP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="THIS IS BIGZ" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修">
+<meta name="keywords" content="Android,MVP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android当中的MVP模式（三）基于分页列表的封装">
+<meta property="og:url" content="http://zengfanyu.top/2017/10/25/MVP3/index.html">
+<meta property="og:site_name" content="THIS IS BIGZ">
+<meta property="og:description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/QIPIc3y.gif">
+<meta property="og:updated_time" content="2017-10-28T01:31:04.077Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android当中的MVP模式（三）基于分页列表的封装">
+<meta name="twitter:description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修">
+<meta name="twitter:image" content="https://i.imgur.com/QIPIc3y.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2017/10/25/MVP3/"/>
+
+
+
+
+
+  <title>Android当中的MVP模式（三）基于分页列表的封装 | THIS IS BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">THIS IS BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2017/10/25/MVP3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BigZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="THIS IS BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android当中的MVP模式（三）基于分页列表的封装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T20:37:15+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MVP/" itemprop="url" rel="index">
+                    <span itemprop="name">MVP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：在<a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 <code>View</code> 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 <code>PageIndex</code> ：页码；一个是 <code>PageSize</code> 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修改这两个或者一个参数，重新请求网络，从而拿到下一页的数据，这边文章还是基于MVP模式，对分页数据的请求进行封装。</p>
+</blockquote>
+<p> <code>presenter</code> 层作为 <code>MVP</code> 模式的桥梁， 那就先从这一层开始说起吧。</p>
+<h2 id="Presenter-层的封装"><a href="#Presenter-层的封装" class="headerlink" title="Presenter 层的封装"></a><code>Presenter</code> 层的封装</h2><p><a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>中对 <code>Presenter</code> 层的公共方法进行了抽取并且封装成了一个接口 <code>IBasePresenter</code> ，那么现在我们需要<strong>实现分页加载还有刷新</strong>的功能，那么在 <code>IBasePresenter</code> 接口的基础之上，在对其封装一个接口 <code>IBasePeginationPresenter</code>：</p>
+<pre><code>/**
+ * Created by fanyuzeng on 2017/10/23.
+ * Function:在IBasePresenter的基础上扩展的接口，适用于分页加载的情况
+ */
+public interface IBasePaginationPresenter&lt;Param&gt; extends IBasePresenter&lt;Param&gt; {
+/**
+ * 刷新数据的接口
+ *
+ * @param param 访问服务器的参数
+ * @created at 2017/10/23 20:07
+ */
+void refresh(Param param);
+
+/**
+ * 加载更多的接口
+ *
+ * @created at 2017/10/23 20:07
+ */
+void loadingNext();
+
+/**
+ * 用于判断服务器端是否还有更多的数据
+ * @return true -还有更多数据 - false 没有更多的数据
+ */
+boolean hasMoreData();
+
+}
+</code></pre><p>也是一个泛型的接口，增加的三个方法 ：</p>
+<ol>
+<li><code>refresh(Param param)</code> 在 <code>View</code> 层调用，用于通知 <code>Model</code> 层刷新数据</li>
+<li><code>loadingNext()</code> 在 <code>View</code> 层调用，用于通知 <code>Model</code> 层加载下一页数据</li>
+<li><code>hasMoreData()</code> 在 <code>Model</code> 层请求网络数据前调用做判断，是否还有下一页数据</li>
+</ol>
+<p>有了针对分页刷新的接口之后，还需要有一个实现它的基类：</p>
+<pre><code>/**
+ * @author：ZengFanyu 
+ * @date：2017/10/20 
+ */
+public abstract class BasePaginationPresenter&lt;Param extends BasePeginationParam, Data&gt; implements IBasePaginationPresenter&lt;Param&gt; {
+    private static final String TAG = &quot;BasePaginationPresenter&quot;;
+    private IBaseModel mBaseModel;
+    private IBaseView mBaseListView;
+    private Param mParam;
+    private Class&lt;Data&gt; mClazz;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private boolean mHasMoreData=true;
+
+    /**
+     * 子类中调用，用于传递服务器返回的，处理好的结果
+     *
+     * @param data View层需要的数据类型
+     * @created at 2017/10/23 20:10
+     */
+    public abstract void serverResponse(Data data);
+
+     /**
+       * 子类中调用，用于确认服务器端是否还有数据
+      *
+      * @return true-还有数据 false-没有数据
+      */
+    public abstract boolean serverHaveMoreData();        
+
+    public BasePaginationPresenter(IBaseView baseListView, Class&lt;Data&gt; Clazz) {
+        this.mBaseListView = baseListView;
+        mClazz = Clazz;
+        mBaseModel = new SohuAlbumModel(this);
+    }
+
+
+    @Override
+    public void refresh(Param param) {
+        requestServer(param);
+    }
+
+    @Override
+    public void loadingNext() {
+        if (mParam != null) {
+            int pageIndex = mParam.getPageIndex();
+            mParam.setPageIndex(pageIndex + 1);
+            requestServer(mParam);
+        }
+    }
+
+    @Override
+    public void requestServer(@Nullable Param param) {
+        mBaseListView.showProgress(true);
+        mParam = param;
+        Log.d(TAG, &quot;&gt;&gt; requestServer &gt;&gt; &quot;);
+        getModel().sendRequestToServer(param);
+    }
+
+    @Override
+    public void accessSuccess(String responseJson) {
+        mBaseListView.showProgress(false);
+        Gson gson = new Gson();
+        serverResponse(gson.fromJson(responseJson, mClazz));
+        mBaseListView.showSuccess(true);
+    }
+
+
+    @Override
+    public void cancelRequest() {
+        mBaseModel.cancelRequest();
+    }
+
+    @Override
+    public void okHttpError(final int errorCode, final String errorDesc, final String errorUrl) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mBaseListView.showOkHttpError(errorCode, errorDesc, errorUrl);
+                mBaseListView.showProgress(false);
+                mBaseListView.showSuccess(false);
+            }
+        });
+    }
+
+    @Override
+    public IBaseModel getModel() {
+        return mBaseModel;
+    }
+
+    @Override
+    public HashMap&lt;String, String&gt; getParams() {
+        return null;
+    }
+
+    @Override
+    public boolean hasMoreData() {
+        return ServerHaveMoreData();
+    }
+}
+</code></pre><ul>
+<li>在类申明时，可以看到 <code>Param extends BasePeginationParam</code> ，这里的 <code>BasePeginationParam</code>主要是封装了<strong>摘要</strong>中提到的 <code>PageIndex</code> 和 <code>PageSize</code> 两个参数，以及他们的 <code>Getter Seeter</code> 方法。</li>
+<li>重点看 <code>IBasePeginationPresenter</code> 中新增加的三个方法，<code>refresh(Param param)</code> 会重新调用一次 <code>requestServer(Param param)</code> （<em>此方法在<a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>也提过了，就是通知 <code>Model</code> 层获取数据</em>）；</li>
+<li><code>loadingNext()</code> ，加载下一页数据的方法，就是将参数中的 <code>PageIndex + 1</code> 之后，重新调用 <code>requestServer(Param param)</code> 方法。此处只改变了页码，如果需要改变请求数据的条数，也是相应的在 <code>loadingNext()</code> 中修改 <code>PageSize</code> 的值。</li>
+<li><code>hasMoreData()</code> ,这里返回抽象方法 <code>serverhaveMoreData()</code> ，这个方法是在子类中实现的，子类解析了数据之后，判断服务器是否还有数据返回。</li>
+</ul>
+<p>然后有需要实现分页功能的 <code>Presenter</code> 就可以直接继承 <code>BasePaginationPresenter</code> 。</p>
+<h2 id="Model-层"><a href="#Model-层" class="headerlink" title="Model 层"></a><code>Model</code> 层</h2><p>由于 <code>Model</code> 层的职责比较单一，<strong>就是向数据源请求数据，并且返回给 <code>Presenter</code> 层</strong>，所以此处不需要额外封装接口或者是基类，只需要重新实现<a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>中提到的 <code>IBaseModel</code> 接口即可。</p>
+<h2 id="View-层"><a href="#View-层" class="headerlink" title="View 层"></a><code>View</code> 层</h2><p>此处和请求一次数据相比较， <code>View</code> 层就是需要在两个事件触发的时候，<strong>重新设置参数</strong>通知 <code>Presenter</code> 去请求数据，然后再展示出来。这两个事件分别是：<strong>上拉到底时加载更多、下拉时刷新数据</strong>（当然可以别的）。</p>
+<h2 id="针对上一小节中封装类的具体实现"><a href="#针对上一小节中封装类的具体实现" class="headerlink" title="针对上一小节中封装类的具体实现"></a>针对上一小节中封装类的具体实现</h2><h3 id="View-层的具体实现"><a href="#View-层的具体实现" class="headerlink" title="View 层的具体实现"></a><code>View</code> 层的具体实现</h3><p>主要是展示电视剧的主要信息，那么需要提供一个接口方法，给 <code>Presenter</code> 层调用，展示处理好的 <code>JavaBean</code>：<br>    /**</p>
+<pre><code> * 展示搜狐电视剧频道具体信息的接口
+ *
+ * @author：ZengFanyu
+ */
+public interface ISohuSerials extends IBaseView {
+
+    /**
+     * 展示搜狐视频API电视剧主要信息的方法
+     *
+     * @param videoList 处理好的VideoInfo集合
+     */
+    void showAlbumMainInfo(List&lt;VideoInfo&gt; videoList);
+}
+</code></pre><p>此处的 <code>VideoInfo</code> 是一个JavaBean，对应的就是电视剧信息的实体类。</p>
+<pre><code>public class VideoInfo {
+   @SerializedName(&quot;main_actor&quot;)
+   private String mMainActor;
+   @SerializedName(&quot;total_video_count&quot;)
+   private int mTotalVideoCount;
+   @SerializedName(&quot;album_name&quot;)
+   private String mAlbumName;
+   @SerializedName(&quot;director&quot;)
+   private String mDirector;
+   @SerializedName(&quot;publish_time&quot;)
+   private String mPublishTime;
+
+    //Getter and setter methods
+}
+</code></pre><blockquote>
+<p>之前映射数据需要保证字段名和 <code>Json</code> 数据的字段名一致，其实本来把这个类的字段名改得一致就行啦，但是服务器端返回的数据字段，很多都是以<code>“_”</code>进行连接，而不是使用驼峰命名法则，这个时候 <code>Gson</code> 的 <code>@SerializedName</code> 注解就派上用场了，注解中用服务器端返回值字段，成员变量仍然使用驼峰命名法。</p><p>但是上个周末安装了最近 <code>Alibaba 10 月 14 日</code> 推出的 <code>Coding Guidelines</code> 插件，发现代码中很多不规范的地方，并且人家规定了成员变量就必须要使用驼峰命名！所以我决定要按照这个插件的规范来写代码了，虽然现在进不了大厂，但是先熟悉大厂的代码规范也是好事，哈哈~  咳咳，按照大厂的代码规范，成员变量的命名必须使用驼峰命名法！</p><p>这个插件是真心好用，比如对类名要 <code>javadoc</code> 注释 参数、返回值、异常说明、此方法做什么事情、实现什么功能（领域模型相关命名除外，比如：DO、BO、DAO），并且是全中文的！直接在 <code>AS</code> 的 <code>Inspection Results</code> 窗口中显示，这 <code>IDE</code> 内置功能啥时候讲过中文反馈结果的？</p><p> <a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247486054&amp;idx=1&amp;sn=f71c4d006d52a5aca679992cbd25620d&amp;chksm=e9293769de5ebe7f5efcd0f86eaf0dd1820ff99a21e3392741d25cbac66eae87f2757bdcc545&amp;mpshare=1&amp;scene=1&amp;srcid=1025zktcvhJDfkWaaRbDsw2a#rd" target="_blank" rel="external">《阿里巴巴Java开发规约》插件全球首发！</a> </p><p>广告时间结束，言归正传！</p>
+</blockquote>
+<p>这个 <code>Activity</code> 实现了 <code>ISohuSerials</code> 接口，布局文件和<a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>一样，只是把 <code>ListView</code> 换成了自定义的 <code>PullLoadRecyclerView</code> 了，这个<code>RecycyclerView</code> 支持上拉加载更多和下拉刷新， 这里不展开说了。</p>
+<pre><code>/**
+ * @author：ZengFanyu 
+ */
+public class SohuAlbumInfoActivity extends AppCompatActivity implements ISohuSerials {
+    private static final String TAG = &quot;SohuAlbumInfoActivity&quot;;
+    private PullLoadRecyclerView mRecyclerView;
+    private Context mContext;
+    private ProgressBar mProgressBar;
+    private TextView mTip;
+    private RelativeLayout mContainer;
+    private AlbumPresenter mAlbumPresenter;
+    private BasePaginationParam mParam= new BasePaginationParam(1, 10);
+    private VideoInfoAdapter mAdapter;
+    Handler mHandler = new Handler(Looper.getMainLooper());
+    private boolean mIsFromRefresh = false;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_album_view);
+        mContext = this;
+
+        mAlbumPresenter = new AlbumPresenter(this, Album.class);
+
+        mContainer = (RelativeLayout) findViewById(R.id.id_success_content);
+        mTip = (TextView) findViewById(R.id.id_tip);
+        mProgressBar = (ProgressBar) findViewById(R.id.id_progress_bar);
+
+
+        mRecyclerView = (PullLoadRecyclerView) findViewById(R.id.id_recycler_view);
+        mRecyclerView.setLinearLayout();
+        mAdapter = new VideoInfoAdapter(mContext);
+        mAlbumPresenter.requestServer(mParam);
+
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setOnPullLoadMoreListener(new PullLoadRecyclerView.OnPullLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                mIsFromRefresh = true;
+                mParam.setPageIndex(1);
+                mAlbumPresenter.refresh(mParam); //通知Presenter层刷新数据
+                mRecyclerView.setRefreshCompleted();
+            }
+
+            @Override
+            public void onLoadMore() {
+                mAlbumPresenter.loadingNext();
+                mRecyclerView.setLoadMoreCompleted(); //通知Presenter层加载下一页数据
+            }
+        });
+
+    }
+
+    @Override
+    public void showAlbumMainInfo(List&lt;VideoInfo&gt; albumList) {
+        if (mIsFromRefresh) {
+            mAdapter.cleanData();
+            mIsFromRefresh = false;
+        }
+        if (albumList != null &amp;&amp; albumList.size() &gt; 0) {
+            for (VideoInfo videoInfo : albumList) {
+                mAdapter.addData(videoInfo);
+            }
+
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
+
+        }
+    }
+
+    @Override
+    public void showProgress(final boolean isShow) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (isShow) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                } else {
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void showOkHttpError(final int errorCode, final String errorDesc, final String errorUrl) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mTip.setText(&quot;http err:&quot; + &quot;errCode:&quot; + errorCode + &quot;,errDesc:&quot; + errorDesc + &quot;,errUrl:&quot; + errorUrl);
+
+            }
+        });
+    }
+
+    @Override
+    public void showServerError(final int errorCode, final String errorDesc) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mTip.setText(&quot;server err:&quot; + &quot;errCode:&quot; + errorCode + &quot;,errDesc:&quot; + errorDesc);
+
+            }
+        });
+    }
+
+    @Override
+    public void showSuccess(final boolean isSuccess) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (isSuccess) {
+                    mContainer.setBackgroundResource(android.R.color.white);
+                    mTip.setText(&quot;Sohu Serials album&quot;);
+
+                } else {
+                    mContainer.setBackgroundResource(R.color.colorAccent);
+                }
+            }
+        });
+
+    }
+}
+</code></pre><p>在上面代码中可以看到:</p>
+<ul>
+<li>在 <code>PullLoadRecycler.OnPullLoadMoreListenre</code> 的 <code>onRefresh()</code> 回调方法中，核心代码就是这一行 <code>mAlbumPresenter.refresh(mParam);</code> ，通知 <code>Presenter</code> 层去刷新数据， 至于 <code>Presenter</code> 层如何刷新。。 关我 <code>View</code> 层 X 事~</li>
+<li>在 <code>PullLoadRecycler.OnPullLoadMoreListenre</code> 的 <code>onLoadMore()</code> 回调方法中,也是直接调用 <code>mAlbumPresenter.loadingNext()</code>。</li>
+</ul>
+<p>下面说说 <code>Presenter</code> 层的代码</p>
+<h3 id="Presenter-层的具体实现"><a href="#Presenter-层的具体实现" class="headerlink" title="Presenter 层的具体实现"></a><code>Presenter</code> 层的具体实现</h3><pre><code>/**
+ * @author：ZengFanyu
+ * Function:
+ */
+public class AlbumPresenter extends BasePaginationPresenter&lt;BasePaginationParam, Album&gt; {
+    private ISohuSerials mBaseListView;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private int mTotalCount;
+
+    public AlbumPresenter(ISohuSerials baseListView, Class&lt;Album&gt; CLazz) {
+        super(baseListView, CLazz);
+        this.mBaseListView = baseListView;
+        getModel().setRequestMethod(Constants.HTTP_GET_METHOD);
+        getModel().setRequestUrl(Constants.SOHU_SERIALS_URL);
+    }
+
+    @Override
+    public void serverResponse(Album album) {
+
+        mBaseListView.showAlbumMainInfo(album.getData().getVideos());
+
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mBaseListView.showProgress(false);
+            }
+        });
+
+        mTotalCount = album.getData().getCount();
+
+    }
+
+    @Override
+    public boolean serverHaveMoreData() {
+        //此处pageIndex是从1开始的， 实际使用需要注意pageIndex的起始值
+        int pageSize = mParam.getPageSize();
+        int pageIndex = mParam.getPageIndex();
+
+        return (pageIndex * pageSize) &lt;= mTotalCount;
+    }
+}
+</code></pre><ul>
+<li>首先是要继承之前编写的 <code>BasePaginationPresenter</code>类，泛型参数 <code>BasePaginationParam</code> 可以根据实际需求进行拓展，基本使用在前面已经介绍过，此处不做赘述。</li>
+<li><code>Album</code> 是搜狐视频电视剧频道返回数据的实体类，上面提到的 <code>VideoInfo</code> 包含在 <code>Album</code> 里面，因为现在只需要展示 <code>VideoInfo</code> 里的信息， 所以在 <code>serverRespomse</code> 方法里，有一个转换 <code>mBaseListView.showAlbumMainInfo(album.getData().getVideos());</code></li>
+<li>实现父类 <code>BasePaginationPresenter</code> 中的抽象方法 <code>serverHaveMoreData()</code> ,思路就是 当前页面数 * 每一页的数据量，然后和 数据总量 比较大小。</li>
+</ul>
+<h3 id="Model-层的具体实现"><a href="#Model-层的具体实现" class="headerlink" title="Model 层的具体实现"></a><code>Model</code> 层的具体实现</h3><pre><code> 1 /**
+ 2  * @author：ZengFanyu
+ 3  */
+ 4 public class SohuAlbumModel&lt;Param extends BasePaginationParam&gt; implements IBaseModel&lt;Param&gt; {
+ 5     private static final String TAG = &quot;SohuAlbumModel&quot;;
+ 6     private String url;
+ 7     private int method;
+ 8     private IBasePaginationPresenter mPaginationPresenter;
+ 9 
+10     public SohuAlbumModel(IBasePaginationPresenter paginationPresenter) {
+11         mPaginationPresenter = paginationPresenter;
+12     }
+13 
+14     @Override
+15     public void sendRequestToServer(Param param) {
+16         String validUrl = null;
+17         if (param != null &amp;&amp; !TextUtils.isEmpty(url)&amp;&amp;mPaginationPresenter.hasMoreData()) {
+18             validUrl = getValidUrl(url, param);
+19             Log.d(TAG, &quot;&gt;&gt; sendRequestToServer &gt;&gt; &quot; + &quot;ValidUrl:&quot; + validUrl);
+20         }
+21         Log.d(TAG,&quot;&gt;&gt; sendRequestToServer &gt;&gt; &quot; + &quot;check param,url and server have data or not!&quot;)
+22         if (!TextUtils.isEmpty(validUrl)) {
+23             HttpUtils.executeByGet(validUrl, new Callback() {
+24                 @Override
+25                 public void onFailure(Call call, IOException e) {
+26                     Log.d(TAG, &quot;&gt;&gt; onFailure &gt;&gt; &quot;);
+27                     e.printStackTrace();
+28                     mPaginationPresenter.okHttpError(Constants.URL_ERROR, e.getMessage(), url);
+29                 }
+30 
+31                 @Override
+32                 public void onResponse(Call call, Response response) throws IOException {
+33                     if (!response.isSuccessful()) {
+34                         Log.d(TAG, &quot;&gt;&gt; onResponse &gt;&gt; &quot; + &quot;Not successful&quot;);
+35                         mPaginationPresenter.okHttpError(Constants.SERVER_ERROR, response.message(), url);
+36                     }
+37 
+38                     String responseJson = response.body().string();
+39                     Log.d(TAG, &quot;&gt;&gt; onResponse &gt;&gt; &quot; + &quot;responseJson:&quot; + responseJson);
+40                     mPaginationPresenter.accessSuccess(responseJson);
+41 
+42                 }
+43             });
+44         } else {
+45             Log.d(TAG, &quot;&gt;&gt; sendRequestToServer &gt;&gt; &quot; + &quot;Valid Url is empty&quot;);
+46         }
+47     }
+48 
+49     private String getValidUrl(String url, Param param) {
+50         return String.format(url, param.getPageIndex(), param.getPageSize());
+51     }
+52 
+53 
+54     @Override
+55     public void setRequestUrl(String url) {
+56         this.url = url;
+57     }
+58 
+59     @Override
+60     public void setRequestMethod(int method) {
+61         this.method = method;
+62     }
+63 
+64     @Override
+65     public void cancelRequest() {
+66         HttpUtils.cancelCall();
+67     }
+68 }
+</code></pre><p><code>Model</code> 层的实现还是跟之前的一样，直接实现 <code>IBaseModel</code> 接口即可。</p>
+<ul>
+<li>在 <code>17</code> 行可以看到，<code>mPaginationPresenter.hasMoreData()</code> ，这个就是对服务器点是否还有数据可以返回的判断，如果这里返回 <code>false</code> 那么就不回去进行网络请求,然后在 <code>22</code> 行打印个 <code>Log</code> 提醒。</li>
+<li>在看看 <code>49</code> 行的 <code>getVaildUrl</code> 方法，这个方法主要就是把传进来的 <code>param</code> 参数拼接进 <code>url</code> 中，形成有效的，可以请求到数据的 <code>Url</code>。</li>
+</ul>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><img src="https://i.imgur.com/QIPIc3y.gif" alt=""></p>
+<p><code>Item</code> 就展示了一下电视剧的 主演、名字、导演、集数、更新时间的信息。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过上面的封装和例子，起码证明了这一套封装能够跑的通了，以后如果还有关于分页请求的需求，可以直接继承上面的基类来实现，无非就是修改<code>param</code> 和 <code>Data</code> 两个泛型的参数。</p>
+<ul>
+<li>前者是请求 <code>url</code> 的参数，根据具体的业务需求，封装 <code>BasePaginationParam</code> 的子类即可。</li>
+<li>后者是服务器端返回数据的实体类，也是根据数据的结构来封装的，在 <code>Android Studio</code> 中有 <code>Gson Formatter</code> 这个插件，封装 <code>JavaBean</code> 插件也轻松很多，在结合上面提到的 <code>Gson</code> 注解，全套了。</li>
+</ul>
+<blockquote>
+<p>下一篇准备封装一下 <code>OkHttp</code> ,然后将封装之后的 <code>OkHttp</code> 整合到当前框架中,当然了,还是以分页接在为例</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/MVP/" rel="tag"># MVP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/22/MVP2/" rel="next" title="Android 当中的 MVP 模式（二）封装">
+                <i class="fa fa-chevron-left"></i> Android 当中的 MVP 模式（二）封装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/27/MVP4/" rel="prev" title="Android当中的MVP模式（四）插曲-封装OkHttp">
+                Android当中的MVP模式（四）插曲-封装OkHttp <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BigZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Presenter-层的封装"><span class="nav-number">1.</span> <span class="nav-text">Presenter 层的封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-层"><span class="nav-number">2.</span> <span class="nav-text">Model 层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View-层"><span class="nav-number">3.</span> <span class="nav-text">View 层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#针对上一小节中封装类的具体实现"><span class="nav-number">4.</span> <span class="nav-text">针对上一小节中封装类的具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#View-层的具体实现"><span class="nav-number">4.1.</span> <span class="nav-text">View 层的具体实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Presenter-层的具体实现"><span class="nav-number">4.2.</span> <span class="nav-text">Presenter 层的具体实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-层的具体实现"><span class="nav-number">4.3.</span> <span class="nav-text">Model 层的具体实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果图"><span class="nav-number">4.4.</span> <span class="nav-text">效果图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BigZeng</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
