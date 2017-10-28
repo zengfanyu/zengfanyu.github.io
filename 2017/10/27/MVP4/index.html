@@ -81,20 +81,20 @@
 
 
 
-<meta name="description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 12345678910">
+<meta name="description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 1234567891">
 <meta name="keywords" content="Android,MVP,okHttp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android当中的MVP模式（四）插曲-封装OkHttp">
 <meta property="og:url" content="http://zengfanyu.top/2017/10/27/MVP4/index.html">
 <meta property="og:site_name" content="THIS IS BIGZ">
-<meta property="og:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 12345678910">
+<meta property="og:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 1234567891">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/YGahFXU.png">
 <meta property="og:image" content="https://i.imgur.com/OMByMTy.png">
-<meta property="og:updated_time" content="2017-10-28T07:31:23.058Z">
+<meta property="og:updated_time" content="2017-10-28T08:55:44.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android当中的MVP模式（四）插曲-封装OkHttp">
-<meta name="twitter:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 12345678910">
+<meta name="twitter:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 1234567891">
 <meta name="twitter:image" content="https://i.imgur.com/YGahFXU.png">
 
 
@@ -347,7 +347,8 @@
       
 
       
-        <blockquote>
+        
+<blockquote>
 <p><em>摘要</em>：<em>前两篇中使用的网络请求工具是 <code>OkHttp</code> ，并没有经过封装，都是简单的使用 <code>get</code> 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 <code>errorCode</code> 或者是 <code>errorMsg</code> 吧，所以这边文章就针对 <code>OkHttp</code> 进行封装，然后将封装之后的工具使用到上一小结的 <code>Demo</code> 之中。</em></p>
 </blockquote>
 <h2 id="官方给的例子"><a href="#官方给的例子" class="headerlink" title="官方给的例子"></a>官方给的例子</h2><ul>
@@ -728,6 +729,8 @@
   
 
 
+  
+
 
 
 
@@ -766,6 +769,11 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
