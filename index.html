@@ -354,7 +354,7 @@
 
       
         
-          <p><img src="https://i.imgur.com/xpIYhQo.jpg" alt=""></p>
+          <p><img src="https://i.imgur.com/CdNDgLr.png" alt=""></p>
 <p><em>摘要</em>：<em>前两篇中使用的网络请求工具是 <code>OkHttp</code> ，并没有经过封装，都是简单的使用 <code>get</code> 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 <code>errorCode</code> 或者是 <code>errorMsg</code> 吧，所以这边文章就针对 <code>OkHttp</code> 进行封装，然后将封装之后的工具使用到上一小结的 <code>Demo</code> 之中。</em><br>
           <!--noindex-->
           <div class="post-button text-center">
@@ -513,7 +513,6 @@
       
         
           <p><img src="https://i.imgur.com/HCStIDG.png" alt=""></p>
-<blockquote>
 <p>摘要：在<a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 <code>View</code> 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 <code>PageIndex</code> ：页码；一个是 <code>PageSize</code> 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修改这两个或者一个参数，重新请求网络，从而拿到下一页的数据，这边文章还是基于MVP模式，对分页数据的请求进行封装。<br>
           <!--noindex-->
           <div class="post-button text-center">
@@ -671,9 +670,8 @@
 
       
         
-          
-          在Android当中的MVP模式（一）基本概念中，用了一个简单的的登录Demo展示了一下 MVP 模式的基本姿势，虽然项目结构是更加清晰了，但是代码量明显增多了，原来的网络请求操作只用 1 个类可以搞定，现在需要 4 个类，并且每当有不同作用的 model 出现时，我们就需要相应的为他们添加 pre
-          ...
+          <p><img src="https://i.imgur.com/SOu2Z0j.png" alt=""></p>
+<p><em>摘要：在<a href="http://zengfanyu.top/2017/10/20/MVP1/">Android当中的MVP模式（一）基本概念</a>中，用了一个简单的的登录Demo展示了一下 <code>MVP</code> 模式的基本姿势，虽然项目结构是更加清晰了，但是代码量明显增多了，原来的网络请求操作只用 <code>1</code> 个类可以搞定，现在需要 <code>4</code> 个类，并且每当有不同作用的 <code>model</code> 出现时，我们就需要相应的为他们添加 <code>presenter</code> 层的对象，但是细细查看，这些<code>model</code> 的作用都大体相似，与获取数据相关，类似于网络请求或者是数据库 <code>DAO</code> 的操作，所以此处可以考虑将他们的共性抽取出来，封装成基累，然后子类去继承即可。</em><br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/10/22/MVP2/#more" rel="contents">
@@ -830,15 +828,8 @@
 
       
         
-          
-          为什么要使用MVP在传统的Android开发中，我们一般是使用MVC模式进行开发的。
-传统MVC模式介绍：
-View: 视图层，对应xml文件
-Controller: 控制层，对应Activity和Fragment层，进行数据处理
-Model：实体层，负责获取实体数据
-
-采用MVC模式的一个最大的弊
-          ...
+          <p><img src="https://i.imgur.com/CgiufDM.png" alt=""></p>
+<p><em>摘要：<code>Github</code>上看到很多项目，都是 <code>MVP+RxJava+Retrofit+Dragger2</code> 这种架构，再加上一个 <code>OkHttp</code>， 虽说这几个东西，我都或多或少听过，用过，但是从来没有认真的研究过，没有把他们整合起来开发一个应用。从 <code>MVP</code> 开始，认真学习这几个框架，然后整合起来，做一个应用。先立一个 <code>FLAG</code>！</em></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/10/20/MVP1/#more" rel="contents">

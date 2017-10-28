@@ -81,20 +81,20 @@
 
 
 
-<meta name="description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用">
+<meta name="description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修">
 <meta name="keywords" content="Android,MVP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android当中的MVP模式（三）基于分页列表的封装">
 <meta property="og:url" content="http://zengfanyu.top/2017/10/25/MVP3/index.html">
 <meta property="og:site_name" content="CODE FRAMER BIGZ">
-<meta property="og:description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用">
+<meta property="og:description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/HCStIDG.png">
 <meta property="og:image" content="https://i.imgur.com/QIPIc3y.gif">
-<meta property="og:updated_time" content="2017-10-28T10:29:11.752Z">
+<meta property="og:updated_time" content="2017-10-28T10:30:28.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android当中的MVP模式（三）基于分页列表的封装">
-<meta name="twitter:description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用">
+<meta name="twitter:description" content="摘要：在上一篇中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 View 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 PageIndex ：页码；一个是 PageSize 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修">
 <meta name="twitter:image" content="https://i.imgur.com/HCStIDG.png">
 
 
@@ -359,9 +359,7 @@
 
       
         <p><img src="https://i.imgur.com/HCStIDG.png" alt=""></p>
-<blockquote>
 <p>摘要：在<a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 <code>View</code> 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 <code>PageIndex</code> ：页码；一个是 <code>PageSize</code> 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修改这两个或者一个参数，重新请求网络，从而拿到下一页的数据，这边文章还是基于MVP模式，对分页数据的请求进行封装。<br><a id="more"></a></p>
-</blockquote>
 <p> <code>presenter</code> 层作为 <code>MVP</code> 模式的桥梁， 那就先从这一层开始说起吧。</p>
 <h2 id="Presenter"><a href="#Presenter" class="headerlink" title="Presenter"></a>Presenter</h2><p><a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>中对 <code>Presenter</code> 层的公共方法进行了抽取并且封装成了一个接口 <code>IBasePresenter</code> ，那么现在我们需要<strong>实现分页加载还有刷新</strong>的功能，那么在 <code>IBasePresenter</code> 接口的基础之上，在对其封装一个接口 <code>IBasePeginationPresenter</code>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Created by fanyuzeng on 2017/10/23.</span></div><div class="line"><span class="comment"> * Function:在IBasePresenter的基础上扩展的接口，适用于分页加载的情况</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IBasePaginationPresenter</span>&lt;<span class="title">Param</span>&gt; <span class="keyword">extends</span> <span class="title">IBasePresenter</span>&lt;<span class="title">Param</span>&gt; </span>&#123;</div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 刷新数据的接口</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> param 访问服务器的参数</span></div><div class="line"><span class="comment"> * <span class="doctag">@created</span> at 2017/10/23 20:07</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">refresh</span><span class="params">(Param param)</span></span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 加载更多的接口</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@created</span> at 2017/10/23 20:07</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">loadingNext</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 用于判断服务器端是否还有更多的数据</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> true -还有更多数据 - false 没有更多的数据</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">hasMoreData</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>也是一个泛型的接口，增加的三个方法 ：</p>
