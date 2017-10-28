@@ -81,20 +81,20 @@
 
 
 
-<meta name="description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 OkHttpClien">
+<meta name="description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 12345678910">
 <meta name="keywords" content="Android,MVP,okHttp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android当中的MVP模式（四）插曲-封装OkHttp">
 <meta property="og:url" content="http://zengfanyu.top/2017/10/27/MVP4/index.html">
 <meta property="og:site_name" content="THIS IS BIGZ">
-<meta property="og:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 OkHttpClien">
+<meta property="og:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 12345678910">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/YGahFXU.png">
 <meta property="og:image" content="https://i.imgur.com/OMByMTy.png">
-<meta property="og:updated_time" content="2017-10-28T06:17:19.197Z">
+<meta property="og:updated_time" content="2017-10-28T07:07:47.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android当中的MVP模式（四）插曲-封装OkHttp">
-<meta name="twitter:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 OkHttpClien">
+<meta name="twitter:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。  官方给的例子 同步方法 12345678910">
 <meta name="twitter:image" content="https://i.imgur.com/YGahFXU.png">
 
 
@@ -352,47 +352,20 @@
 </blockquote>
 <h2 id="官方给的例子"><a href="#官方给的例子" class="headerlink" title="官方给的例子"></a>官方给的例子</h2><ul>
 <li><p>同步方法</p>
-<pre><code>OkHttpClient client = new OkHttpClient();
-
-String run(String url) throws IOException {
-  Request request = new Request.Builder()
-      .url(url)
-      .build();
-
-  Response response = client.newCall(request).execute();
-  return response.body().string();
-}
-</code></pre></li>
-</ul>
-<ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line"><span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">  Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">      .url(url)</div><div class="line">      .build();</div><div class="line"></div><div class="line">  Response response = client.newCall(request).execute();</div><div class="line">  <span class="keyword">return</span> response.body().string();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 <li><p>异步方法</p>
-<pre><code>OkHttpClient client = new OkHttpClient();
-
-Request request = new Request.Builder()
-        .url(url)
-        .build();
-
- client.newCall(request).enqueue(new Callback() {
-    @Override
-    public void onFailure(Call call, IOException e) {
-
-    }
-
-    @Override
-    public void onResponse(Call call, Response response) throws IOException {
-
-    }
-}
-</code></pre></li>
+</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line">	</div><div class="line">Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line">	</div><div class="line"> client.newCall(request).enqueue(<span class="keyword">new</span> Callback() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</div><div class="line">	</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="对异步方法的分析"><a href="#对异步方法的分析" class="headerlink" title="对异步方法的分析"></a>对异步方法的分析</h2><p>结合上面异步方法，稍作分析，涉及到如下几个对象<font color="#FF8000"> <strong><code>OkHttpClient</code></strong> , <strong><code>Request</code></strong> , <strong><code>Call</code></strong>,<strong><code>Response</code></strong> </font>,其他的都一些方法的调用，所以我们的封装应该重点针对这三个对象来进行。</p>
 <h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><p><code>Request</code> 在 <code>Okhttp</code> 当中是抽象出来的一个请求对象，它封装了请求报文信息：请求的 <code>Url</code> 地址，请求的方法（<code>Get Post</code>等），各种请求头（<code>Content-Type Cookie</code>）以及可以选择的请求体，一般通过内部的 <code>Builder</code> 类来构建对象，建筑者设计模式。</p>
 <p>那么我们这里就针对 <code>Post Get</code> 两种请求方式做封装，但是这里又涉及到一个问题，就是我们还需要参数，用于拼接请求 <code>Url</code> 的参数，举个栗子：</p>
 <p>这是搜狐电视剧频道的 <code>API</code> 接口：</p>
-<pre><code>http://api.tv.sohu.com/v4/search/channel.json%22%20+%20%22?cid=2&amp;o=1&amp;plat=6&amp;poid=1&amp;api_key=9854b2afa779e1a6bff1962447a09dbd&amp;%22%20+%20%22sver=6.2.0&amp;sysver=4.4.2&amp;partner=47&amp;page=1&amp;page_size=10
-</code></pre><p>这么看可能特别的麻烦，我们把它拆分一下：</p>
-<pre><code>String baseUrl=http://api.tv.sohu.com/v4/search/channel.json%22%20+%20%22
-</code></pre><p>然后剩下的都是参数了，以键值对的形式存在：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">http:<span class="comment">//api.tv.sohu.com/v4/search/channel.json%22%20+%20%22?cid=2&amp;o=1&amp;plat=6&amp;poid=1&amp;api_key=9854b2afa779e1a6bff1962447a09dbd&amp;%22%20+%20%22sver=6.2.0&amp;sysver=4.4.2&amp;partner=47&amp;page=1&amp;page_size=10</span></div></pre></td></tr></table></figure>
+<p>这么看可能特别的麻烦，我们把它拆分一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">String baseUrl=http:<span class="comment">//api.tv.sohu.com/v4/search/channel.json%22%20+%20%22</span></div></pre></td></tr></table></figure>
+<p>然后剩下的都是参数了，以键值对的形式存在：</p>
 <p><img src="https://i.imgur.com/YGahFXU.png" alt=""></p>
 <p>这些参数拼接在 <code>baseUrl</code> 后面的顺序是没有要求的，<strong>不一定要按照上面的顺序来，只要每个参数都按照固定的格式出现就可以</strong>。</p>
 <p>看上面的完整 <code>Url</code> 可以发现规律，在 <code>baseUrl</code> 后面有一个 <code>？</code>， 然后就就是 <code>key1=value1&amp;key2=value2&amp;key3=value3</code> 这种形式的</p>
@@ -400,271 +373,32 @@ Request request = new Request.Builder()
 <p>说这么多，上代码，首先是对参数进行封装：</p>
 <font color="#FF8000"><strong>RequestParam</strong></font>
 
-
-<pre><code>/**
- * @author:fanyuzeng
- * @date: 2017/10/27 13:55
- * @desc: 封装url中的参数
- */
-public class RequestParams {
-    /**
-     * 使用{@link ConcurrentHashMap}是为了保证线程安全
-     */
-    private ConcurrentHashMap&lt;String, String&gt; urlParams = new ConcurrentHashMap&lt;&gt;();
-
-    public RequestParams() {
-    }
-
-    public RequestParams(Map&lt;String, String&gt; source) {
-        for (Map.Entry&lt;String, String&gt; entry : source.entrySet()) {
-            put(entry.getKey(), entry.getValue());
-        }
-    }
-
-    public RequestParams(String key, String value) {
-        put(key, value);
-
-    }
-
-    private void put(String key, String value) {
-        if (!TextUtils.isEmpty(key) &amp;&amp; !TextUtils.isEmpty(value)) {
-            urlParams.put(key, value);
-        }
-    }
-
-    public ConcurrentHashMap&lt;String, String&gt; getUrlParams() {
-        return urlParams;
-    }
-
-
-}
-</code></pre><p>这地方使用 <code>ConcurrentHashMap</code> 就是为了保证线程安全的，这个类使用的是<font color="#FF8000">锁分段技术</font>，不同于一般的同步方法或者是同步代码块，它只会锁住其中一个 <code>segment</code>，其他的 <code>segment</code> 仍然是可以访问的，所以他的效率会比 <code>synchronized</code> 高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>:fanyuzeng</span></div><div class="line"><span class="comment"> * <span class="doctag">@date</span>: 2017/10/27 13:55</span></div><div class="line"><span class="comment"> * <span class="doctag">@desc</span>: 封装url中的参数</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestParams</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 使用&#123;<span class="doctag">@link</span> ConcurrentHashMap&#125;是为了保证线程安全</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">private</span> ConcurrentHashMap&lt;String, String&gt; urlParams = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RequestParams</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RequestParams</span><span class="params">(Map&lt;String, String&gt; source)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : source.entrySet()) &#123;</div><div class="line">            put(entry.getKey(), entry.getValue());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RequestParams</span><span class="params">(String key, String value)</span> </span>&#123;</div><div class="line">        put(key, value);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(String key, String value)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!TextUtils.isEmpty(key) &amp;&amp; !TextUtils.isEmpty(value)) &#123;</div><div class="line">            urlParams.put(key, value);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> ConcurrentHashMap&lt;String, String&gt; <span class="title">getUrlParams</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> urlParams;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这地方使用 <code>ConcurrentHashMap</code> 就是为了保证线程安全的，这个类使用的是<font color="#FF8000">锁分段技术</font>，不同于一般的同步方法或者是同步代码块，它只会锁住其中一个 <code>segment</code>，其他的 <code>segment</code> 仍然是可以访问的，所以他的效率会比 <code>synchronized</code> 高。</p>
 <p>有了 <code>RequestParam</code> 之后，就可以使用它来拼接 <code>url</code>，有了 <code>url</code> 之后，就可以使用它来构建 <code>Request</code>对象了。</p>
 <font color="#FF8000"><strong>CommonRequest</strong> </font>
 
-<pre><code> 1 /**
- 2  * @author: fanyuzeng
- 3  * @date: 2017/10/27 14:08
- 4  * @desc: response for build various kind of {@link okhttp3.Request} include Get Post upload etc.
- 5  */
- 6 public class CommonRequest {
- 7     private static final String TAG = &quot;CommonRequest&quot;;
- 8     /**
- 9      * create a Get request
-10      *
-11      * @param baseUrl base url
-12      * @param params see {@link RequestParams}
-13      * @return {@link Request}
-14      * @created at 2017/10/27 14:39
-15      */
-16     public static Request createGetRequest(@NonNull String baseUrl, @Nullable RequestParams params) {
-17         StringBuilder urlBuilder = new StringBuilder(baseUrl).append(&quot;?&quot;);
-18         if (params != null) {
-19             //将请求参数合并进url中
-20             for (Map.Entry&lt;String, String&gt; entry : params.getUrlParams().entrySet()) {
-21                 urlBuilder.append(entry.getKey()).append(&quot;=&quot;).append(entry.getValue()).append(&quot;&amp;&quot;);
-22             }
-23 
-24             Log.d(TAG,&quot;&gt;&gt; createGetRequest &gt;&gt; &quot; + urlBuilder.toString());
-25         }
-26         return new Request.Builder().get().url(urlBuilder.substring(0, urlBuilder.length() - 1)).build();
-27     }
-28 
-29     /**
-30      * create a post request
-31      *
-32      * @param baseUrl base url
-33      * @param params see {@link RequestParams}
-34      * @return {@link Request}
-35      * @created at 2017/10/27 14:39
-36      */
-37     public static Request createPostRequest(@NonNull String baseUrl, @NonNull RequestParams params) {
-38         FormBody.Builder mFormBodyBuilder = new FormBody.Builder();
-39         for (Map.Entry&lt;String, String&gt; entry : params.getUrlParams().entrySet()) {
-40             mFormBodyBuilder.add(entry.getKey(), entry.getValue());
-41         }
-42         FormBody formBody = mFormBodyBuilder.build();
-43         return new Request.Builder().post(formBody).url(baseUrl).build();
-44     }
-45 
-46 }
-</code></pre><p>第 <code>16</code> 行的 <code>createGetRequest</code> 方法是用于创建一个 <code>Get</code> 请求，主要就是使用 <code>StringBuilder</code> 进行 <code>Url</code> 的拼接，第 <code>37</code> 行的 <code>createPostRequest</code> 方法是用于创建一个 <code>Post</code> 请求的。 <code>Post</code> 请求是先创建 <code>FormBody</code> ，然后和 <code>baseUrl</code> 一个构造 <code>Request</code> 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"> <span class="number">1</span> <span class="comment">/**</span></div><div class="line"><span class="comment"> 2  * <span class="doctag">@author</span>: fanyuzeng</span></div><div class="line"><span class="comment"> 3  * <span class="doctag">@date</span>: 2017/10/27 14:08</span></div><div class="line"><span class="comment"> 4  * <span class="doctag">@desc</span>: response for build various kind of &#123;<span class="doctag">@link</span> okhttp3.Request&#125; include Get Post upload etc.</span></div><div class="line"><span class="comment"> 5  */</span></div><div class="line"> <span class="number">6</span> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonRequest</span> </span>&#123;</div><div class="line"> <span class="number">7</span>     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"CommonRequest"</span>;</div><div class="line"> <span class="number">8</span>     <span class="comment">/**</span></div><div class="line"><span class="comment"> 9      * create a Get request</span></div><div class="line"><span class="comment">10      *</span></div><div class="line"><span class="comment">11      * <span class="doctag">@param</span> baseUrl base url</span></div><div class="line"><span class="comment">12      * <span class="doctag">@param</span> params see &#123;<span class="doctag">@link</span> RequestParams&#125;</span></div><div class="line"><span class="comment">13      * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Request&#125;</span></div><div class="line"><span class="comment">14      * <span class="doctag">@created</span> at 2017/10/27 14:39</span></div><div class="line"><span class="comment">15      */</span></div><div class="line"><span class="number">16</span>     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Request <span class="title">createGetRequest</span><span class="params">(@NonNull String baseUrl, @Nullable RequestParams params)</span> </span>&#123;</div><div class="line"><span class="number">17</span>         StringBuilder urlBuilder = <span class="keyword">new</span> StringBuilder(baseUrl).append(<span class="string">"?"</span>);</div><div class="line"><span class="number">18</span>         <span class="keyword">if</span> (params != <span class="keyword">null</span>) &#123;</div><div class="line"><span class="number">19</span>             <span class="comment">//将请求参数合并进url中</span></div><div class="line"><span class="number">20</span>             <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : params.getUrlParams().entrySet()) &#123;</div><div class="line"><span class="number">21</span>                 urlBuilder.append(entry.getKey()).append(<span class="string">"="</span>).append(entry.getValue()).append(<span class="string">"&amp;"</span>);</div><div class="line"><span class="number">22</span>             &#125;</div><div class="line"><span class="number">23</span> </div><div class="line"><span class="number">24</span>             Log.d(TAG,<span class="string">"&gt;&gt; createGetRequest &gt;&gt; "</span> + urlBuilder.toString());</div><div class="line"><span class="number">25</span>         &#125;</div><div class="line"><span class="number">26</span>         <span class="keyword">return</span> <span class="keyword">new</span> Request.Builder().get().url(urlBuilder.substring(<span class="number">0</span>, urlBuilder.length() - <span class="number">1</span>)).build();</div><div class="line"><span class="number">27</span>     &#125;</div><div class="line"><span class="number">28</span> </div><div class="line"><span class="number">29</span>     <span class="comment">/**</span></div><div class="line"><span class="comment">30      * create a post request</span></div><div class="line"><span class="comment">31      *</span></div><div class="line"><span class="comment">32      * <span class="doctag">@param</span> baseUrl base url</span></div><div class="line"><span class="comment">33      * <span class="doctag">@param</span> params see &#123;<span class="doctag">@link</span> RequestParams&#125;</span></div><div class="line"><span class="comment">34      * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Request&#125;</span></div><div class="line"><span class="comment">35      * <span class="doctag">@created</span> at 2017/10/27 14:39</span></div><div class="line"><span class="comment">36      */</span></div><div class="line"><span class="number">37</span>     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Request <span class="title">createPostRequest</span><span class="params">(@NonNull String baseUrl, @NonNull RequestParams params)</span> </span>&#123;</div><div class="line"><span class="number">38</span>         FormBody.Builder mFormBodyBuilder = <span class="keyword">new</span> FormBody.Builder();</div><div class="line"><span class="number">39</span>         <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : params.getUrlParams().entrySet()) &#123;</div><div class="line"><span class="number">40</span>             mFormBodyBuilder.add(entry.getKey(), entry.getValue());</div><div class="line"><span class="number">41</span>         &#125;</div><div class="line"><span class="number">42</span>         FormBody formBody = mFormBodyBuilder.build();</div><div class="line"><span class="number">43</span>         <span class="keyword">return</span> <span class="keyword">new</span> Request.Builder().post(formBody).url(baseUrl).build();</div><div class="line"><span class="number">44</span>     &#125;</div><div class="line"><span class="number">45</span> </div><div class="line"><span class="number">46</span> &#125;</div></pre></td></tr></table></figure>
+<p>第 <code>16</code> 行的 <code>createGetRequest</code> 方法是用于创建一个 <code>Get</code> 请求，主要就是使用 <code>StringBuilder</code> 进行 <code>Url</code> 的拼接，第 <code>37</code> 行的 <code>createPostRequest</code> 方法是用于创建一个 <code>Post</code> 请求的。 <code>Post</code> 请求是先创建 <code>FormBody</code> ，然后和 <code>baseUrl</code> 一个构造 <code>Request</code> 。</p>
 <p>封装到这里， <code>Request</code> 就算是封装完了， 当然这里只封装了 <code>Post Get</code> ，也可以继续封装文件上传和文件下载的Request。</p>
 <h3 id="Call"><a href="#Call" class="headerlink" title="Call"></a>Call</h3><p><code>Call</code> 代表的是一个实际的 <code>HTTP</code> 请求，它是链接 <code>Request</code> 和 <code>Response</code> 的桥梁，通过 <code>Request</code> 对象的 <code>newCall</code> 方法可以得到一个 <code>Call</code> 对象，既支持同步获取数据，也支持异步，在上面官方例子里，也可以看出来，在异步回调中，当获取到数据，会将 <code>Response</code> 对象传入 <code>Callback</code> 的 <code>onSuccess</code> 方法中，如果请求没有成功，就会调用 <code>onFailure</code> 方法（<code>Response</code> 下面说）。那么看看  <code>Callback</code> 是什么。</p>
 <p>先看看官方的 <code>Callback</code> 是什么 ：</p>
-<pre><code>public interface Callback {
-
-  void onFailure(Call call, IOException e);
-
-
-  void onResponse(Call call, Response response) throws IOException;
-}
-</code></pre><p>对，把注释删除了之后，其实就是两个接口，简单的理解成，一个是请求成功时的回调，一个是请求失败时的回调。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Callback</span> </span>&#123;</div><div class="line"> </div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span></span>;</div><div class="line"></div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对，把注释删除了之后，其实就是两个接口，简单的理解成，一个是请求成功时的回调，一个是请求失败时的回调。</p>
 <p>那么对这一层的<strong>封装思路</strong>是这样子的：</p>
 <p>一般来说，在上层，我们是需要去处理上面两个回调的，在 <code>onFailure</code> 中，请求失败，应该做什么操作，在 <code>onResponse</code> 中，<code>HTTP</code> 返回的状态码在 <code>[200,300）</code>之间应该有什么操作，在其他区间又应该有什么操作。<font color="#FF8000">那么在这里，我们就创建一个类，去实现这个接口，将基本的处理都在这个类里写好，出错误了，就拿到 <code>erroeCode errorMsg</code> 回调给上层，正确的返回信息，就直接回调给上一层</font>。</p>
 <p>那么这里就涉及到我们自定义的一个 <code>Exception</code> 和 <code>Listener</code> 以及实现了 <code>Callback</code> 接口的 <code>CommonCallback</code> 类。</p>
 <font color="#FF8000"><strong>OkHttpException</strong></font>
 
-<pre><code>/**
- * @author:fanyuzeng
- * @date: 2017/10/27 13:44
- * @desc:
- */
-public class OkHttpException extends Exception {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>:fanyuzeng</span></div><div class="line"><span class="comment"> * <span class="doctag">@date</span>: 2017/10/27 13:44</span></div><div class="line"><span class="comment"> * <span class="doctag">@desc</span>:</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OkHttpException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mErrorCode;</div><div class="line">    <span class="keyword">private</span> String mErrorMsg;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OkHttpException</span><span class="params">(<span class="keyword">int</span> errorCode, String errorMsg)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.mErrorCode = errorCode;</div><div class="line">        <span class="keyword">this</span>.mErrorMsg = errorMsg;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getErrorCode</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mErrorCode;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getErrorMsg</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mErrorMsg;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<font color="#FF8000"><strong>DisposeDataListener</strong></font>
 
-    private int mErrorCode;
-    private String mErrorMsg;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>:fanyuzeng</span></div><div class="line"><span class="comment"> * <span class="doctag">@date</span>: 2017/10/27 13:49</span></div><div class="line"><span class="comment"> * <span class="doctag">@desc</span>:</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DisposeDataListener</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 请求服务器数据成功时回调的方法</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> responseObj 需要回调到上层的请求结果</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Object responseObj)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 请求服务器失败时候的回调方法</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> exception 需要回调到上层的错误反馈</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(OkHttpException exception)</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再将这个 <code>Listener</code> 用<font color="#FF8000">代理设计模式</font>再封装一层</p>
+<font color="#FF8000"><strong>DisposeDataHandler</strong></font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>:fanyuzeng</span></div><div class="line"><span class="comment"> * <span class="doctag">@date</span>: 2017/10/27 13:52</span></div><div class="line"><span class="comment"> * <span class="doctag">@desc</span>: 代理模式,使用DisposeDataHandler 代理 DisposeDataListener的操作</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DisposeDataHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> DisposeDataListener mListener;</div><div class="line">    <span class="keyword">public</span> Class&lt;?&gt; mClass;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DisposeDataHandler</span><span class="params">(DisposeDataListener listener)</span> </span>&#123;</div><div class="line">        mListener = listener;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DisposeDataHandler</span><span class="params">(DisposeDataListener listener, Class&lt;?&gt; aClass)</span> </span>&#123;</div><div class="line">        mListener = listener;</div><div class="line">        mClass = aClass;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Object responseObj)</span> </span>&#123;</div><div class="line">        mListener.onSuccess(responseObj);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(OkHttpException exception)</span> </span>&#123;</div><div class="line">        mListener.onFailure(exception);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> Class&lt;?&gt; getClassType() &#123;</div><div class="line">        <span class="keyword">return</span> mClass;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br><br>此处用代理模式，主要是为了优雅（装X）的处理 <code>Class&lt;?&gt;</code> 这个对象，这是用于映射的类型，在调用 <code>Listener</code> 的回到方法之后做判断这个对象是否存在，是，则再映射在返回，否，直接返回。<br><br>然后将三面三个类聚合到一起<br><br><font color="#FF8000"><strong>CommonJsonCallback</strong></font>
 
-    public OkHttpException(int errorCode, String errorMsg) {
-        this.mErrorCode = errorCode;
-        this.mErrorMsg = errorMsg;
-    }
-
-    public int getErrorCode() {
-        return mErrorCode;
-    }
-
-    public String getErrorMsg() {
-        return mErrorMsg;
-    }
-}
-</code></pre><font color="#FF8000"><strong>DisposeDataListener</strong></font>
-
-<pre><code>/**
- * @author:fanyuzeng
- * @date: 2017/10/27 13:49
- * @desc:
- */
-public interface DisposeDataListener {
-    /**
-     * 请求服务器数据成功时回调的方法
-     *
-     * @param responseObj 需要回调到上层的请求结果
-     */
-    void onSuccess(Object responseObj);
-
-    /**
-     * 请求服务器失败时候的回调方法
-     *
-     * @param exception 需要回调到上层的错误反馈
-     */
-    void onFailure(OkHttpException exception);
-
-}
-</code></pre><p>再将这个 <code>Listener</code> 用<font color="#FF8000">代理设计模式</font>再封装一层</p>
-<font color="#FF8000"><strong>DisposeDataHandler</strong></font>
-
-<pre><code>/**
- * @author:fanyuzeng
- * @date: 2017/10/27 13:52
- * @desc: 代理模式,使用DisposeDataHandler 代理 DisposeDataListener的操作
- */
-public class DisposeDataHandler {
-
-    public DisposeDataListener mListener;
-    public Class&lt;?&gt; mClass;
-
-    public DisposeDataHandler(DisposeDataListener listener) {
-        mListener = listener;
-    }
-
-    public DisposeDataHandler(DisposeDataListener listener, Class&lt;?&gt; aClass) {
-        mListener = listener;
-        mClass = aClass;
-    }
-
-    public void onSuccess(Object responseObj) {
-        mListener.onSuccess(responseObj);
-    }
-
-    public void onFailure(OkHttpException exception) {
-        mListener.onFailure(exception);
-    }
-
-    public Class&lt;?&gt; getClassType() {
-        return mClass;
-    }
-} 
-</code></pre><p>此处用代理模式，主要是为了优雅（装X）的处理 <code>Class&lt;?&gt;</code> 这个对象，这是用于映射的类型，在调用 <code>Listener</code> 的回到方法之后做判断这个对象是否存在，是，则再映射在返回，否，直接返回。</p>
-<p>然后将三面三个类聚合到一起</p>
-<font color="#FF8000"><strong>CommonJsonCallback</strong></font>
-
-<pre><code>/**
- * @author:fanyuzeng
- * @date: 2017/10/27 14:41
- * @desc:
- */
-public class CommonJsonCallback implements Callback {
-    private static final String TAG = &quot;CommonJsonCallback&quot;;
-    private static final String MSG_RESULT_EMPTY = &quot;request could not be ececuted&quot;;
-    private static final String MSG_JSON_EMPTY = &quot;json is empty or null&quot;;
-    private static final String MSG_RETURN_CODE = &quot;http return code is not [200,300)&quot;;
-
-
-    private static final int NETWORK_ERROR = -1;
-    private static final int JSON_ERROR = -2;
-
-    private Handler mDeliveryHandler = new Handler(Looper.getMainLooper());
-
-    private Gson mGson = new Gson();
-
-    private DisposeDataHandler mDisposeDataHandler;
-
-
-    public CommonJsonCallback(DisposeDataHandler dataHandler) {
-        mDisposeDataHandler = dataHandler;
-    }
-
-
-    @Override
-    public void onFailure(@NonNull Call call, @NonNull final IOException e) {
-        mDeliveryHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mDisposeDataHandler.onFailure(new OkHttpException(NETWORK_ERROR, MSG_RESULT_EMPTY + e.getMessage()));
-            }
-        });
-    }
-
-    @Override
-    public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-        if (!response.isSuccessful()) {
-            mDeliveryHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    mDisposeDataHandler.onFailure(new OkHttpException(NETWORK_ERROR, MSG_RETURN_CODE + response.message()));
-                }
-            });
-        }
-        final String resultJson = response.body().string();
-        mDeliveryHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                handleResponse(resultJson);
-            }
-        });
-    }
-
-    private void handleResponse(String resultJson) {
-        if (TextUtils.isEmpty(resultJson)) {
-            mDisposeDataHandler.onFailure(new OkHttpException(NETWORK_ERROR, MSG_JSON_EMPTY));
-            return;
-        }
-        if (mDisposeDataHandler.getClassType() == null) {
-            mDisposeDataHandler.onSuccess(resultJson);
-        } else {
-            Object mappedDataType = mGson.fromJson(resultJson, mDisposeDataHandler.getClassType());
-            if (mappedDataType == null) {
-                mDisposeDataHandler.onFailure(new OkHttpException(JSON_ERROR, MSG_JSON_EMPTY));
-            } else {
-                mDisposeDataHandler.onSuccess(mappedDataType);
-            }
-        }
-
-
-    }
-}
-</code></pre><p>自我感觉用代理之后，处理对象都是 <code>DisposeHandler</code> ，不会在看到 <code>Listener</code> <code>Class&lt;?&gt;</code> ,适应起来方便些了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>:fanyuzeng</span></div><div class="line"><span class="comment"> * <span class="doctag">@date</span>: 2017/10/27 14:41</span></div><div class="line"><span class="comment"> * <span class="doctag">@desc</span>:</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonJsonCallback</span> <span class="keyword">implements</span> <span class="title">Callback</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"CommonJsonCallback"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MSG_RESULT_EMPTY = <span class="string">"request could not be ececuted"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MSG_JSON_EMPTY = <span class="string">"json is empty or null"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MSG_RETURN_CODE = <span class="string">"http return code is not [200,300)"</span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NETWORK_ERROR = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> JSON_ERROR = -<span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Handler mDeliveryHandler = <span class="keyword">new</span> Handler(Looper.getMainLooper());</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Gson mGson = <span class="keyword">new</span> Gson();</div><div class="line"></div><div class="line">    <span class="keyword">private</span> DisposeDataHandler mDisposeDataHandler;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CommonJsonCallback</span><span class="params">(DisposeDataHandler dataHandler)</span> </span>&#123;</div><div class="line">        mDisposeDataHandler = dataHandler;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(@NonNull Call call, @NonNull <span class="keyword">final</span> IOException e)</span> </span>&#123;</div><div class="line">        mDeliveryHandler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                mDisposeDataHandler.onFailure(<span class="keyword">new</span> OkHttpException(NETWORK_ERROR, MSG_RESULT_EMPTY + e.getMessage()));</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(@NonNull Call call, @NonNull <span class="keyword">final</span> Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!response.isSuccessful()) &#123;</div><div class="line">            mDeliveryHandler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                    mDisposeDataHandler.onFailure(<span class="keyword">new</span> OkHttpException(NETWORK_ERROR, MSG_RETURN_CODE + response.message()));</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> String resultJson = response.body().string();</div><div class="line">        mDeliveryHandler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                handleResponse(resultJson);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleResponse</span><span class="params">(String resultJson)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (TextUtils.isEmpty(resultJson)) &#123;</div><div class="line">            mDisposeDataHandler.onFailure(<span class="keyword">new</span> OkHttpException(NETWORK_ERROR, MSG_JSON_EMPTY));</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (mDisposeDataHandler.getClassType() == <span class="keyword">null</span>) &#123;</div><div class="line">            mDisposeDataHandler.onSuccess(resultJson);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Object mappedDataType = mGson.fromJson(resultJson, mDisposeDataHandler.getClassType());</div><div class="line">            <span class="keyword">if</span> (mappedDataType == <span class="keyword">null</span>) &#123;</div><div class="line">                mDisposeDataHandler.onFailure(<span class="keyword">new</span> OkHttpException(JSON_ERROR, MSG_JSON_EMPTY));</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                mDisposeDataHandler.onSuccess(mappedDataType);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>自我感觉用代理之后，处理对象都是 <code>DisposeHandler</code> ，不会在看到 <code>Listener</code> <code>Class&lt;?&gt;</code> ,适应起来方便些了。</p>
 <p>要注意一点是，在 <code>onResponse</code> 方法中，还是在子线程中的，要及时切换线程。</p>
 <p>到这里，就对 <code>Call</code> 这个对象封装完成了。</p>
 <h3 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h3><p><code>Response</code> 类封装了响应报文信息：状态吗（<code>200</code>、<code>404</code> 等）、响应头（<code>Content-Type</code>、<code>Server</code> 等）以及可选的响应体。可以通过 <code>Call</code> 对象的 <code>execute()</code> 方法获得 <code>Response</code> 对象，异步回调执行 <code>Callback</code> 对象的 <code>onResponse</code> 方法时也可以获取 <code>Response</code> 对象。</p>
@@ -678,47 +412,8 @@ public class CommonJsonCallback implements Callback {
 <p>刚开始我是这么设计的：</p>
 <font color="#FF8000"><strong>CommonokHttpClient</strong></font>
 
-<pre><code>/**
- * @author:fanyuzeng
- * @date: 2017/10/27 15:21
- * @desc:
- */
-@Deprecated
-public class CommonOkHttpClient {
-    private static final int TIME_OUT = 30;
-
-    private static OkHttpClient sOkHttpClient;
-
-    static {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        });
-        builder.connectTimeout(TIME_OUT, TimeUnit.SECONDS);
-        builder.readTimeout(TIME_OUT, TimeUnit.SECONDS);
-        builder.writeTimeout(TIME_OUT, TimeUnit.SECONDS);
-        //允许重定向
-        builder.followRedirects(true);
-        // TODO: 2017/10/27 https
-        sOkHttpClient = builder.build();
-    }
-
-    /**
-     * 请求服务器数据的方法
-     *
-     * @param request Use {@link com.project.fanyuzeng.mvpdemo.utils.okhttp.request.CommonRequest} to build
-     * @param handler see {@link DisposeDataHandler}  proxy class
-     */
-    public static void requestServerData(Request request, DisposeDataHandler handler) {
-        sOkHttpClient.newCall(request).enqueue(new CommonJsonCallback(handler));
-    }
-
-
-}
-</code></pre><p>恩，静态代码块中初始化实例化 <code>OkHttpClient</code>，我认为饿汉模式没有本质的区别， 但是这种方式比饿汗模式的初始化时间更早。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>:fanyuzeng</span></div><div class="line"><span class="comment"> * <span class="doctag">@date</span>: 2017/10/27 15:21</span></div><div class="line"><span class="comment"> * <span class="doctag">@desc</span>:</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="meta">@Deprecated</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonOkHttpClient</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TIME_OUT = <span class="number">30</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> OkHttpClient sOkHttpClient;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">        OkHttpClient.Builder builder = <span class="keyword">new</span> OkHttpClient.Builder();</div><div class="line">        builder.hostnameVerifier(<span class="keyword">new</span> HostnameVerifier() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String hostname, SSLSession session)</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        builder.connectTimeout(TIME_OUT, TimeUnit.SECONDS);</div><div class="line">        builder.readTimeout(TIME_OUT, TimeUnit.SECONDS);</div><div class="line">        builder.writeTimeout(TIME_OUT, TimeUnit.SECONDS);</div><div class="line">        <span class="comment">//允许重定向</span></div><div class="line">        builder.followRedirects(<span class="keyword">true</span>);</div><div class="line">        <span class="comment">// <span class="doctag">TODO:</span> 2017/10/27 https</span></div><div class="line">        sOkHttpClient = builder.build();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 请求服务器数据的方法</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> request Use &#123;<span class="doctag">@link</span> com.project.fanyuzeng.mvpdemo.utils.okhttp.request.CommonRequest&#125; to build</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> handler see &#123;<span class="doctag">@link</span> DisposeDataHandler&#125;  proxy class</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">requestServerData</span><span class="params">(Request request, DisposeDataHandler handler)</span> </span>&#123;</div><div class="line">        sOkHttpClient.newCall(request).enqueue(<span class="keyword">new</span> CommonJsonCallback(handler));</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>恩，静态代码块中初始化实例化 <code>OkHttpClient</code>，我认为饿汉模式没有本质的区别， 但是这种方式比饿汗模式的初始化时间更早。</p>
 <blockquote>
 <p>好吧 ，我承认我懒，不想在整个单例类出来。。</p>
 </blockquote>
@@ -733,84 +428,13 @@ public class CommonOkHttpClient {
 <p>所以把 <code>CommonOkHttpClient</code> 给 <code>Deprecated</code> 掉，重新来一个</p>
 <font color="#FF8000"><strong>OkHttpManager</strong></font>
 
-<pre><code>/**
- * @author:fanyuzeng
- * @date: 2017/10/27 17:57
- * @desc:
- */
-public class OkHttpManager {
-    private static volatile OkHttpManager sManager;
-    private  OkHttpClient mOkHttpClient;
-
-    private OkHttpManager() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        });
-        builder.connectTimeout(Constants.HTTP_TIME_OUT, TimeUnit.SECONDS);
-        builder.readTimeout(Constants.HTTP_TIME_OUT, TimeUnit.SECONDS);
-        builder.writeTimeout(Constants.HTTP_TIME_OUT, TimeUnit.SECONDS);
-        //允许重定向
-        builder.followRedirects(true);
-        // TODO: 2017/10/27 https
-        mOkHttpClient = builder.build();
-    }
-
-
-    public static OkHttpManager getInstance() {
-        if (sManager == null) {
-            synchronized (OkHttpManager.class) {
-                if (sManager == null) {
-                    sManager = new OkHttpManager();
-                }
-            }
-        }
-        return sManager;
-    }
-
-    /**
-     * 使用{@link OkHttpClient}想服务器端请求数据的方法
-     * @param method {@link Constants#HTTP_GET_METHOD} Get方式,{@link Constants#HTTP_POST_METHOD} Post方式
-     * @param baseUrl baseUrl
-     * @param paramsMap 请求url的参数,以键值对的形式存放
-     * @param handler
-     */
-    public void requestServerData(int method, String baseUrl, HashMap&lt;String, String&gt; paramsMap, DisposeDataHandler handler) {
-        RequestParams requestParams = new RequestParams(paramsMap);
-        Request request = null;
-        if (method == Constants.HTTP_GET_METHOD) {
-            request = CommonRequest.createGetRequest(baseUrl, requestParams);
-        } else if (method == Constants.HTTP_POST_METHOD) {
-            request = CommonRequest.createPostRequest(baseUrl, requestParams);
-        }
-        if (request != null) {
-            mOkHttpClient.newCall(request).enqueue(new CommonJsonCallback(handler));
-        }
-
-    }
-
-}
-</code></pre><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>:fanyuzeng</span></div><div class="line"><span class="comment"> * <span class="doctag">@date</span>: 2017/10/27 17:57</span></div><div class="line"><span class="comment"> * <span class="doctag">@desc</span>:</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OkHttpManager</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> OkHttpManager sManager;</div><div class="line">    <span class="keyword">private</span>  OkHttpClient mOkHttpClient;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">OkHttpManager</span><span class="params">()</span> </span>&#123;</div><div class="line">        OkHttpClient.Builder builder = <span class="keyword">new</span> OkHttpClient.Builder();</div><div class="line">        builder.hostnameVerifier(<span class="keyword">new</span> HostnameVerifier() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String hostname, SSLSession session)</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        builder.connectTimeout(Constants.HTTP_TIME_OUT, TimeUnit.SECONDS);</div><div class="line">        builder.readTimeout(Constants.HTTP_TIME_OUT, TimeUnit.SECONDS);</div><div class="line">        builder.writeTimeout(Constants.HTTP_TIME_OUT, TimeUnit.SECONDS);</div><div class="line">        <span class="comment">//允许重定向</span></div><div class="line">        builder.followRedirects(<span class="keyword">true</span>);</div><div class="line">        <span class="comment">// <span class="doctag">TODO:</span> 2017/10/27 https</span></div><div class="line">        mOkHttpClient = builder.build();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> OkHttpManager <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (sManager == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">synchronized</span> (OkHttpManager.class) &#123;</div><div class="line">                <span class="keyword">if</span> (sManager == <span class="keyword">null</span>) &#123;</div><div class="line">                    sManager = <span class="keyword">new</span> OkHttpManager();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sManager;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 使用&#123;<span class="doctag">@link</span> OkHttpClient&#125;想服务器端请求数据的方法</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> method &#123;<span class="doctag">@link</span> Constants#HTTP_GET_METHOD&#125; Get方式,&#123;<span class="doctag">@link</span> Constants#HTTP_POST_METHOD&#125; Post方式</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> baseUrl baseUrl</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> paramsMap 请求url的参数,以键值对的形式存放</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> handler</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestServerData</span><span class="params">(<span class="keyword">int</span> method, String baseUrl, HashMap&lt;String, String&gt; paramsMap, DisposeDataHandler handler)</span> </span>&#123;</div><div class="line">        RequestParams requestParams = <span class="keyword">new</span> RequestParams(paramsMap);</div><div class="line">        Request request = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span> (method == Constants.HTTP_GET_METHOD) &#123;</div><div class="line">            request = CommonRequest.createGetRequest(baseUrl, requestParams);</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method == Constants.HTTP_POST_METHOD) &#123;</div><div class="line">            request = CommonRequest.createPostRequest(baseUrl, requestParams);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (request != <span class="keyword">null</span>) &#123;</div><div class="line">            mOkHttpClient.newCall(request).enqueue(<span class="keyword">new</span> CommonJsonCallback(handler));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>好吧，还是用双重锁模式的单例比较放心 。</p>
 </blockquote>
 <p>到此就封装完了，下面简单的使用一下。</p>
-<h2 id="使用姿势"><a href="#使用姿势" class="headerlink" title="使用姿势"></a>使用姿势</h2><pre><code> 1  OkHttpManager.getInstance().requestServerData(method, url, mPaginationPresenter.getParams(), new DisposeDataHandler(new DisposeDataListener() {
- 2             @Override
- 3             public void onSuccess(Object responseObj) {
- 4                 String responseJson = (String) responseObj;
- 5                 Log.d(TAG, &quot;&gt;&gt; onSuccess &gt;&gt; &quot; + responseJson);
- 6                 mPaginationPresenter.accessSuccess(responseJson);
- 7             }
- 8             @Override
- 9             public void onFailure(OkHttpException exception) {
-10                 Log.d(TAG, &quot;&gt;&gt; onFailure &gt;&gt; &quot; + exception.getErrorCode());
-11                 mPaginationPresenter.okHttpError(exception.getErrorCode(), exception.getErrorMsg(), url);
-12             }
-13         },null));
-</code></pre><ul>
+<h2 id="使用姿势"><a href="#使用姿势" class="headerlink" title="使用姿势"></a>使用姿势</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"> <span class="number">1</span>  OkHttpManager.getInstance().requestServerData(method, url, mPaginationPresenter.getParams(), <span class="keyword">new</span> DisposeDataHandler(<span class="keyword">new</span> DisposeDataListener() &#123;</div><div class="line"> <span class="number">2</span>             <span class="meta">@Override</span></div><div class="line"> <span class="number">3</span>             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Object responseObj)</span> </span>&#123;</div><div class="line"> <span class="number">4</span>                 String responseJson = (String) responseObj;</div><div class="line"> <span class="number">5</span>                 Log.d(TAG, <span class="string">"&gt;&gt; onSuccess &gt;&gt; "</span> + responseJson);</div><div class="line"> <span class="number">6</span>                 mPaginationPresenter.accessSuccess(responseJson);</div><div class="line"> <span class="number">7</span>             &#125;</div><div class="line"> <span class="number">8</span>             <span class="meta">@Override</span></div><div class="line"> <span class="number">9</span>             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(OkHttpException exception)</span> </span>&#123;</div><div class="line"><span class="number">10</span>                 Log.d(TAG, <span class="string">"&gt;&gt; onFailure &gt;&gt; "</span> + exception.getErrorCode());</div><div class="line"><span class="number">11</span>                 mPaginationPresenter.okHttpError(exception.getErrorCode(), exception.getErrorMsg(), url);</div><div class="line"><span class="number">12</span>             &#125;</div><div class="line"><span class="number">13</span>         &#125;,<span class="keyword">null</span>));</div></pre></td></tr></table></figure>
+<ul>
 <li>没有将 <code>Json</code> 数据映射成实体类， 所以在 <code>13</code> 行构造 <code>DisposeDataHandler</code> 的时候，第二个 类参数传的是 <code>null</code>。</li>
 <li>这个例子是结合上一篇请求分页数据来用的，所以这里直接将 <code>Json</code> 数据抛给 <code>Presenter</code> 层，让它去处理。</li>
 <li>第 <code>1</code> 行的 <code>mPaginationPresenter.getParams()</code> 就是拿 <code>url</code> 中的参数。</li>
