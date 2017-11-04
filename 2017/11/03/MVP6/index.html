@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 View 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再">
+<meta name="description" content="摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 Vie 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再由">
 <meta name="keywords" content="Android,MVP,okHttp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android当中的MVP模式（六）View 层 Activity 的基类--- BaseMvpActivity 的封装">
 <meta property="og:url" content="http://zengfanyu.top/2017/11/03/MVP6/index.html">
 <meta property="og:site_name" content="CODE FRAMER BIGZ">
-<meta property="og:description" content="摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 View 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再">
+<meta property="og:description" content="摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 Vie 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再由">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/AzE3pww.png">
-<meta property="og:updated_time" content="2017-11-04T09:19:03.404Z">
+<meta property="og:updated_time" content="2017-11-04T09:40:07.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android当中的MVP模式（六）View 层 Activity 的基类--- BaseMvpActivity 的封装">
-<meta name="twitter:description" content="摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 View 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再">
+<meta name="twitter:description" content="摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 Vie 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再由">
 <meta name="twitter:image" content="https://i.imgur.com/AzE3pww.png">
 
 
@@ -358,7 +358,7 @@
 
       
         <p><img src="https://i.imgur.com/AzE3pww.png" alt=""></p>
-<p><em>摘要：使用封装之后的 <code>MVP</code> 模式实现一个新的界面，也就是 <code>View</code> 层，那么就需要去实现 <code>IBaseView</code> 接口，可能还需要针对当前要实现的界面情况，在 <code>IBaseView</code> 的基础之上派生出一个新的接口 <code>IXxxView</code>,之前的 <code>SohuAlbumInfoActivity</code> 用于展示搜狐电视剧主要信息的 <code>View</code> 就是这种情况,由 <code>IBaseView</code> 派生了一个 <code>ISohuSerials</code> ,再由 <code>SohuAlbumInfoActivity</code> 去实现,那么随着需要展示的界面越来越多,它们坐着大量重复的工作,我们就要像个方法来简化这个过程了。</em></p>
+<p><em>摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 Vie 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再由 SohuAlbumInfoActivity 去实现,那么随着需要展示的界面越来越多,它们坐着大量重复的工作,我们就要像个方法来简化这个过程了。</em></p>
 <a id="more"></a>
 <h2 id="回顾前几篇中-View-层的写法"><a href="#回顾前几篇中-View-层的写法" class="headerlink" title="回顾前几篇中 View 层的写法"></a>回顾前几篇中 View 层的写法</h2><p>根据<a href="http://zengfanyu.top/2017/10/22/MVP2/">MVP系列第二篇</a>当中的分析， <code>View</code> 层的职责如下：</p>
 <ol>
