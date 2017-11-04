@@ -81,21 +81,21 @@
 
 
 
-<meta name="description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。">
+<meta name="description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，并且可用性也不高，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。">
 <meta name="keywords" content="Android,MVP,okHttp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android当中的MVP模式（四）插曲-封装OkHttp">
 <meta property="og:url" content="http://zengfanyu.top/2017/10/27/MVP4/index.html">
 <meta property="og:site_name" content="CODE FRAMER BIGZ">
-<meta property="og:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。">
+<meta property="og:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，并且可用性也不高，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/CdNDgLr.png">
 <meta property="og:image" content="https://i.imgur.com/YGahFXU.png">
 <meta property="og:image" content="https://i.imgur.com/OMByMTy.png">
-<meta property="og:updated_time" content="2017-10-28T10:36:56.472Z">
+<meta property="og:updated_time" content="2017-10-29T12:38:18.194Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android当中的MVP模式（四）插曲-封装OkHttp">
-<meta name="twitter:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。">
+<meta name="twitter:description" content="摘要：前两篇中使用的网络请求工具是 OkHttp ，并没有经过封装，都是简单的使用 get 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 errorCode 或者是 errorMsg 吧，并且可用性也不高，所以这边文章就针对 OkHttp 进行封装，然后将封装之后的工具使用到上一小结的 Demo 之中。">
 <meta name="twitter:image" content="https://i.imgur.com/CdNDgLr.png">
 
 
@@ -360,7 +360,7 @@
 
       
         <p><img src="https://i.imgur.com/CdNDgLr.png" alt=""></p>
-<p><em>摘要</em>：<em>前两篇中使用的网络请求工具是 <code>OkHttp</code> ，并没有经过封装，都是简单的使用 <code>get</code> 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 <code>errorCode</code> 或者是 <code>errorMsg</code> 吧，所以这边文章就针对 <code>OkHttp</code> 进行封装，然后将封装之后的工具使用到上一小结的 <code>Demo</code> 之中。</em><br><a id="more"></a></p>
+<p><em>摘要</em>：<em>前两篇中使用的网络请求工具是 <code>OkHttp</code> ，并没有经过封装，都是简单的使用 <code>get</code> 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 <code>errorCode</code> 或者是 <code>errorMsg</code> 吧，并且可用性也不高，所以这边文章就针对 <code>OkHttp</code> 进行封装，然后将封装之后的工具使用到上一小结的 <code>Demo</code> 之中。</em><br><a id="more"></a></p>
 <h2 id="官方给的例子"><a href="#官方给的例子" class="headerlink" title="官方给的例子"></a>官方给的例子</h2><ul>
 <li><p>同步方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line"><span class="function">String <span class="title">run</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">  Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">      .url(url)</div><div class="line">      .build();</div><div class="line"></div><div class="line">  Response response = client.newCall(request).execute();</div><div class="line">  <span class="keyword">return</span> response.body().string();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -369,7 +369,7 @@
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line">	</div><div class="line">Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">        .url(url)</div><div class="line">        .build();</div><div class="line">	</div><div class="line"> client.newCall(request).enqueue(<span class="keyword">new</span> Callback() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</div><div class="line">	</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="对异步方法的分析"><a href="#对异步方法的分析" class="headerlink" title="对异步方法的分析"></a>对异步方法的分析</h2><p>结合上面异步方法，稍作分析，涉及到如下几个对象<font color="#FF8000"> <strong><code>OkHttpClient</code></strong> , <strong><code>Request</code></strong> , <strong><code>Call</code></strong>,<strong><code>Response</code></strong> </font>,其他的都一些方法的调用，所以我们的封装应该重点针对这三个对象来进行。</p>
+<h2 id="封装思路"><a href="#封装思路" class="headerlink" title="封装思路"></a>封装思路</h2><p>结合上面异步方法，稍作分析，涉及到如下几个对象<font color="#FF8000"> <strong><code>OkHttpClient</code></strong> , <strong><code>Request</code></strong> , <strong><code>Call</code></strong>,<strong><code>Response</code></strong> </font>,其他的都一些方法的调用，而 <strong><code>Response</code></strong> 是返回结果的对象，所以我们的封装应该重点针对剩余三个对象来进行。</p>
 <h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><p><code>Request</code> 在 <code>Okhttp</code> 当中是抽象出来的一个请求对象，它封装了请求报文信息：请求的 <code>Url</code> 地址，请求的方法（<code>Get Post</code>等），各种请求头（<code>Content-Type Cookie</code>）以及可以选择的请求体，一般通过内部的 <code>Builder</code> 类来构建对象，建筑者设计模式。</p>
 <p>那么我们这里就针对 <code>Post Get</code> 两种请求方式做封装，但是这里又涉及到一个问题，就是我们还需要参数，用于拼接请求 <code>Url</code> 的参数，举个栗子：</p>
 <p>这是搜狐电视剧频道的 <code>API</code> 接口：</p>
@@ -450,7 +450,7 @@
 <li>这个例子是结合上一篇请求分页数据来用的，所以这里直接将 <code>Json</code> 数据抛给 <code>Presenter</code> 层，让它去处理。</li>
 <li>第 <code>1</code> 行的 <code>mPaginationPresenter.getParams()</code> 就是拿 <code>url</code> 中的参数。</li>
 </ul>
-<p>由于篇幅的限制，这一篇先到这里，下一篇再把这个封装的 <code>OkHttp</code> 工具用于分页数据的请求。</p>
+<p>由于篇幅的限制，这一篇先到这里，下一篇再把这个封装的 <code>OkHttp</code> 工具用于 <code>MVP</code> 模式的 <code>Demo</code> 当中</p>
 <p>最后，贴个 <code>AS</code> 中封装之后工具的结构图。</p>
 <p><img src="https://i.imgur.com/OMByMTy.png" alt=""></p>
 
@@ -496,6 +496,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/02/MVP5/" rel="prev" title="Android当中的MVP模式（五）封装之后的OkHttp工具在Model层的使用">
+                Android当中的MVP模式（五）封装之后的OkHttp工具在Model层的使用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -578,7 +582,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -589,7 +593,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -600,7 +604,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -656,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方给的例子"><span class="nav-number">1.</span> <span class="nav-text">官方给的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对异步方法的分析"><span class="nav-number">2.</span> <span class="nav-text">对异步方法的分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Request"><span class="nav-number">2.1.</span> <span class="nav-text">Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Call"><span class="nav-number">2.2.</span> <span class="nav-text">Call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response"><span class="nav-number">2.3.</span> <span class="nav-text">Response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OkHttpClient"><span class="nav-number">2.4.</span> <span class="nav-text">OkHttpClient</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用姿势"><span class="nav-number">3.</span> <span class="nav-text">使用姿势</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方给的例子"><span class="nav-number">1.</span> <span class="nav-text">官方给的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装思路"><span class="nav-number">2.</span> <span class="nav-text">封装思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Request"><span class="nav-number">2.1.</span> <span class="nav-text">Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Call"><span class="nav-number">2.2.</span> <span class="nav-text">Call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response"><span class="nav-number">2.3.</span> <span class="nav-text">Response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OkHttpClient"><span class="nav-number">2.4.</span> <span class="nav-text">OkHttpClient</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用姿势"><span class="nav-number">3.</span> <span class="nav-text">使用姿势</span></a></li></ol></div>
             
 
           </div>
