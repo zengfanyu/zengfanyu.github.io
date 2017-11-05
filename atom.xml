@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zengfanyu.top/"/>
-  <updated>2017-11-04T10:08:19.466Z</updated>
+  <updated>2017-11-05T13:27:20.461Z</updated>
   <id>http://zengfanyu.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android当中的MVP模式（七）终篇---关于对MVP模式中代码臃肿问题的思考</title>
+    <link href="http://zengfanyu.top/2017/11/05/MVP7/"/>
+    <id>http://zengfanyu.top/2017/11/05/MVP7/</id>
+    <published>2017-11-05T13:27:15.000Z</published>
+    <updated>2017-11-05T13:27:20.461Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://i.imgur.com/d1aRBz6.png" alt=""></p><p>摘要：在学习 MVP 模式的过程当中，见到很多文章都提到一句话：「使用 MVP 模式引入了 Presenter 层，这样可以将 View 层和 Model 层解耦，但是项目的代码量会大大增加，不过这个牺牲是值得的。」但是这个如果不做处理的话，随着项目体量的扩大，项目当中会充斥着很多相同逻辑的代码，是在是不能忍，通过前面几章的封装可以缓解这个情况，但是还剩下一个问题是目前解决不了的，那就是 Presenter 的管理问题和 View 层无关代码问题，这一篇就针对这两个问题记录一下思路。</p><a id="more"></a><h2 id="学习-MVP-模式的过程中引发的一些思考"><a href="#学习-MVP-模式的过程中引发的一些思考" class="headerlink" title="学习 MVP 模式的过程中引发的一些思考"></a>学习 MVP 模式的过程中引发的一些思考</h2><p>最近一个月都在学习 <code>MVP</code> 模式，自己也动手做了几个小 <code>Demo</code>，由于 <code>Demo</code> 规模不大，所以代码臃肿的问题没有很好的反映出来，不过却是反应出来了其他的问题。比如当我需要实现另外一个需求的时候，我需要去重新创建 <code>M V P</code> 三层的代码，而这三层的代码很多逻辑都是相似的，比如说 <code>Model</code> 层就是去访问服务器端请求数据，然后将数据回调到 <code>Presenter</code> 层，只是访问的服务器端 <code>URL</code> 地址不同，返回的数据不同，这个差异性通过对网络请求工具做封装，并且封装 <code>Model</code> 层相同逻辑代码，可以很好的解决；再比如说 <code>View</code> 层会涉及到很多 <code>UI</code> 界面的刷新问题，常用的 <code>ProgressBar</code>，<code>Toast</code> ，显示错误信息状态码等基本功能，也可以通过封装 <code>BaseMvpActivity</code> 和 <code>IBaseView</code> 来解决，所以这就是前面六篇文章的由来。至于代码臃肿所体现出的问题，我总结为如下两个：</p><ul><li><p><code>View</code> 层中充斥这各种事件的分发和事件的注册，我们希望 <code>View</code> 层是这样的：只有 <code>onXxxxZzzz()</code> 形式的回调方法用于改变UI，比如： <code>onLoadMessage(List&lt;Message&gt;)</code> 回调在加载完 <code>Message</code> 之后来进行UI的更新，那么事件的注册和分发就需要到其他地方去处理。</p></li><li><p><code>View</code> 层和 <code>Prensenter</code> 层接口的管理问题，比如当我们需要移植一个模块的时候，由于 <code>View</code> 层和 <code>Presenter</code> 是紧密相连的，所以这两层需要一同移植，不过可能由于项目体量的原因，<code>Presenter</code> 和 <code>View</code> 的接口比较多，没办法一次性的移植，需要不断的测试。 </p></li></ul><blockquote><p>英国计算机学家说过一句话：<br>All problems in computer science can be solved by another level of indirection.<br>翻译成中文就是：计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决。</p><p>比如十分复杂的Internet国际互联网络中数据传输的问题，也是通过分层来决绝的，这可以体现在 TCP/IP 四层模型和 OSI 七层模型当中。</p><p> 这么复杂的问题都可以引入中间层来解决，那么 MVP 中的问题就更不在话下了。</p></blockquote><h2 id="关于解决上述两个问题的思路"><a href="#关于解决上述两个问题的思路" class="headerlink" title="关于解决上述两个问题的思路"></a>关于解决上述两个问题的思路</h2><h3 id="View-层臃肿问题解决思路"><a href="#View-层臃肿问题解决思路" class="headerlink" title="View 层臃肿问题解决思路"></a>View 层臃肿问题解决思路</h3><p>第一个问题，<a href="http://www.cnblogs.com/tiantianbyconan/p/5036289.html" target="_blank" rel="external">天天_byconan</a>，大神的博客中有很好的解决思路，下图也是摘抄自他的博客。</p><p>先上两张图：</p><h4 id="引入-PresenterProxy-层"><a href="#引入-PresenterProxy-层" class="headerlink" title="引入 PresenterProxy 层"></a>引入 PresenterProxy 层</h4><p><img src="https://i.imgur.com/893kHiF.jpg" alt=""></p><ul><li>通过使用一个 <code>Presenter</code> 层代理的方式，在 <code>PresenterProxy</code> 中处理各种时间机制，<code>View</code> 中维护一个对 <code>PresenterProxy</code> 的引用，<code>PresenterProxy</code> 也实现了真实 <code>Presenter</code> 层的接口，这样就可以在 <code>View</code> 中通过代理调用真实的 <code>Presenter</code> 层对象。</li></ul><h4 id="引入-Controller-层"><a href="#引入-Controller-层" class="headerlink" title="引入 Controller 层"></a>引入 Controller 层</h4><p><img src="https://i.imgur.com/bYBS8hb.jpg" alt=""></p><ul><li>为 <code>MVP</code> 模式增加一层专门用于处理各种时间派发的 <code>Controller</code> 层，<code>Controller</code> 层的作用仅仅是用于处理事件，并根据事件通过维护的 <code>Presenter</code> 层对象派发到对应的业务当中去，也就是说 <code>View</code> 层只有一个 <code>Controller</code> 对象， <code>View</code> 层不会主动的去调用 <code>Presenter</code> 层对象，但是 <code>Controller</code> 层和 <code>Presenter</code> 层都可能回调到 <code>View</code> 层来刷新UI。</li></ul><p>这两张图就为我们提供了很好的解决思路，虽然我还没有动手实践过，但是从思路上来说，是没有问题的。</p><h3 id="Presenter-和-View-层接口管理问题解决思路"><a href="#Presenter-和-View-层接口管理问题解决思路" class="headerlink" title="Presenter 和 View 层接口管理问题解决思路"></a>Presenter 和 View 层接口管理问题解决思路</h3><p>在笔者查看了大量的文章资料之后，发现这个问题 <code>Google</code> 已经给出了一个十分好的的解决思路，这个答案就在 <a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank" rel="external">官方的TODO-MVP Sample</a>里，这个 <code>Demo</code> 通过用 <code>MVP</code> 模式实现了一个TODO应用，先贴一下这个应用在 <code>Android Studio</code> 中的代码分包情况：</p><p><img src="https://i.imgur.com/y37IAgK.png" alt=""></p><p>整个 <code>APP</code> 等架构十分的清晰，不愧是出自 <code>Google</code> 大牛之手！！！</p><ul><li><p>管理接口的核心类是每一个模块当中的 <code>XXXXContract</code> 接口</p></li><li><p>并且这个项目当中的 <code>Model</code> 层是它最大亮点， 上图中 <code>data</code> 包下就是它的 <code>Model</code> 层， <code>TasksRepository</code> 维护了两个数据源，一个是本地（<code>SQLite</code> 数据库），一个是远程（网络服务器），并且将不同的数据源抽象成为 <code>TaskDataSource</code> 接口，这种面向接口编程的思想，让我们很容易的修改数据源，或者是扩展数据源，这也是依赖倒置原则的体现。</p></li></ul><p>放一下项目整体架构图：</p><p><img src="https://github.com/googlesamples/android-architecture/wiki/images/mvp.png" alt=""></p><blockquote><p>出自：<a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank" rel="external">https://github.com/googlesamples/android-architecture/tree/todo-mvp/</a></p></blockquote><p>接下来准备好好研究一下这个项目的架构和实现，并且这个 <code>Google</code> 的开源库是用不同的架构去实现相同的 APP，提供了很多架构的基本应用：<code>clean</code> <code>dagger</code> <code>rxjava</code> <code>databinding</code> 等，有空一定好好研究。</p><h2 id="又立-Flag"><a href="#又立-Flag" class="headerlink" title="又立 Flag"></a>又立 Flag</h2><ul><li><p><code>MVP</code> 模式也算是入门了吧，后面准备结合上面的 <code>TODO-MVP</code> 项目，在练练手，然后把上面提到的几个思路好好梳理一下，关于 <code>TODO-MVP</code> 项目也准备写一篇文章总结记录一下。</p></li><li><p>关于 <code>Retrofit</code> 的使用我也看了好几篇文章，基本的使用应该是没问题的了，不过在这个过程中，感觉自己缺乏服务器端知识，什么 <code>RESTful API</code> ，什么 <code>URL</code> 的构成什么的，没有系统的了解过(对，就是写 <code>Retrofit</code> 的网络请求接口的时候，有点迷失了~)，后面这一块要恶补一下。</p></li><li><p>下一个就是 <code>Dagger2</code> 了， 关于 <code>Dagger2</code> 也看了几篇文章，感觉它的概念性的东西确实挺多的，上手不是太容易，不过也没关系，慢慢来。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://i.imgur.com/d1aRBz6.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;摘要：在学习 MVP 模式的过程当中，见到很多文章都提到一句话：「使用 MVP 模式引入了 Presenter 层，这样可以将 View 层和 Model 层解耦，但是项目的代码量会大大增加，不过这个牺牲是值得的。」但是这个如果不做处理的话，随着项目体量的扩大，项目当中会充斥着很多相同逻辑的代码，是在是不能忍，通过前面几章的封装可以缓解这个情况，但是还剩下一个问题是目前解决不了的，那就是 Presenter 的管理问题和 View 层无关代码问题，这一篇就针对这两个问题记录一下思路。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="MVP" scheme="http://zengfanyu.top/categories/MVP/"/>
+    
+    
+      <category term="Android" scheme="http://zengfanyu.top/tags/Android/"/>
+    
+      <category term="MVP" scheme="http://zengfanyu.top/tags/MVP/"/>
+    
+  </entry>
   
   <entry>
     <title>Dagger2基础内容归纳</title>
