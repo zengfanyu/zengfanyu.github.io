@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,MVP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CODE FRAMER BIGZ" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="摘要:最近看了一下 google 官方的 sample ,做的是一个 TODO 应用，使用的是 MVP 模式，之前笔者也学习了一段时间的 MVP，前面写了几篇文章记录学习过程，也有一些思考，最后呈现出来的问题就是 Presenter 层臃肿问题，以及 View 层接口难以管理的问题。比方说 View 层，它是负责 UI 的更新工作，我们希望它里面都是 showXXXZZZ（@Nullable P">
+<meta name="keywords" content="Android,MVP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android官方TODO-MVP项目分析（上）---View 层 Presenter 层以及 Contract 分析">
+<meta property="og:url" content="http://zengfanyu.top/2017/11/13/google-TODO-MVP-sample/index.html">
+<meta property="og:site_name" content="CODE FRAMER BIGZ">
+<meta property="og:description" content="摘要:最近看了一下 google 官方的 sample ,做的是一个 TODO 应用，使用的是 MVP 模式，之前笔者也学习了一段时间的 MVP，前面写了几篇文章记录学习过程，也有一些思考，最后呈现出来的问题就是 Presenter 层臃肿问题，以及 View 层接口难以管理的问题。比方说 View 层，它是负责 UI 的更新工作，我们希望它里面都是 showXXXZZZ（@Nullable P">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/WQ274RY.png">
+<meta property="og:image" content="https://i.imgur.com/y37IAgK.png">
+<meta property="og:image" content="https://i.imgur.com/6gtv7ha.png">
+<meta property="og:image" content="https://i.imgur.com/uQyWBF4.png">
+<meta property="og:image" content="https://i.imgur.com/3kubJxx.png">
+<meta property="og:image" content="https://i.imgur.com/H3IAu8H.png">
+<meta property="og:image" content="https://i.imgur.com/2jtMYdN.png">
+<meta property="og:image" content="https://i.imgur.com/3WzptSU.png">
+<meta property="og:image" content="https://i.imgur.com/Q93mecI.png">
+<meta property="og:updated_time" content="2017-11-12T16:19:45.743Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android官方TODO-MVP项目分析（上）---View 层 Presenter 层以及 Contract 分析">
+<meta name="twitter:description" content="摘要:最近看了一下 google 官方的 sample ,做的是一个 TODO 应用，使用的是 MVP 模式，之前笔者也学习了一段时间的 MVP，前面写了几篇文章记录学习过程，也有一些思考，最后呈现出来的问题就是 Presenter 层臃肿问题，以及 View 层接口难以管理的问题。比方说 View 层，它是负责 UI 的更新工作，我们希望它里面都是 showXXXZZZ（@Nullable P">
+<meta name="twitter:image" content="https://i.imgur.com/WQ274RY.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2017/11/13/google-TODO-MVP-sample/"/>
+
+
+
+
+
+  <title>Android官方TODO-MVP项目分析（上）---View 层 Presenter 层以及 Contract 分析 | CODE FRAMER BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE FRAMER BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2017/11/13/google-TODO-MVP-sample/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BIGZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_z.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE FRAMER BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android官方TODO-MVP项目分析（上）---View 层 Presenter 层以及 Contract 分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T00:37:15+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MVP/" itemprop="url" rel="index">
+                    <span itemprop="name">MVP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/13/google-TODO-MVP-sample/" class="leancloud_visitors" data-flag-title="Android官方TODO-MVP项目分析（上）---View 层 Presenter 层以及 Contract 分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://i.imgur.com/WQ274RY.png" alt=""></p>
+<p><em>摘要:最近看了一下 <a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">google 官方的 sample</a> ,做的是一个 <code>TODO</code> 应用，使用的是 <code>MVP</code> 模式，之前笔者也学习了一段时间的 <code>MVP</code>，前面写了几篇文章记录学习过程，也有一些思考，最后呈现出来的问题就是 Presenter 层臃肿问题，以及 <code>View</code> 层接口难以管理的问题。比方说 <code>View</code> 层，它是负责 <code>UI</code> 的更新工作，我们希望它里面都是 <code>showXXXZZZ（@Nullable Param p）</code> 这样的更新 <code>UI</code> 状态的方法。在这个 <code>sample</code> 里， <code>google</code> 提供了一种解决接口混乱的方法，用「契约」接口，统一管理 <code>View</code> 层和 <code>Presenter</code> 层的接口，下面就分析下我对这个项目的理解。</em><br><a id="more"></a></p>
+<font face="黑体">
+
+
+<h2 id="项目整体结构分析"><a href="#项目整体结构分析" class="headerlink" title="项目整体结构分析"></a>项目整体结构分析</h2><p><img src="https://i.imgur.com/y37IAgK.png" alt="@TODO-MVP项目结构图"></p>
+<p>因为项目整体使用的是 <code>MVP</code> 模式，所以下面从 <code>MVP</code> 分层的角度来分析；在上面的结构图中，除了 <code>data</code> 包是 <code>Model</code> 层的内容，剩余的四个包里，都是一个包对应一个界面（Activity/Fragment），然后每一个包里有四个类文件,形式分别如下：</p>
+<ul>
+<li><p><code>XxxxActivity</code>：这是 <code>Fragment</code> 的宿主 <code>Acitivity</code>， 同是也是 <code>View</code> 层，但是并没有实现 <code>View</code> 层的接口，主要的 <code>UI</code> 状态更新工作是由 <code>Fragment</code> 来进行的。</p>
+</li>
+<li><p><code>YyyyFragment</code>：这是 <code>MVP</code> 模式中的 <code>View</code> 层，它实现了 <code>View</code> 层的接口，都是 <code>showXxxYyy</code>() 形式的更新 <code>UI</code> 的回调方法。</p>
+</li>
+<li><p><code>ZzzzPresenter</code>：这是 <code>MVP</code> 模式中的 <code>Presenter</code> 层，它负责处理 <code>UI</code> 的事件，并且和 <code>Model</code> 层打交道，通过 <code>Model</code> 层拿到数据。</p>
+</li>
+<li><p><code>PpppContract</code>: 这个类不属于传统 <code>MVP</code> 模式当中的任何一层，它是用于管理 <code>View</code> 层和 Presenter 层的接口的，这个类同一个界面对应的 <code>View</code> 和 <code>Presenter</code> 都要实现， 这样就统一的管理了接口，当我们需要知道 这个 <code>View</code> 层，做了哪些操作的时候，只需要看这个 <code>Contract</code> 类即可，并且对代码模块的移植也有帮助。</p>
+</li>
+<li><p>整个 <code>data</code> 包下，都是 <code>MVP</code> 模式的 <code>Model</code> 层，用于从数据源取数据，在这个 <code>Sample</code> 里涉及到三种类型的数据，服务器端数据，本地数据库数据和内存缓存中的数据，当然了，这里的服务器端数据时模拟耗时过程的，并没有真正涉及到网络连接的操作。</p>
+</li>
+</ul>
+<p>下面拿 <code>task</code> 包下的类来做说明。(其中 <code>ScrollChildSwipeRefreshLayout</code> 和 <code>TaskFilterType</code> 是业务需求相关的辅助类， 这里暂不做分析。)</p>
+<h2 id="tasks-包结构分析"><a href="#tasks-包结构分析" class="headerlink" title="tasks 包结构分析"></a>tasks 包结构分析</h2><p>先看看这个包对应的界面长什么样子：</p>
+<p><img src="https://i.imgur.com/6gtv7ha.png" alt="@图 2.1 主界面图|480*800"></p>
+<p>左边还有一个 <code>DrawerLayout</code> ：</p>
+<p><img src="https://i.imgur.com/uQyWBF4.png" alt="@图 2.2 DrawerLayout 图|480*800"></p>
+<p>点击 <code>ToolBar</code> 上最右边的 <code>icon</code>：</p>
+<p><img src="https://i.imgur.com/3kubJxx.png" alt="@图 2.3 Menu 图 1|480*800"></p>
+<p>点击 <code>ToolBar</code> 上次右边的 <code>icon</code>：</p>
+<p><img src="https://i.imgur.com/H3IAu8H.png" alt="@图 2.4 Menu 图 2|480*800"></p>
+<p>当列表中存在任务时：<br><img src="https://i.imgur.com/2jtMYdN.png" alt="@图 2.5 任务状态为ACTIVE |480*800"><br><img src="https://i.imgur.com/3WzptSU.png" alt="@图 2.6 任务状态为COMPLETED|480*800"></p>
+<p>点击任务，跳转到详情页面，（这个页面不属于这个包下）<br><img src="https://i.imgur.com/Q93mecI.png" alt="@图 2.7 任务详情页面 |480*800"></p>
+<h3 id="TasksActivity"><a href="#TasksActivity" class="headerlink" title="TasksActivity"></a>TasksActivity</h3><p>这是 <code>TasksFragment</code> 的宿主 <code>Activity</code>，它做的工作就是一些控件的初始化操作，然后实例化 <code>TasksFragment</code> 。</p>
+<ul>
+<li>初始化 <code>ToolBar</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// Set up the toolbar.</span></div><div class="line">Toolbar toolbar = (Toolbar) find`View`ById(R.id.toolbar);</div><div class="line">setSupportActionBar(toolbar);</div><div class="line">ActionBar ab = getSupportActionBar();</div><div class="line">ab.setHomeAsUpIndicator(R.drawable.ic_menu);</div><div class="line">ab.setDisplayHomeAsUpEnabled(<span class="keyword">true</span>);</div></pre></td></tr></table></figure>
+<ul>
+<li>初始化 <code>Navigation Drawer</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// Set up the navigation drawer.</span></div><div class="line">mDrawerLayout = (DrawerLayout) find`View`ById(R.id.drawer_layout);</div><div class="line">mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);</div><div class="line">Navigation`View` navigation`View` = (Navigation`View`) find`View`ById(R.id.nav_`View`);</div><div class="line"><span class="keyword">if</span> (navigation`View` != <span class="keyword">null</span>) &#123;</div><div class="line">    setupDrawerContent(navigation`View`);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>初始化对应的 <code>Fragment</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">TasksFragment tasksFragment =</div><div class="line">        (TasksFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);</div><div class="line"><span class="keyword">if</span> (tasksFragment == <span class="keyword">null</span>) &#123;</div><div class="line">    <span class="comment">// Create the fragment</span></div><div class="line">    tasksFragment = TasksFragment.newInstance();</div><div class="line">    ActivityUtils.addFragmentToActivity(</div><div class="line">            getSupportFragmentManager(), tasksFragment, R.id.contentFrame);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>Presenter</code> 注入 <code>View</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// Create the presenter 注入到TaskFragment中</span></div><div class="line">mTasksPresenter = <span class="keyword">new</span> TasksPresenter(</div><div class="line">        Injection.provideTasksRepository(getApplicationContext()), tasksFragment);</div></pre></td></tr></table></figure>
+<p>这里同时将 <code>Model</code> 层的对象给注入到了 <code>Presenter</code> 中，这个 <code>TasksRepository</code> 就是属于 <code>Model</code> 层的，后面分析。</p>
+<ul>
+<li>状态恢复(<code>onCreate</code> 中，也可以直接在 <code>onRestoreInstanceState</code> 方法中操作)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// Load previously saved state, if available.</span></div><div class="line"><span class="keyword">if</span> (savedInstanceState != <span class="keyword">null</span>) &#123;</div><div class="line">    TasksFilterType currentFiltering =</div><div class="line">            (TasksFilterType) savedInstanceState.getSerializable(CURRENT_FILTERING_KEY);</div><div class="line">    mTasksPresenter.setFiltering(currentFiltering);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>保存当前显示的 <code>Task</code> 的类别的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSaveInstanceState</span><span class="params">(Bundle outState)</span> </span>&#123;</div><div class="line">    <span class="comment">//此处需要保存的信息是当前 Task 列表展示界面展示的 Filter Type 信息,</span></div><div class="line">    <span class="comment">// 目的是为了下一次重其他的页面跳回到此页面时,能够正确的显示 对应 Filter Type 的 Task</span></div><div class="line">    outState.putSerializable(CURRENT_FILTERING_KEY, mTasksPresenter.getFiltering());</div><div class="line"></div><div class="line">    <span class="keyword">super</span>.onSaveInstanceState(outState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从一个 <code>Activity</code> 跳到另外一个 <code>Activity</code> 的时候会调用，用于存储当前 <code>Activity</code> 正在显示的 <code>Task</code> 的类别，类别有三种，分别是 <code>COMPLETED_TASK , ACTIVT_TASK , ALL_TASK;</code> 很好理解，就是用于辨别当前界面是显示已经完成的 <code>Task</code> 还是显示暂未完成的，还是都显示，用于下一次从另外页面回到当前页面的时候，显示的是用户上一次的操作。</p>
+<ul>
+<li>剩下的就是 <code>Mene</code> 的初始化 和点击时间的处理了。这里就不贴出代码了。</li>
+</ul>
+<h3 id="TasksContract-中-View-层接口分析"><a href="#TasksContract-中-View-层接口分析" class="headerlink" title="TasksContract 中 View 层接口分析"></a>TasksContract 中 View 层接口分析</h3><p>之前说过， TasksContract 适用于管理 <code>View</code> 层和 <code>Presenter</code> 层的接口的契约接口，我们希望 <code>View</code> 层的方法都是类似于 <code>showXxxZzz()</code> 形式的方法，用于改变 <code>UI</code> 的状态，那么根据上面的截面图，我们分析一下这里的 <code>View</code> 层需要改变哪些状态。</p>
+<blockquote>
+<p>此处涉及到具体的业务逻辑，项目需求，包括每一个控件的点击事件，每一种状态的显示页面 。具体的思路就是，将每一个改变 <code>UI</code> 状态的操作都抽象成接口方法。</p>
+</blockquote>
+<ol>
+<li>当我们从 <code>Model</code> 层取数据的时候，需要展示一个友好交互的页面，提示用户正在加载数据。这里对应接口：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示正在加载中的指示器</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> active true 展示 false 不展示</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setLoadingIndicator</span><span class="params">(<span class="keyword">boolean</span> active)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>当从数据源重拿到数据之后，需要将数据展示到列表上。这里对应接口</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示列表中的Task</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> tasks tasks</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showTasks</span><span class="params">(List&lt;Task&gt; tasks)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>当从数据源重拿到数据之后产生错误时回调</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 加载错误回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showLoadingTasksError</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>点击右下角的 <code>FloatingActionButton</code>，会调到创建任务的界面。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示添加任务界面,用于跳转至AddEditTaskActivity</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showAddTask</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>点击列表中已经存在的任务，会调转至任务详情页面（图 <code>2.7</code>所示界面），这个操作由点击列表 <code>Item</code> 触发。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示Task的详细信息,跳转至 TaskDetailActivity</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> taskId taskId</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">void</span> showTaskDetails`UI`(String taskId);</div></pre></td></tr></table></figure>
+<ol>
+<li>当任务被标记为 <code>COMPLETED</code> 时更新 <code>UI</code> 状态（图2.6所示），这个操作是 <code>checkBox</code> 被点击触发的。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * FilterType 被置为 completed 状态时回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showTaskMarkedComplete</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>当任务被标记为 <code>ACTIVE</code> 时更新 <code>UI</code> 状态 （图2.7所示），这个操作是 <code>checkBox</code> 被点击触发的。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * FilterType 被置为 Active 状态时的回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showTaskMarkedActive</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>当被标记为 <code>COMPLETED</code> 状态的任务被删除时 <code>UI</code> 状态的更新，这个操作是图 <code>2.3</code> 当中所示 <code>Menu</code> 中 <code>Clear Completed</code> 被点击时触发。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 清除FilterType为Completed状态的Task</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showCompletedTasksCleared</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>展示所有状态为 <code>ACTIVE</code> 的任务，这个操作是图 <code>2.4</code> 当中所示 <code>Menu</code> 中 <code>Active</code> 被点击时触发</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示所有 FilterType 为 Active 的 Task 的回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showActiveFilterLabel</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>没有状态为 <code>ACTIVE</code> 的任务，更新 <code>UI</code> 界面</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示没有 FilterType为 Active 时的界面 回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showNoActiveTasks</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>展示所有状态为 <code>COMPLETED</code> 的任务，这个操作是图 <code>2.4</code> 当中所示 <code>Menu</code> 中 <code>COMPLETED</code> 被点击时触发</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示所有 FilterType 为 Completed 的Task的回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showCompletedFilterLabel</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>没有状态为 <code>COMPLETED</code> 的任务，更新界面</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示没有 FilterType为 Completed 时的界面 回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showNoCompletedTasks</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>展示所有的任务，这个操作是图 <code>2.4</code> 当中所示 <code>Menu</code> 中 <code>All</code> 被点击时触发</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示所有 FilterType的回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showAllFilterLabel</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>当前还没有任务展示时，更新 <code>UI</code> 的状态</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 没有Task 时的回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showNoTasks</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>当成功添加了一条任务之后，需要更新 <code>UI</code> 的状态，</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示add一条Task成功后的 回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showSuccessfullySavedMessage</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>因为这里的 <code>View</code> 层是用 <code>Fragment</code> 对象实现的，所以这里用于判断当前 <code>Fragment</code> 视图是否还存在</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 当前视图的活跃状态</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> true active&lt;p&gt;&lt;/p&gt;false destroy</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isActive</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>如图 <code>2.4</code> 所示，这里的显示的效果是使用 <code>PopMenu</code> 做的，所以当我们点击 <code>ToolBar</code> 上次右边的图标时，回调此方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 展示 Toolbar上面的Menu的 选择 展示 FilterType 的popmenu</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">showFilteringPopUpMenu</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>可以发现 <code>View</code> 层接口大体分为四类：</p>
+<ul>
+<li>涉及到数据更新或者数据获取的改变 <code>UI</code> 状态，第 6，7，8，9 ，11 ，13，15。</li>
+<li>页面跳转，第 4 ，5 两个用于启动其他 Activity 的。</li>
+<li>不涉及到数据更新和数据获取的改变 <code>UI</code> 状态，1，2，3，10，12 ，14。其中第 2 条只是展示已经获取到的数据，没有涉及到数据的获取和改变。</li>
+<li>辅助方法 16，17</li>
+</ul>
+</blockquote>
+<h3 id="Contract-中-Presenter-层接口分析"><a href="#Contract-中-Presenter-层接口分析" class="headerlink" title="Contract 中 Presenter 层接口分析"></a>Contract 中 Presenter 层接口分析</h3><p>在 <code>TasksContract</code> 当中，不仅仅定义了 <code>View</code> 层的接口，并且还定义了 <code>Presenter</code> 层的接口。<strong>这一层的接口肯定是服务于 <code>View</code> 层的</strong>，应为 <code>Presenter</code> 层需要响应 <code>View</code> 层的事件，然后和 <code>Model</code> 层交互，然后再根据和 <code>Model</code> 层交互的接口，通知 <code>View</code> 层更新对应的 <code>UI</code> 状态。所以 <code>Presenter</code> 层接口的设置肯定与上面 <code>View</code> 层的 <code>UI</code> 状态改变接口有关，下面来分析一下：</p>
+<ol>
+<li>针对 <code>View</code> 层的第 <code>9， 11， 13</code> ，条需求，分别需要展示 <code>ACTIVE COMPLETED</code> 和所有状态的数据， 那么这个数据从哪儿来呢？就需要 <code>Presenter</code> 层来提供，所以这里需要有一个接口：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 从 `Model` 层获取数据的回调</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> forceUpdate 是否刷新</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">loadTasks</span><span class="params">(<span class="keyword">boolean</span> forceUpdate)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>并且 <code>Presenter</code> 层还需要记录下当前页面的展示哪种类型的数据</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 设置当前列表显示的 Task 的 type</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> requestType &#123;<span class="doctag">@link</span> TasksFilterType&#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setFiltering</span><span class="params">(TasksFilterType requestType)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>还并且，记下当前页面展示的数据类型，是要在之前 <code>TasksActivity</code> 中的 <code>onSaveInstanceState</code> 方法中获取，然后保存的，所以这里需要提供一个 <code>Getter</code> 方法。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 拿到当前列表显示的 Task 的 type</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> TasksFilterType&#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function">TasksFilterType <span class="title">getFiltering</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>针对 <code>View</code> 层的第 <code>4</code> 条需求，需要点击 <code>FloatingActionButton</code> 跳转至编辑界面，那么针对这个需求，<code>Presenter</code> 层提供一个接口方法给他调用：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 添加新的 Task 的回调</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">addNewTask</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<p>其实这个方法在最终实现的时候，就是调用 <code>View</code> 第 4 个需求的接口：<code>void showAddTask();</code> 然后在这个接口的实现方法就是实例化 <code>Intent</code> 然后 <code>startActivityForResult</code>。其实完全可以直接在 <code>FloatingActionButton</code> 的 <code>onClick</code> 回调方法里就调用其本身的 <code>showAddTask</code> 方法跳转至编辑页面，但是人家没有这样做，而是调用 <code>presenter</code> 的 <code>addNewTask</code> 方法，通过 <code>Presenter</code> 层的这个方法在去调用 <code>View</code> 层的 <code>showAddTask</code> 方法，为什么做么做？仔细看项目代码可以发现，<font color="#ff4081"><strong><code>View</code> 层「不涉及到数据更新和数据获取的改变 <code>UI</code> 状态」类别的接口方法都是被 <code>Presenter</code> 层调用的，而 <code>Presenter</code> 层所有的接口方法都是被 <code>View</code> 层调用的，因为各自的接口方法是需要对方的事件来驱动。</strong></font> 所以为了保证这一特性的统一表现，这里就采取了这样迂回的方式，来跳转至编辑界面。</p>
+<ol>
+<li>针对 <code>View</code> 层的第 5 条需求，点击列表 Item 的时候，会跳转至详情界面，这个过程和上面点击 <code>FloatingActionButton</code> 一样，不做分析。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 查看Task详情的回调</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> requestedTask special task</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">openTaskDetails</span><span class="params">(@NonNull Task requestedTask)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>针对 <code>View</code> 层第 6 条需求，需要将某一条任务标记为 <code>COMPLETED</code> 状态，那么不仅仅是在 <code>UI</code> 上要做改变，还要将数据源中的本条数据给标记为 <code>COMPLETED</code> 状态，所以 <code>Presenter</code> 层要提供这个需求的数据支撑：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 列表Item的checkBox 从false到true时的回调</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> completedTask special task</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask</span><span class="params">(@NonNull Task completedTask)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>针对 <code>View</code> 层的第 7 条需求，和上一条一样，不做分析。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 列表Item的checkBox 从true到false时的回调</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> activeTask special task</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">activateTask</span><span class="params">(@NonNull Task activeTask)</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>针对 <code>View</code> 层的第 8 条需求，删除标记为 <code>COMPLETED</code> 的任务，不仅仅要在 <code>UI</code> 上做改变，在数据源中也是需要将它删除的，所以在 <code>Presenter</code> 层提供这个需求的数据支撑。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 清除FilterType为Completed状态的Task</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">clearCompletedTasks</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<ol>
+<li>针对 <code>View</code> 层的第 <code>15</code> 条需求，<code>showSuccessfullySavedMessage</code> 这个方法是成功添加了一条数据返回此界面之后调用，那么就<strong>本应该</strong>是在此界面的的 <code>onActivityResult</code> 方法中调用，但是由于和 Presenter 层第 <code>4</code> 个方法一样的原因，这里也是采取了迂回的方式，先通知 <code>Presenter</code> 层，再由 <code>Presenter</code> 层来回调。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 当一个Task成功添加进来时,返回到TasksFragment时的回调</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> requestCode requestCode</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> resultCode  resultCode</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">result</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode)</span></span>;</div></pre></td></tr></table></figure>
+<h3 id="View-层接口的基类"><a href="#View-层接口的基类" class="headerlink" title="View 层接口的基类"></a>View 层接口的基类</h3><p>根据 <code>MVP</code> 模式的原理，<code>View</code> 层是一定持有一个 <code>Presenter</code> 层对象的引用的，所以这里创建一个所有 <code>View</code> 层接口的基类，里面就一个接口方法，用于设置 <code>View</code> 对应的 <code>Presenter</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Base</span>`<span class="title">View</span>`&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * `View`必须要实现的方法,保持对Presenter的引用</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> presenter</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setPresenter</span><span class="params">(T presenter)</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Presenter-层接口的基类"><a href="#Presenter-层接口的基类" class="headerlink" title="Presenter 层接口的基类"></a>Presenter 层接口的基类</h3><p>由于每一次回到 <code>View</code> 层界面的时候，我们都需要展示当前需要被展示的数据（需要被展示的数据是根据当前的 <code>FilterType</code> 来决定的），由于 <code>View</code> 层不涉及数据的缓存，那么我们就需要有一个方法<strong>在每一次回到一个 <code>View</code> 层界面的时候</strong>都通知 <code>Presenter</code> 层去取数据。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BasePresenter</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * Presenter必须实现的方法,用于开始获取数据并且刷新界面,</span></div><div class="line"><span class="comment">     * 在Fragment的onResume方法中调用</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于 <code>Fragment</code> 来说，每一次回到一个 <code>Fragment</code> 的时候，<code>onResume</code> 都会调用，就放在这里调用适合。</p>
+<h3 id="TasksContract-接口"><a href="#TasksContract-接口" class="headerlink" title="TasksContract 接口"></a>TasksContract 接口</h3><p>分析这么多，最终这个接口长这个样子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TasksContract</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">interface</span> `<span class="title">View</span>` <span class="keyword">extends</span> <span class="title">Base</span>`<span class="title">View</span>`&lt;<span class="title">Presenter</span>&gt; </span>&#123;</div><div class="line">       <span class="comment">//2.2小结中分析的所有接口</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Presenter</span> <span class="keyword">extends</span> <span class="title">BasePresenter</span> </span>&#123;</div><div class="line">      <span class="comment">//2.3小结中分析的所有接口</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个接口 <code>View</code> 层和 <code>Presenter</code> 层各自实现其中的子接口。</p>
+<h3 id="tasks-包下-View-层和-Presenter-层实现类"><a href="#tasks-包下-View-层和-Presenter-层实现类" class="headerlink" title="tasks 包下 View 层和 Presenter 层实现类"></a>tasks 包下 View 层和 Presenter 层实现类</h3><p>接口都定义好了，接下来就是用 <code>TasksFragment</code> 和 <code>TaskPresenter</code> 分别去实现 <code>TasksContract</code> 中的接口了，这部分涉及到具体的业务逻辑，所以不做分析，这里只分析项目结构方面。下面笔者从 <code>google</code> 库中 <code>fork</code> 过来的，添加了部分注释：</p>
+<ul>
+<li><a href="https://github.com/zengfanyu/TODO-`MVP`/blob/master/app/src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksContract.java" target="_blank" rel="external">TasksContract.java</a></li>
+<li><a href="https://github.com/zengfanyu/TODO-`MVP`/blob/master/app/src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivity.java" target="_blank" rel="external">TasksActivity.java</a></li>
+<li><a href="https://github.com/zengfanyu/TODO-`MVP`/blob/master/app/src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragment.java" target="_blank" rel="external">TasksFragment .java</a></li>
+<li><a href="https://github.com/zengfanyu/TODO-`MVP`/blob/master/app/src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksPresenter.java" target="_blank" rel="external">TasksPresenter.java</a></li>
+</ul>
+<h3 id="小结-View-层和-Presenter-层接口方法"><a href="#小结-View-层和-Presenter-层接口方法" class="headerlink" title="小结 View 层和 Presenter 层接口方法"></a>小结 View 层和 Presenter 层接口方法</h3><ol>
+<li>到这里，<code>View</code> 层和 <code>Presenter</code> 层的接口都都分析完了，回过头来再看看，可以发现一个很有意思的地方，在分析完 <code>View</code> 层接口之后，笔者将 <code>View</code> 层接口归纳为了四类，那么在结合 <code>Presenter</code> 层的接口方法看看就会发现，<code>Presenter</code> 层接口方法是针对上面总结的 「涉及到数据更新或者数据获取的改变 <code>UI</code> 状态」，「页面跳转」，这两类接口方法的辅助，去除掉「页面跳转」，这个不在 <code>MVP</code> 范畴之内，那么剩下的就是，<strong>「涉及到数据更新或者数据获取的改变 <code>UI</code> 状态」</strong> 这个类别下的接口方法了。</li>
+</ol>
+<ul>
+<li><strong>「涉及到数据更新或者数据获取的改变 <code>UI</code> 状态」</strong> 这个类别下的接口方法是需要数据作为支撑的，而 <code>View</code> 层本身只负责 <code>UI</code> 的状态改变，不涉及到数据的获取操作，所以这些数据就需要从 <code>Presenter</code> 层中获取。</li>
+<li>获取到了之后，再到 <code>Presenter</code> 层的接口方法中去回调 <code>View</code> 层的 <strong>「不涉及到数据更新或者数据获取的改变 <code>UI</code> 状态」</strong>的接口方法。</li>
+<li>这么一来，<code>View</code> 层和 <code>Presenter</code> 层通过 <code>TasksContract</code>  契约类，完美的契合在一起，这两层的实现类代码中，互相之间都是<strong>接口依赖</strong>，大大增加了代码的可扩展性。</li>
+</ul>
+<ol>
+<li><p><strong><code>View</code> 层接口方法的设置完全是从业务逻辑出发的，也就是从需求的角度出发。 <code>Presenter</code> 层是服务于 <code>Presenter</code> 层，所以它的接口的设置是为了支撑 <code>View</code> 层的逻辑。</strong>。举个例子：比如说用户<strong>点击这个按钮</strong>，需要有什么样的一个效果，那么我就针对这个操作，在 <code>View</code> 层接口里写一个接口方法；<strong>获取数据成功</strong>之后，我们需要展示出来，针对这个操作在 <code>View</code> 层接口里写一个接口方法；<strong>没有获取到任何数据</strong>，需要给用户显示一个友好的界面，针对这个操作，又在 <code>View</code> 层接口里写一个接口方法。但是这些操作是需要有支撑的，因为 <code>View</code> 层本身是不具备它将要更新的 <code>UI</code> 所需要的的数据的，所以这时候就是靠 <code>Presenter</code> 层来支撑 。</p><p></p>
+</li>
+<li><p>这种方式，也让我联想到，如果是团队开发的话，当产品给出原型图了之后，针对每一张原型图当中每一个控件的操作，需要展示的状态，先定好接口，写好 <code>Contract</code> 契约接口，然后团队成员在到各自的分支上并行开发，是否可以大大提高工作效率？这个还有待商榷。</p>
+</li>
+</ol>
+<h2 id="看完这个-Sample-之后的一些感受"><a href="#看完这个-Sample-之后的一些感受" class="headerlink" title="看完这个 Sample 之后的一些感受"></a>看完这个 Sample 之后的一些感受</h2><ol>
+<li>如果不看人家 <code>google</code> 工程师的源码，只给我看 <code>app</code> 最后的效果，我也能百分百复制出来一个一模一样的，但是我的代码在复用性，鲁棒性，可扩展性方面肯定没有人家的棒，看这个项目的代码真的很舒服，行云流水般的感觉，在编码习惯方面有几点真的十分赞：</li>
+</ol>
+<ul>
+<li>分包很明确，每一包下只有和这个包功能相关的代码，不用到处去找相关类，关看包结构就能得到项目大致结构。</li>
+<li>包、类、变量、方法、接口等的命名十分规范，命名都是有意义的，更不存在什么 <code>MyXXXX</code> 这种命名方式，观看名字就能知道这个东西是干嘛的。</li>
+<li>注释十分详细，虽然我在阅读的过程中，添加了中文注释，但是人家本身的英文注释就有很多，每一个文件都有注释用于说明这个文件的用途；用途不是那么显而易见的方法也都有注释，真的是大大减少了我们的阅读难度。这一点很多第三方的框架也做的特别棒，前阵子看 <code>Universal-Image-Loader</code> 的源码，注释也十分详细，并且使用 <code>javadoc</code>。</li>
+<li>代码在多处做了容错性处理，变量只要在使用的时候，就会去 <code>checkNullOrEmpty</code>，这个项目里用的是 <code>Guava</code> 中的 <code>Preconditions</code> 工具类，很方便。</li>
+</ul>
+<ol>
+<li><p>发现自己基础方面不够扎实，整个项目涉及到很多 Android 的基础知识，比如说 <code>Activity</code> 和 <code>Fragment</code> 的生命周期，重要生命周期方法的作用，调用时机；<code>Activity</code> 和 <code>Fragment</code> 之间的通信；关于 <code>ToolBar</code> 的使用；关于 <code>Menu</code> 菜单的使用；关于     <code>android.support.v4.app.NavUtils</code> 这个工具类的使用等等，不一一列举了。总之体现了一个问题，我真的还很菜。</p><p></p>
+</li>
+<li><p><code>contract</code> 接口和 <code>Model</code> 层的设计，确实很棒，让传统 <code>MVP</code> 模式如虎添翼。</p><p></p>
+</li>
+<li><p>希望自己以后再工作当中，从编码习惯方面入手，增强代码的规范性，同时也不能忘了基础的巩固，要学的真的有很多。</p><p></p>
+</li>
+<li>好像是 <code>Linux</code> 的爸爸说过 <code>Read the fuck code !</code>阅读源码，真的可以学习很多姿势，也能暴露出自己身上存在的很多问题，当然了，前提是这个源码十分优秀，这个是谷歌官方的 <code>Sample</code> 库，我感觉维护这个库的人就是官方文档 <code>API</code> 示例编写的那一群老哥，因为很多代码的风格和使用的方式，和官方文档上一模一样，比如说在 <code>Model</code> 层使用 <code>SQLite</code> 的代码，就和官网上的文档一模一样，所以这个源码，必须是很优秀的！</li>
+</ol>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>上面相当于只分析了 <code>View</code> 层和 <code>Presenter</code> 层的结构和实现思路，还有 <code>Model</code> 层没有分析，<code>Model</code> 层是这个 Sample 在传统 <code>MVP</code> 模式当中，除了 <code>Contract</code> 之外，最优雅的设计方式，由于篇幅的原因，<code>Model</code> 层相关的留到下一篇文章分析。 </p>
+</font>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/MVP/" rel="tag"># MVP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/13/Java8---Lambda Expressions/" rel="next" title="新姿势学习之Java8---Lambda Expressions">
+                <i class="fa fa-chevron-left"></i> 新姿势学习之Java8---Lambda Expressions
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_z.jpg"
+                alt="BIGZ" />
+            
+              <p class="site-author-name" itemprop="name">BIGZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zengfanyu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zengfanyunb@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目整体结构分析"><span class="nav-number">1.</span> <span class="nav-text">项目整体结构分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tasks-包结构分析"><span class="nav-number">2.</span> <span class="nav-text">tasks 包结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksActivity"><span class="nav-number">2.1.</span> <span class="nav-text">TasksActivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksContract-中-View-层接口分析"><span class="nav-number">2.2.</span> <span class="nav-text">TasksContract 中 View 层接口分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Contract-中-Presenter-层接口分析"><span class="nav-number">2.3.</span> <span class="nav-text">Contract 中 Presenter 层接口分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View-层接口的基类"><span class="nav-number">2.4.</span> <span class="nav-text">View 层接口的基类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Presenter-层接口的基类"><span class="nav-number">2.5.</span> <span class="nav-text">Presenter 层接口的基类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TasksContract-接口"><span class="nav-number">2.6.</span> <span class="nav-text">TasksContract 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tasks-包下-View-层和-Presenter-层实现类"><span class="nav-number">2.7.</span> <span class="nav-text">tasks 包下 View 层和 Presenter 层实现类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-View-层和-Presenter-层接口方法"><span class="nav-number">2.8.</span> <span class="nav-text">小结 View 层和 Presenter 层接口方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#看完这个-Sample-之后的一些感受"><span class="nav-number">3.</span> <span class="nav-text">看完这个 Sample 之后的一些感受</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO"><span class="nav-number">4.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BIGZ</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Every little makes a mickel</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("YbNmOD8tolbrONHtHJyWdEq7-gzGzoHsz", "PTVGwiHfE44yKqqU8xYjhJOJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
