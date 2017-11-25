@@ -358,7 +358,7 @@
 <p><em>摘要：一直关注 Hencoder 的教程，前阵子刚好出了一期 View 的工作流程系列，然后结合《Android开发艺术探索》相关章节，做一下笔记。</em><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/25/View work process/#more" rel="contents">
+            <a class="btn" href="/2017/11/25/View work process/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -516,7 +516,7 @@
 <p><em>摘要:最近看了一下 <a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">google 官方的 sample</a> ,做的是一个 <code>TODO</code> 应用，使用的是 <code>MVP</code> 模式，之前笔者也学习了一段时间的 <code>MVP</code>，前面写了几篇文章记录学习过程，也有一些思考，最后呈现出来的问题就是 Presenter 层臃肿问题，以及 <code>View</code> 层接口难以管理的问题。比方说 <code>View</code> 层，它是负责 <code>UI</code> 的更新工作，我们希望它里面都是 <code>showXXXZZZ（@Nullable Param p）</code> 这样的更新 <code>UI</code> 状态的方法。在这个 <code>sample</code> 里， <code>google</code> 提供了一种解决接口混乱的方法，用「契约」接口，统一管理 <code>View</code> 层和 <code>Presenter</code> 层的接口，下面就分析下我对这个项目的理解。</em><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/13/google-TODO-MVP-sample/#more" rel="contents">
+            <a class="btn" href="/2017/11/13/google-TODO-MVP-sample/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -674,7 +674,7 @@
 <p><em>摘要: 去年逛 <code>Github</code> 准备秋招项目时,就发现 <code>Android</code> 有的项目使用的语法似乎从来没见过,类似于 <code>(parameters)-&gt;expression</code> 还有<code>ObjectReference::methodName</code> 这种类 <code>C++</code> 语法形式,查找资料之后,知道这个是 <code>Java8</code> 的新特性:<code>Lambda</code>,所以就记下了 <code>Lambda</code> 这个词,后来忙于秋招春招实习,一直也没有取好好学习,昨天在项目当中又看到了这个熟悉的表达式,一脸懵逼,所以准备找几篇 <code>Java8</code> 教程,好好学习一下”新”姿势.</em><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/13/Java8---Lambda Expressions/#more" rel="contents">
+            <a class="btn" href="/2017/11/13/Java8---Lambda Expressions/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -832,7 +832,7 @@
 <p>摘要：在学习 MVP 模式的过程当中，见到很多文章都提到一句话：「使用 MVP 模式引入了 Presenter 层，这样可以将 View 层和 Model 层解耦，但是项目的代码量会大大增加，不过这个牺牲是值得的。」但是这个如果不做处理的话，随着项目体量的扩大，项目当中会充斥着很多相同逻辑的代码，是在是不能忍，通过前面几章的封装可以缓解这个情况，但是还剩下一个问题是目前解决不了的，那就是 Presenter 的管理问题和 View 层无关代码问题，这一篇就针对这两个问题记录一下思路。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/05/MVP7/#more" rel="contents">
+            <a class="btn" href="/2017/11/05/MVP7/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -990,7 +990,7 @@
 <p><em>摘要：最近看了很多讲 Dagger2 的文章，发现Dagger中很多基础的概念问题真的挺缥缈，很难理解透彻，其中有几篇确实写得不错，这里将他们总结一下，底部给上参考文章链接。</em></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/04/Dagger/#more" rel="contents">
+            <a class="btn" href="/2017/11/04/Dagger/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1148,7 +1148,7 @@
 <p><em>摘要：使用封装之后的 MVP 模式实现一个新的界面，也就是 Vie 层，那么就需要去实现 IBaseView 接口，可能还需要针对当前要实现的界面情况，在 IBaseView 的基础之上派生出一个新的接口 IXxxView,之前的 SohuAlbumInfoActivity 用于展示搜狐电视剧主要信息的 View 就是这种情况,由 IBaseView 派生了一个 ISohuSerials ,再由 SohuAlbumInfoActivity 去实现,那么随着需要展示的界面越来越多,它们坐着大量重复的工作,我们就要像个方法来简化这个过程了。</em></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/03/MVP6/#more" rel="contents">
+            <a class="btn" href="/2017/11/03/MVP6/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1306,7 +1306,7 @@
 <p><em>摘要:在<a href="http://zengfanyu.top/2017/10/27/MVP4/">上一篇</a>中对 OkHttp 进行了简单的封装,但是没有使用到这个系列当中的 Demo 里面,这一章就使用上一篇封装的 OkHttp 工具,替换掉之前 Demo 里面的 Model 层的网络请求.并且之前的部分接口方法都没有使用,比如说 IBasePresenter 接口中的 HashMap<string, string=""> getParams() 方法, IBasePaginationPresenter 中的 boolean hasMoreData() 方法，算是对上一篇的补充。</string,></em></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/02/MVP5/#more" rel="contents">
+            <a class="btn" href="/2017/11/02/MVP5/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1464,7 +1464,7 @@
 <p><em>摘要</em>：<em>前两篇中使用的网络请求工具是 <code>OkHttp</code> ，并没有经过封装，都是简单的使用 <code>get</code> 请求，并且将错误全部都抛到上层去解决了， 这无形之中增加了上层的编码复杂度，即使要抛向上层，起码也要给一个 <code>errorCode</code> 或者是 <code>errorMsg</code> 吧，并且可用性也不高，所以这边文章就针对 <code>OkHttp</code> 进行封装，然后将封装之后的工具使用到上一小结的 <code>Demo</code> 之中。</em><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/27/MVP4/#more" rel="contents">
+            <a class="btn" href="/2017/10/27/MVP4/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1622,7 +1622,7 @@
 <p>摘要：在<a href="http://zengfanyu.top/2017/10/22/MVP2/">上一篇</a>中对MVP模式进行了封装，然后通过封装之后的类，实现了一个网络请求，但是请求到网络数据之后，就直接展示到了 <code>View</code> 层，并没有其他的操作，然而我们在开发过程中， 经常会用到分页加载，一般在滑动控件向上滚动，加载更多事件触发是调用，并且这个过程设计到两个参数，一个是 <code>PageIndex</code> ：页码；一个是 <code>PageSize</code> 一页数据的大小， 分页加载就是通过在某一具体事件触发时，调用修改这两个或者一个参数，重新请求网络，从而拿到下一页的数据，这边文章还是基于MVP模式，对分页数据的请求进行封装。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/25/MVP3/#more" rel="contents">
+            <a class="btn" href="/2017/10/25/MVP3/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1780,7 +1780,7 @@
 <p><em>摘要：在<a href="http://zengfanyu.top/2017/10/20/MVP1/">Android当中的MVP模式（一）基本概念</a>中，用了一个简单的的登录Demo展示了一下 <code>MVP</code> 模式的基本姿势，虽然项目结构是更加清晰了，但是代码量明显增多了，原来的网络请求操作只用 <code>1</code> 个类可以搞定，现在需要 <code>4</code> 个类，并且每当有不同作用的 <code>model</code> 出现时，我们就需要相应的为他们添加 <code>presenter</code> 层的对象，但是细细查看，这些<code>model</code> 的作用都大体相似，与获取数据相关，类似于网络请求或者是数据库 <code>DAO</code> 的操作，所以此处可以考虑将他们的共性抽取出来，封装成基累，然后子类去继承即可。</em><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/22/MVP2/#more" rel="contents">
+            <a class="btn" href="/2017/10/22/MVP2/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
