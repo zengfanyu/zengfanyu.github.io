@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/LmSCVR5.jpg">
 <meta property="og:image" content="https://i.imgur.com/dVuUslE.gif">
-<meta property="og:updated_time" content="2018-01-06T03:03:20.852Z">
+<meta property="og:updated_time" content="2018-01-06T04:12:33.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android中的Window、WindowManager以及悬浮框视频播放的实现">
 <meta name="twitter:description" content="摘要:近日看公司直播项目,其中有一个功能就是退出某房间之后,直播界面会以悬浮窗的形式出现,并且可以拖动悬浮窗到界面中任意位置,点击悬浮框之后,又可以回到房间中继续观看直播。现在这个功能在主流的直播或者视频类软件中都可以看到，比如：某鱼、某猫、某珠、某牙、某tube。当然了，某tobe当中的悬浮窗效果更佳炫酷，可以炫酷地从悬浮框中将视频主界面慢慢拖动出来，具体效果下载某tube就能看到。这篇文章就">
@@ -383,8 +383,10 @@
 </ul>
 <p><code>TYPE_SYSTEM_OVERLAY（2006），TYPE_TOAST（2005），TYPE_PHONE（2002）</code></p><p></p>
 <ul>
-<li><code>Flags</code> 参数表示 <code>Window</code> 的属性，它可以有很多选项，通过这些选项可以控制 <code>Window</code> 的显示特性，比较常用的有：<p><br>  <strong>1. FLAG_NOT_FOCUSABLE</strong><pre><code>表示 `Window` 不需要获取焦点，也不需要接收各种输入事件，此标记会同时启用 `FLAG_NOT_TOUCH_MODE`，事件会直接传递给下层的具有焦点的 `Window`。
-</code></pre>  <strong>2. FLAG_NOT_TOUCH_MODE</strong><br>  此模式下,系统会将当前 <code>Window</code> 区域以外的点击事件传递给底层的 <code>Window</code> ，当前 <code>Window</code> 区域以内的会自己处理，一般来说这个标记都需要开启，不然其他的 <code>Window</code> 接收不到单击事件。<br>  <strong>3. FLAG_SHOW_WHEN_LOCKED</strong><br>  让 <code>Window</code> 显示在锁屏界面上。</p></li>
+<li><p><code>Flags</code> 参数表示 <code>Window</code> 的属性，它可以有很多选项，通过这些选项可以控制 <code>Window</code> 的显示特性，比较常用的有：</p><p><br>  <strong>1. FLAG_NOT_FOCUSABLE</strong><br>  表示 <code>Window</code> 不需要获取焦点，也不需要接收各种输入事件，此标记会同时启用 <code>FLAG_NOT_TOUCH_MODE</code>，事件会直接传递给下层的具有焦点的 <code>Window</code>。</p>
+<p>  <strong>2. FLAG_NOT_TOUCH_MODE</strong><br>  此模式下,系统会将当前 <code>Window</code> 区域以外的点击事件传递给底层的 <code>Window</code> ，当前 <code>Window</code> 区域以内的会自己处理，一般来说这个标记都需要开启，不然其他的 <code>Window</code> 接收不到单击事件。</p>
+<p>  <strong>3. FLAG_SHOW_WHEN_LOCKED</strong><br>  让 <code>Window</code> 显示在锁屏界面上。</p>
+</li>
 </ul>
 <p><code>WindowManager</code> 常用的方法就三个：添加 <code>View</code>，删除 <code>View</code>，更新 <code>View</code> 。这三个方法定义在 <code>ViewManager</code> 中，<code>WindowManager</code> 继承了 <code>ViewManager</code>。想做悬浮窗播放视频，就需要用到这三个方法，其中悬浮框随手指拖拽而移动就是在 <code>onTouchEvent</code> 回调中调用 <code>updateView</code> 的方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ViewManager</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(@NonNull View view, @NonNull ViewGroup.LayoutParams params)</span></span>;</div><div class="line">	 </div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateViewLayout</span><span class="params">(@NonNull View view, @NonNull ViewGroup.LayoutParams params)</span></span>;</div><div class="line">	 </div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeView</span><span class="params">(View view)</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
