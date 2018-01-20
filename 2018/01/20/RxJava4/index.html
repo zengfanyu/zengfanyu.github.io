@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="RxJava," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CODE FRAMER BIGZ" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="摘要：之前的记录了一下 RxJava 最基本的使用方法，没有涉及到为什么这么多人使用它的具体原因，就是说没体现它的魅力所在嘛， 所以这一篇就记录一下我学习的RxJava 当中的变换操作符（Operator）和调度器（Scheduler），前者可以说是 RxJava 的核心功能之一，也是大多数人使用 RxJava 的主要原因，后者是可以让不同线程之间的代码在一条链路代码中书写，极大简化逻辑。">
+<meta name="keywords" content="RxJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="只因为在众多框架中多看了你一眼 RxJava （四） RxJava 调度器和操作符">
+<meta property="og:url" content="http://zengfanyu.top/2018/01/20/RxJava4/index.html">
+<meta property="og:site_name" content="CODE FRAMER BIGZ">
+<meta property="og:description" content="摘要：之前的记录了一下 RxJava 最基本的使用方法，没有涉及到为什么这么多人使用它的具体原因，就是说没体现它的魅力所在嘛， 所以这一篇就记录一下我学习的RxJava 当中的变换操作符（Operator）和调度器（Scheduler），前者可以说是 RxJava 的核心功能之一，也是大多数人使用 RxJava 的主要原因，后者是可以让不同线程之间的代码在一条链路代码中书写，极大简化逻辑。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/cCjinS0.png">
+<meta property="og:image" content="https://i.imgur.com/qqxZRN3.png">
+<meta property="og:image" content="https://i.imgur.com/VuAsIkS.png">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rx4i8da2j20hg0dydgx.jpg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1008453-2ccce5cf25e8023a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/647">
+<meta property="og:image" content="https://i.imgur.com/k64tmTR.png">
+<meta property="og:updated_time" content="2018-01-20T06:21:43.537Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="只因为在众多框架中多看了你一眼 RxJava （四） RxJava 调度器和操作符">
+<meta name="twitter:description" content="摘要：之前的记录了一下 RxJava 最基本的使用方法，没有涉及到为什么这么多人使用它的具体原因，就是说没体现它的魅力所在嘛， 所以这一篇就记录一下我学习的RxJava 当中的变换操作符（Operator）和调度器（Scheduler），前者可以说是 RxJava 的核心功能之一，也是大多数人使用 RxJava 的主要原因，后者是可以让不同线程之间的代码在一条链路代码中书写，极大简化逻辑。">
+<meta name="twitter:image" content="https://i.imgur.com/cCjinS0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2018/01/20/RxJava4/"/>
+
+
+
+
+
+  <title>只因为在众多框架中多看了你一眼 RxJava （四） RxJava 调度器和操作符 | CODE FRAMER BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE FRAMER BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2018/01/20/RxJava4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BIGZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_z.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE FRAMER BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">只因为在众多框架中多看了你一眼 RxJava （四） RxJava 调度器和操作符</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-20T14:16:16+08:00">
+                2018-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/01/20/RxJava4/" class="leancloud_visitors" data-flag-title="只因为在众多框架中多看了你一眼 RxJava （四） RxJava 调度器和操作符">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://i.imgur.com/cCjinS0.png" alt=""></p>
+<p>摘要：之前的记录了一下 RxJava 最基本的使用方法，没有涉及到为什么这么多人使用它的具体原因，就是说没体现它的魅力所在嘛， 所以这一篇就记录一下我学习的RxJava 当中的变换操作符（Operator）和调度器（Scheduler），前者可以说是 RxJava 的核心功能之一，也是大多数人使用 RxJava 的主要原因，后者是可以让不同线程之间的代码在一条链路代码中书写，极大简化逻辑。</p>
+<a id="more"></a>
+<h1 id="调度器（Scheduler）"><a href="#调度器（Scheduler）" class="headerlink" title="调度器（Scheduler）"></a>调度器（Scheduler）</h1><p>开发过程中经常会碰到这样的需求：子线程中去请求服务器数据，拿到数据之后进行解析，然后回调给主线程中的接口去展示。</p>
+<p>这种需求有很多种写法，比如用 AsyncTask ，在 doInBackground 中进行耗时操作，然后在 onPostExecute 当中接受结果，进行处理；或者是直接在主线程中切进行耗时操作，然后通过用 Looper.getMainLooper() 创建的 Handler 将结果发送至主线程去处理。</p>
+<p>上面提到的两种方法，主要要解决的问题就是切换线程，因为 Android 中规定耗时操作不能在主线程当中进行，但是 UI 的更新操作又必须在主线程中进行，而 UI 的更新状态往往是需要耗时操作所得到的结果来做支撑的。所以为了解决这一矛盾，Google 官方给了 AsyncTask 和 Handler 两个工具。</p>
+<p>RxJava 当然也可以解决上述问题，并且是在同一条链路中，不存在各种接口的回调，起到这个作用的就是 Scheduler，线程调度器。RxJava 通过它来指定每一行代码应该运行在什么样的线程环境，RxJava 当中已经内置了好几种 Scheduler：</p>
+<h2 id="Scheduler-的种类"><a href="#Scheduler-的种类" class="headerlink" title="Scheduler 的种类"></a>Scheduler 的种类</h2><p><strong>1. Schedulers.newThread()</strong> </p>
+<p>这个 Scheduler 会创建一个新的线程，并且用这个 Scheduler 指定的代码会在新创建的线程中去执行。</p>
+<p><strong>2. Scheduler.io()</strong></p>
+<p>这个 Scheduler 适用于一些执行阻塞式 IO 操作的，比如说：读写文件、读写数据库、访问网络等。它在内部是使用 CacheThreadPool 实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</div><div class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</div><div class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个线程池没有核心线程数，它会根据需要去创建线程，并且有 60秒 的超时机制。<strong>不要用这个 Scheduler 去指定计算操作的运行线程，这样可以避免创建多余的线程。</strong></p>
+<p><strong>3. Schedulers.computation()</strong></p>
+<p>这个 Scheduler 适合执行 CPU 密集型的操作，比如事件循环，处理回调和其他计算工作。它内部使用的是固定线程数的线程池，大小等于 CPU 核数。<strong>不要用它去指定 IO 操作的代码运行线程环境，不然 IO 操作的等待会浪费 CPU。</strong></p>
+<p><strong>4. AndroidScheculers.mainThread()</strong></p>
+<p>这个 Scheduler 是 Android 独有的， 用它指定的代码会运行在主线程当中。</p>
+<h2 id="Scheduler-的使用"><a href="#Scheduler-的使用" class="headerlink" title="Scheduler 的使用"></a>Scheduler 的使用</h2><p>有了上述 Scheduler 之后， 就可以使用 subscribeOn()  和 observerOn() 两个方法来指定代码的运行环境了。</p>
+<p>这里的代码使用的是 RxJava2 的 API<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_test);</div><div class="line">    tv = findViewById(R.id.id_tv);</div><div class="line">    Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;String&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ObservableEmitter&lt;String&gt; e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line"></div><div class="line">            String result = getDataFromServer();</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (!TextUtils.isEmpty(result)) &#123;</div><div class="line">                e.onNext(result);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">            .subscribeOn(Schedulers.io())<span class="comment">//指定subscribe（）发生在io线程</span></div><div class="line">            .observeOn(AndroidSchedulers.mainThread())<span class="comment">//指定 Subscriber 的回调发在主线程</span></div><div class="line">            .subscribe(<span class="keyword">new</span> Consumer&lt;String&gt;() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(@NonNull String result)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                    LogUtil.d(TAG, <span class="string">"[ accept ] "</span> + <span class="string">"result="</span> + result);</div><div class="line">                    LogUtil.d(TAG, <span class="string">"[ accept ] "</span> + <span class="string">"current thread is "</span> + Thread.currentThread().getName());</div><div class="line">                    tv.setText(result);</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDataFromServer</span><span class="params">()</span> </span>&#123;</div><div class="line">    LogUtil.d(TAG, <span class="string">"[ getDataFromServer ] "</span> + <span class="string">"current thread is "</span> + Thread.currentThread().getName());</div><div class="line">    LogUtil.d(TAG, <span class="string">"[ getDataFromServer ] "</span> + <span class="string">"get data from server"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="string">"Hello RxJava"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>看看 Log情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">D/===RxJavaSample==: TestActivity [ getDataFromServer ] current thread is RxCachedThreadScheduler-<span class="number">1</span></div><div class="line">D/===RxJavaSample==: TestActivity [ getDataFromServer ] get data from server</div><div class="line">D/===RxJavaSample==: TestActivity [ accept ] result=Hello RxJava</div><div class="line">D/===RxJavaSample==: TestActivity [ accept ] current thread is main</div></pre></td></tr></table></figure>
+<p>很明显了， Observable 是在子线程中发送事件， 而 Obserber 接收并处理事件是在 主线程中进行的。</p>
+<p>总结一下，</p>
+<ul>
+<li><code>subscribeOn()</code> <strong>用于指定 Observable 发送事件的线程。</strong></li>
+<li><code>obserberOn()</code> <strong>用于指定 Observer 接受并处理事件的线程。</strong></li>
+</ul>
+<p>关于两者多次使用的情况，做一下总结：</p>
+<ul>
+<li><code>subscribeOn()</code>：<strong>多次调用，只有第一次有效。</strong></li>
+<li><code>observerOn()</code>：<strong>每调用一次，下面的代码就会切换一次。</strong></li>
+</ul>
+<p>举个例子(使用了 lambda 表达式)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">      <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">      setContentView(R.layout.activity_test);</div><div class="line">      tv = findViewById(R.id.id_tv);</div><div class="line">	</div><div class="line">      Observable.create((ObservableOnSubscribe&lt;String&gt;) e -&gt; &#123;</div><div class="line">          LogUtil.d(TAG, <span class="string">"[ subscribe ] "</span> + <span class="string">"current thread is "</span> + Thread.currentThread().getName());</div><div class="line">          String token = getTokenFromServer();</div><div class="line">          LogUtil.d(TAG, <span class="string">"[ subscribe ] "</span> + <span class="string">"token:"</span> + token);</div><div class="line">          e.onNext(token);</div><div class="line">      &#125;)</div><div class="line">              .subscribeOn(Schedulers.io())<span class="comment">//第一次指定subscribe()在io线程</span></div><div class="line">              .subscribeOn(AndroidSchedulers.mainThread())<span class="comment">//第二次指定subscribe()的线程在主线程</span></div><div class="line">              .observeOn(Schedulers.io())<span class="comment">//指定下面map操作发生在io线程</span></div><div class="line">              .map(s -&gt; &#123;</div><div class="line">                  LogUtil.d(TAG, <span class="string">"[ apply ] "</span> + <span class="string">"current thread is "</span> + Thread.currentThread().getName());</div><div class="line">                  String playUrl = getPlayUrl(s);</div><div class="line">                  LogUtil.d(TAG, <span class="string">"[ apply ] "</span> + <span class="string">"play url is "</span> + playUrl);</div><div class="line">                  <span class="keyword">return</span> playUrl;</div><div class="line">	</div><div class="line">              &#125;)</div><div class="line">              .observeOn(AndroidSchedulers.mainThread())<span class="comment">//指定Observer接受事件是在主线程</span></div><div class="line">              .subscribe(s -&gt; &#123;</div><div class="line">                  LogUtil.d(TAG, <span class="string">"[ accept ] "</span> + <span class="string">"current thread is "</span> + Thread.currentThread().getName());</div><div class="line">                  LogUtil.d(TAG, <span class="string">"[ accept ] "</span> + <span class="string">"s="</span> + s);</div><div class="line">                  tv.setText(s);</div><div class="line">              &#125;);</div><div class="line">  &#125;</div><div class="line">	</div><div class="line">	</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getTokenFromServer</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">"token-123456"</span>;</div><div class="line">  &#125;</div><div class="line">	</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getPlayUrl</span><span class="params">(String token)</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">"api.xxxx.com?a=12&amp;b=34&amp;token="</span> + token;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="number">01</span>-<span class="number">07</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">51.191</span> <span class="number">12827</span>-<span class="number">12853</span>/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ subscribe ] current thread is RxCachedThreadScheduler-<span class="number">1</span></div><div class="line"><span class="number">01</span>-<span class="number">07</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">51.191</span> <span class="number">12827</span>-<span class="number">12853</span>/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ subscribe ] token:token-<span class="number">123456</span></div><div class="line"><span class="number">01</span>-<span class="number">07</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">51.191</span> <span class="number">12827</span>-<span class="number">12854</span>/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ apply ] current thread is RxCachedThreadScheduler-<span class="number">2</span></div><div class="line"><span class="number">01</span>-<span class="number">07</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">51.191</span> <span class="number">12827</span>-<span class="number">12854</span>/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ apply ] play url is api.xxxx.com?a=<span class="number">12</span>&amp;b=<span class="number">34</span>&amp;token=token-<span class="number">123456</span></div><div class="line"><span class="number">01</span>-<span class="number">07</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">51.351</span> <span class="number">12827</span>-<span class="number">12827</span>/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ accept ] current thread is main</div><div class="line"><span class="number">01</span>-<span class="number">07</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">51.351</span> <span class="number">12827</span>-<span class="number">12827</span>/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ accept ] s=api.xxxx.com?a=<span class="number">12</span>&amp;b=<span class="number">34</span>&amp;token=token-<span class="number">123456</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>可以看到在第二次调用 subscribeOn(AndroidSchedulers.mainThread()) 并没有起作用，拿 token 的操作仍然是在 io 线程执行的。</p>
+</li>
+<li><p>而第一次调用 observeOn(Schedulers.io()) 之后，后面的 map 操作用 token 去拿 url 地址这个过程是在 io 线程执行的。</p>
+</li>
+<li><p>在第二次调用 observeOn(AndroidSchedulers.mainThread()) 之后，将 url 地址显示在 TextView 这个过程是在 主线程中执行的。</p>
+</li>
+</ul>
+<h1 id="变换操作符"><a href="#变换操作符" class="headerlink" title="变换操作符"></a>变换操作符</h1><p>在 <a href="http://zengfanyu.top/2018/01/06/RxJava2/">只因为在众多框架中多看了你一眼 RxJava （二） 从概念上理解 RxJava</a> 这篇中举了一个过滤的例子，那么我理解的 RxJava 的变换操作，就类似于过滤过程，“过滤” 就是这个变换，但是变换不仅仅包含过滤。下面记录一些常用的操作符。</p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>map 就是对 Observable 发出的每一个事件，都施加一个函数，使得每一个事件都按照指定的函数去变化，Observer 接收到的事件就是经过函数变化后的。</p>
+<p>官方图：</p>
+<p><img src="https://i.imgur.com/qqxZRN3.png" alt=""></p>
+<p>用代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line">    .map(<span class="keyword">new</span> Function&lt;Integer, Integer&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Integer <span class="title">apply</span><span class="params">(@NonNull Integer integer)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">            <span class="keyword">return</span> integer*<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .subscribe(<span class="keyword">new</span> Consumer&lt;Integer&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(@NonNull Integer s)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">            LogUtil.d(TAG,<span class="string">"[accept] "</span> + <span class="string">"after map s:"</span>+s);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<p>从上面的代码和示意图能看出来， <strong>map 操作符是一种一对一的关系</strong>。</p>
+<h2 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a>flatMap</h2><p>这个操作符通过例子来理解：</p>
+<blockquote>
+<p>需求：打印出每一个学生所选修的课程，一个学生不止选修一门课程。</p>
+</blockquote>
+<p>学生和课程的数据结构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>: fanyuzeng on 2018/1/8 10:22</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String mName;</div><div class="line">    <span class="keyword">private</span> List&lt;Course&gt;mCourses;</div><div class="line"></div><div class="line">    <span class="comment">//getter setter</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>: fanyuzeng on 2018/1/8 10:35</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Course</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String courseName;</div><div class="line"></div><div class="line">	<span class="comment">//getter setter</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>常规写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Observable.fromIterable(mStudentList)</div><div class="line">        .subscribe(<span class="keyword">new</span> Consumer&lt;Student&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(@NonNull Student student)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                <span class="keyword">for</span> (Course course : student.getCourses()) &#123;</div><div class="line">                    LogUtil.d(TAG, <span class="string">"[accept] "</span> + course.toString());</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<p>mStudentList 中，xiaoming1 选修 yuwen1、yuwen2;xiaoming2 选修 yuwen3、yuwen4;xiaoming3 选修 yuwen5、yuwen6;</p>
+<p>上述代码没报名，可以打印出每一个学生的选修课程，但是这对代码的复用性不高，我们希望的是在 Consumer 的 accept() 当中传入的参数就是一个一个的 Course 对象。</p>
+<p>这个时候就要靠 flatMap 了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Observable.fromIterable(mStudentList)</div><div class="line">        .flatMap(<span class="keyword">new</span> Function&lt;Student, ObservableSource&lt;Course&gt;&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> ObservableSource&lt;Course&gt; <span class="title">apply</span><span class="params">(@NonNull Student student)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line"></div><div class="line">                <span class="keyword">return</span> Observable.fromIterable(student.getCourses());</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">        .subscribe(<span class="keyword">new</span> Consumer&lt;Course&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(@NonNull Course course)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                LogUtil.d(TAG, <span class="string">"[accept] "</span> + course);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<p>flatMap 将原始 Observable 发送的事件构造成多个 Observable 对象，然后将他们发送的事件整合到另外的一个单独的 Observable 中。</p>
+<p>官方解释图：</p>
+<p><img src="https://i.imgur.com/VuAsIkS.png" alt=""></p>
+<p>扔物线的解释图：</p>
+<p><img src="http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rx4i8da2j20hg0dydgx.jpg" alt=""></p>
+<p>还有一种图，很形象：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1008453-2ccce5cf25e8023a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/647" alt=""></p>
+<p>flatMap 的原理：</p>
+<ol>
+<li>使用传入的事件对象创建一个 Observable 对象；</li>
+<li>并不发送这个 Observable, 而是将它激活，于是它开始发送事件；</li>
+<li>每一个创建出来的 Observable 发送的事件，都被汇入同一个 Observable ，而这个 Observable 负责将这些事件统一交给 Subscriber 的回调方法。</li>
+</ol>
+<p>这三个步骤，把事件拆成了两级，通过一组新创建的 Observable 将初始的对象<strong>「铺平」</strong>之后通过统一路径分发了下去。而这个「铺平」就是 flatMap() 所谓的 flat。</p>
+<p>可以看得出来上面的示意图能看出来，<strong>flatMap 并不能保证事件的顺序，要想保证顺序，则用 ConcatMap</strong>。</p>
+<p>从上面的代码和示意图能看出来， <strong>flatMap 操作符是一种一对多的关系</strong>。</p>
+<h3 id="flatMap-拓展"><a href="#flatMap-拓展" class="headerlink" title="flatMap 拓展"></a>flatMap 拓展</h3><p>传统的嵌套请求是需要嵌套回调机制来实现的，但是使用 flatMap 就可以把请求写在一条链中，使逻辑清晰，这也可以体现它的优势吧：随着程序逻辑越来越复杂，它仍然能保持简洁。</p>
+<p>假设存在两个 Retrofit 接口， 一个用于注册，一个用于登录：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Api</span> </span>&#123;</div><div class="line">    <span class="meta">@GET</span></div><div class="line">    <span class="function">Observable&lt;LoginResponse&gt; <span class="title">login</span><span class="params">(@Body LoginRequest request)</span></span>;</div><div class="line"></div><div class="line">    <span class="meta">@GET</span></div><div class="line">    <span class="function">Observable&lt;RegisterResponse&gt; <span class="title">register</span><span class="params">(@Body RegisterRequest request)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>(这里涉及到Rxjava + Retrofit 的使用)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">api.register(<span class="keyword">new</span> RegisterRequest())            <span class="comment">//发起注册请求</span></div><div class="line">    .subscribeOn(Schedulers.io())               <span class="comment">//在IO线程进行网络请求</span></div><div class="line">    .observeOn(AndroidSchedulers.mainThread())  <span class="comment">//回到主线程去处理请求注册结果</span></div><div class="line">    .doOnNext(<span class="keyword">new</span> Consumer&lt;RegisterResponse&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(RegisterResponse registerResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">            <span class="comment">//先根据注册的响应结果去做一些操作</span></div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .observeOn(Schedulers.io())                 <span class="comment">//回到IO线程去发起登录请求</span></div><div class="line">    .flatMap(<span class="keyword">new</span> Function&lt;RegisterResponse, ObservableSource&lt;LoginResponse&gt;&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> ObservableSource&lt;LoginResponse&gt; <span class="title">apply</span><span class="params">(RegisterResponse registerResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">            <span class="keyword">return</span> api.login(<span class="keyword">new</span> LoginRequest());</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .observeOn(AndroidSchedulers.mainThread())  <span class="comment">//回到主线程去处理请求登录的结果</span></div><div class="line">    .subscribe(<span class="keyword">new</span> Consumer&lt;LoginResponse&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(LoginResponse loginResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">            Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="string">"登录成功"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="keyword">new</span> Consumer&lt;Throwable&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Throwable throwable)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">            Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="string">"登录失败"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">        &#125;</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<h2 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h2><p>concat 操作符用于链接多个事件，只有当前面一个事件<strong>结束</strong>之后，才会发送后面的事件。</p>
+<p>官方图：</p>
+<p><img src="https://i.imgur.com/k64tmTR.png" alt=""></p>
+<p>我们获取网络数据的时候，经常会在本地缓存一份，然后在下一次获取数据的时候，会先从缓存中去拿数据，如果拿到了数据就直接返回，如果没有拿到数据，再去请求网络获取数据。</p>
+<p>这样的需求就十分适合使用 concat 操作符来完成。</p>
+<ul>
+<li>从缓存中拿数据的 Observable</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//从缓存获取数据</span></div><div class="line">Observable&lt;FidResponseBean&gt; getCacheDataObservable = Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;FidResponseBean&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ObservableEmitter&lt;FidResponseBean&gt; e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LogUtil.d(TAG, <span class="string">"[ subscribe ] "</span> + <span class="string">"current thread:"</span> + Thread.currentThread().getName());</div><div class="line">		<span class="comment">//尝试从缓存弄中拿数据</span></div><div class="line">        FidResponseBean cacheData = CacheManager.getInstance().getCache(Network.fid);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (cacheData != <span class="keyword">null</span>) &#123;</div><div class="line">            isFromNet = <span class="keyword">false</span>;</div><div class="line">            LogUtil.d(TAG, <span class="string">"[ subscribe ] "</span> + <span class="string">"data from cache"</span>);</div><div class="line">            runOnUiThread(() -&gt; tv.setText(<span class="string">"data from: cahce"</span>));</div><div class="line">			<span class="comment">//调用 onNext 方法不会触发下一个 Observable</span></div><div class="line">            e.onNext(cacheData);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            isFromNet = <span class="keyword">true</span>;</div><div class="line">            LogUtil.d(TAG, <span class="string">"[ subscribe ] "</span> + <span class="string">"data from net"</span>);</div><div class="line">            runOnUiThread(() -&gt; tv.setText(<span class="string">"data from: net"</span>));</div><div class="line">            <span class="comment">//只有调用 onComplete 之后，才会执行下一个 Observable</span></div><div class="line">            e.onComplete();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>从网络拿数据的 Observable</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//从网络获取数据</span></div><div class="line">Observable&lt;FidResponseBean&gt; getNetDataObservable = Network.getFidApi().getFidInfo(</div><div class="line">        Network.name,</div><div class="line">        Network.length,</div><div class="line">        Network.ppfeature);</div></pre></td></tr></table></figure>
+<p>其中 Network 是封装好的 Retrofit 工具。</p>
+<p>API：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FidApi</span> </span>&#123;</div><div class="line">    <span class="meta">@GET</span>(<span class="string">"uploadtest/uptoken"</span>)</div><div class="line">    <span class="function">Observable&lt;FidResponseBean&gt; <span class="title">getFidInfo</span><span class="params">(@Query(<span class="string">"name"</span>)</span> String name,</span></div><div class="line"><span class="function">                                           @<span class="title">Query</span><span class="params">(<span class="string">"length"</span>)</span> String length,</span></div><div class="line"><span class="function">                                           @<span class="title">Query</span><span class="params">(<span class="string">"ppfeature"</span>)</span>String ppfeature)</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用 concat 操作符。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Observable.concat(getCacheDataObservable, getNetDataObservable)</div><div class="line">        .subscribeOn(Schedulers.io())</div><div class="line">        .observeOn(AndroidSchedulers.mainThread())</div><div class="line">        .subscribe(<span class="keyword">new</span> Consumer&lt;FidResponseBean&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(@NonNull FidResponseBean fidResponseBean)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                LogUtil.d(TAG, <span class="string">"[ accept ] "</span> + <span class="string">"subscribe success thread:"</span> + Thread.currentThread().getName());</div><div class="line"></div><div class="line">                show.setText(String.format(<span class="string">"data: %s"</span>, fidResponseBean.toString()));</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (isFromNet) &#123;</div><div class="line">					<span class="comment">//缓存</span></div><div class="line">                    CacheManager.getInstance().putCache(fidResponseBean);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="keyword">new</span> Consumer&lt;Throwable&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(@NonNull Throwable throwable)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                LogUtil.d(TAG, <span class="string">"[ accept ] "</span> + <span class="string">"subscribe fail thread:"</span> + Thread.currentThread().getName() + <span class="string">"\n"</span> +</div><div class="line">                        <span class="string">"e:"</span> + throwable.toString());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//没有缓存的时候</div><div class="line">01-20 13:58:56.774 6750-7543/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ subscribe ] current thread:RxCachedThreadScheduler-1</div><div class="line">01-20 13:58:56.775 6750-7543/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ subscribe ] data from net</div><div class="line">01-20 13:58:57.491 6750-6750/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ accept ] subscribe success thread:main</div><div class="line"></div><div class="line">//有缓存的时候</div><div class="line">01-20 14:06:32.625 6750-14144/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ subscribe ] current thread:RxCachedThreadScheduler-2</div><div class="line">01-20 14:06:32.625 6750-14144/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ subscribe ] data from cache</div><div class="line">01-20 14:06:32.627 6750-6750/com.rengwuxian.rxjavasamples D/===RxJavaSample==: TestActivity [ accept ] subscribe success thread:main</div></pre></td></tr></table></figure>
+<p>除了上面列举的 map flatMap concat 之外，还有很多高效的操作符，比如 zip ，这里就不一一记录了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RxJava/" rel="tag"># RxJava</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/06/RxJava3/" rel="next" title="只因为在众多框架中多看了你一眼 RxJava （三） RxJava 最基础的使用">
+                <i class="fa fa-chevron-left"></i> 只因为在众多框架中多看了你一眼 RxJava （三） RxJava 最基础的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/20/SQLiteException/" rel="prev" title="SQLite IllegalStateException 的非正常 bug 修复">
+                SQLite IllegalStateException 的非正常 bug 修复 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_z.jpg"
+                alt="BIGZ" />
+            
+              <p class="site-author-name" itemprop="name">BIGZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zengfanyu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zengfanyunb@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#调度器（Scheduler）"><span class="nav-number">1.</span> <span class="nav-text">调度器（Scheduler）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scheduler-的种类"><span class="nav-number">1.1.</span> <span class="nav-text">Scheduler 的种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scheduler-的使用"><span class="nav-number">1.2.</span> <span class="nav-text">Scheduler 的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变换操作符"><span class="nav-number">2.</span> <span class="nav-text">变换操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#map"><span class="nav-number">2.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flatMap"><span class="nav-number">2.2.</span> <span class="nav-text">flatMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flatMap-拓展"><span class="nav-number">2.2.1.</span> <span class="nav-text">flatMap 拓展</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat"><span class="nav-number">2.3.</span> <span class="nav-text">concat</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BIGZ</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Every little makes a mickel</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("YbNmOD8tolbrONHtHJyWdEq7-gzGzoHsz", "PTVGwiHfE44yKqqU8xYjhJOJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
