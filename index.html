@@ -354,10 +354,11 @@
 
       
         
-          
-          摘要：最近部门在做一个基于 WebRTC 的视频会议系统，其中 Android 端代码需要连接三个服务器，分别是 RoomServer、MessageServer、MediaServer。
-其中 RoomServer 用于处理 client 请求（创建房间、发布视频等），并且将 MediaServe
-          ...
+          <p><img src="https://www.pubnub.com/wp-content/uploads/2014/09/WebSockets-Diagram.png" alt=""></p>
+<p>摘要：最近部门在做一个基于 WebRTC 的视频会议系统，其中 Android 端代码需要连接三个服务器，分别是 RoomServer、MessageServer、MediaServer。</p>
+<p>RoomServer 用于处理 client 请求（创建房间、发布视频等），并且将 MediaServer 的最新消息通过 MessageServer 推送至 client。</p>
+<p>client 和 RoomServer 之间使用 http 连接实现；既然 client 需要接受 MessageServer 的消息推送，那么用 HTTP 明显是不能完成的，所以 client 到 MessageServer 之间使用了 WebSocket，用于保持长连接，这样 client 和 MessageServer 都可以主动发送消息； client 和 MediaServer 之间使用了 SocketIO，这样信令通道也是全双工的工作类型。</p>
+<p>其中涉及到的 HTTP、WebSocket、SocketIO 的，一顿 google 之后，搞清楚了三者之间的关系，这里记录做下记录。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/02/03/WebSocket_Socket_HTTP_SocketIO/#more" rel="contents">
