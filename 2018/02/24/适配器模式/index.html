@@ -81,24 +81,22 @@
 
 
 
-<meta name="description" content="问题引入日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：  有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 适配器模式。 对象适配器模式概述与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包">
 <meta name="keywords" content="Design Patterns">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一口一口啃完Java中的24种设计模式---适配器模式">
 <meta property="og:url" content="http://zengfanyu.top/2018/02/24/适配器模式/index.html">
 <meta property="og:site_name" content="CODE FRAMER BIGZ">
-<meta property="og:description" content="问题引入日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：  有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 适配器模式。 对象适配器模式概述与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/NSZhu74.png">
 <meta property="og:image" content="http://wiki.jikexueyuan.com/project/design-pattern-structurized/images/1362066387_9870.jpg">
 <meta property="og:image" content="https://i.imgur.com/BG0x751.png">
 <meta property="og:image" content="https://i.imgur.com/Kw3iplh.png">
 <meta property="og:image" content="https://i.imgur.com/8x1Uzph.png">
 <meta property="og:image" content="https://i.imgur.com/hS9XFYl.png">
-<meta property="og:updated_time" content="2018-02-28T13:57:19.625Z">
+<meta property="og:updated_time" content="2018-02-28T14:01:55.171Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一口一口啃完Java中的24种设计模式---适配器模式">
-<meta name="twitter:description" content="问题引入日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：  有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 适配器模式。 对象适配器模式概述与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包">
-<meta name="twitter:image" content="http://wiki.jikexueyuan.com/project/design-pattern-structurized/images/1362066387_9870.jpg">
+<meta name="twitter:image" content="https://i.imgur.com/NSZhu74.png">
 
 
 
@@ -361,7 +359,8 @@
       
 
       
-        <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：</p>
+        <p><img src="https://i.imgur.com/NSZhu74.png" alt=""><br><a id="more"></a><br>&gt;</p>
+<h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：</p>
 <p><img src="http://wiki.jikexueyuan.com/project/design-pattern-structurized/images/1362066387_9870.jpg" alt="电源适配器"></p>
 <p>有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 <strong>适配器模式</strong>。</p>
 <h1 id="对象适配器模式概述"><a href="#对象适配器模式概述" class="headerlink" title="对象适配器模式概述"></a>对象适配器模式概述</h1><p>与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包装的对象叫做适配者（Adaptee），即被适配的类。适配器的实现就是把客户类的请求转化为对适配者的相应接口的调用。也就是说：当客户类调用适配器的方法时，在适配器类的内部将调用适配者类的方法，而这个过程对客户类是透明的，客户类并不直接访问适配者类。因此，适配器让那些由于接口不兼容而不能交互的类可以一起工作。</p>
