@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Design Patterns," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CODE FRAMER BIGZ" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="问题引入日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：  有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 适配器模式。 对象适配器模式概述与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包">
+<meta name="keywords" content="Design Patterns">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一口一口啃完Java中的24种设计模式---适配器模式">
+<meta property="og:url" content="http://zengfanyu.top/2018/02/24/适配器模式/index.html">
+<meta property="og:site_name" content="CODE FRAMER BIGZ">
+<meta property="og:description" content="问题引入日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：  有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 适配器模式。 对象适配器模式概述与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://wiki.jikexueyuan.com/project/design-pattern-structurized/images/1362066387_9870.jpg">
+<meta property="og:image" content="https://i.imgur.com/BG0x751.png">
+<meta property="og:image" content="https://i.imgur.com/Kw3iplh.png">
+<meta property="og:image" content="https://i.imgur.com/8x1Uzph.png">
+<meta property="og:image" content="https://i.imgur.com/hS9XFYl.png">
+<meta property="og:updated_time" content="2018-02-28T13:57:19.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一口一口啃完Java中的24种设计模式---适配器模式">
+<meta name="twitter:description" content="问题引入日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：  有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 适配器模式。 对象适配器模式概述与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包">
+<meta name="twitter:image" content="http://wiki.jikexueyuan.com/project/design-pattern-structurized/images/1362066387_9870.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2018/02/24/适配器模式/"/>
+
+
+
+
+
+  <title>一口一口啃完Java中的24种设计模式---适配器模式 | CODE FRAMER BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE FRAMER BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2018/02/24/适配器模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BIGZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_z.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE FRAMER BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一口一口啃完Java中的24种设计模式---适配器模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-24T14:36:16+08:00">
+                2018-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Patterns/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Patterns</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/24/适配器模式/" class="leancloud_visitors" data-flag-title="一口一口啃完Java中的24种设计模式---适配器模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>日常使用的笔记本的工作电压为 20v ，但是我国家庭用电的电压为 220V ，为了让笔记本电脑可以在国内所有的插座上充电使用，这里就会引入一个电源适配器，如图：</p>
+<p><img src="http://wiki.jikexueyuan.com/project/design-pattern-structurized/images/1362066387_9870.jpg" alt="电源适配器"></p>
+<p>有了这个电源适配器之后，生活用电和笔记本电脑用电的电压就可以兼容。这里体现出来的设计模式就是 <strong>适配器模式</strong>。</p>
+<h1 id="对象适配器模式概述"><a href="#对象适配器模式概述" class="headerlink" title="对象适配器模式概述"></a>对象适配器模式概述</h1><p>与笔记本电脑的电源适配器类似，在适配器模式中引入了一个被称为适配器（Adapter）的包装类，而它所包装的对象叫做适配者（Adaptee），即被适配的类。适配器的实现就是把客户类的请求转化为对适配者的相应接口的调用。也就是说：当客户类调用适配器的方法时，在适配器类的内部将调用适配者类的方法，而这个过程对客户类是透明的，客户类并不直接访问适配者类。因此，适配器让那些由于接口不兼容而不能交互的类可以一起工作。</p>
+<blockquote>
+<p>【注：在适配器模式定义中所提及的 <strong>接口</strong> 是指广义的接口，它可以表示一个方法或者方法的集合。】</p>
+</blockquote>
+<p>在适配器模式中，我们通过新增一个适配器类来解决接口不兼容的问题，使原本没有任何关系的类可以协同使用。</p>
+<p>适配器模式有两种实现方式，这里先说其中一种，<strong>对象适配器模式</strong>，UML 图：</p>
+<p><img src="https://i.imgur.com/BG0x751.png" alt=""></p>
+<p>在对象适配器模式结构图中包含如下几个角色：</p>
+<ul>
+<li><p>Target（目标抽象类）：目标抽象类定义客户所需接口，可以是一个抽象类或接口，也可以是具体类。</p>
+</li>
+<li><p>Adapter（适配器类）：适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个Adaptee对象使二者产生联系。</p>
+</li>
+<li><p>Adaptee（适配者类）：适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可能没有适配者类的源代码。</p>
+</li>
+</ul>
+<p>根据对象适配器模式结构图，在对象适配器中，客户端需要调用 request() 方法，而适配者类 Adaptee 没有该方法，但是它所提供的 specificRequest() 方法却是客户端所需要的。为了使客户端能够使用适配者类，需要提供一个包装类 Adapter，即适配器类。这个包装类包装了一个适配者的实例，从而将客户端与适配者衔接起来，在适配器的 request() 方法中调用适配者的 specificRequest() 方法。因为适配器类与适配者类是关联关系（也可称之为委派关系），所以这种适配器模式称为对象适配器模式。</p>
+<h1 id="没有源码的算法库的适配器解决方案"><a href="#没有源码的算法库的适配器解决方案" class="headerlink" title="没有源码的算法库的适配器解决方案"></a>没有源码的算法库的适配器解决方案</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><blockquote>
+<p>背景：某公司之前开发过一个算法库，其中包括常用的算法，例如查找算法、排序算法等，在进行各类软件开发时经常会用到这个算法库。在为某学校开发教务管理系统时，开发人员发现需要对学生成绩进行排序和查找，该系统的设计人员已经开发了一个成绩操作接口 ScoreOperation，在该接口中声明了排序方法 sort(int[]) 和查找方法 search(int[], int)，为了提高排序和查找的效率，开发人员决定重用算法库中的快速排序算法类 QuickSort 和二分查找算法类 BinarySearch，其中 QuickSort 的 quickSort(int[]) 方法实现了快速排序，BinarySearch 的 binarySearch (int[], int) 方法实现了二分查找。</p>
+<p>但由于某些原因，开发人员现在找不到该算法库的源码，不能通过复制粘贴的方式去实现 ScoreOperation 中的方法，并且部分开发人员已经针对 ScoreOperation 的接口进行了编程，如果再要求对该接口进行修改或要求大家直接使用 QuickSort 类和 BinarySearch 类将导致大量代码需要修改。</p>
+</blockquote>
+<p>现在的问题就是：如何在既不修改现有接口又不需要任何算法库代码的基础上能够实现算法库的重用？</p>
+<p>因为 ScoreOperation 接口已经确定，并且基于该接口已经进行了后续的开发了，所以这个接口肯定是不能修改的，而算法库已经引用到各类软件中，修改算法库的代价太大也没有必要，这是就要可以引入一个适配器 Adapter， 将算法库的接口适配成 ScoreOperation 的接口。</p>
+<h2 id="UML-图"><a href="#UML-图" class="headerlink" title="UML 图"></a>UML 图</h2><p>结合上述对适配器模式的讲解，这个问题很符合适配器模式可以解决范围，UML 结构图如下：</p>
+<p><img src="https://i.imgur.com/Kw3iplh.png" alt=""></p>
+<h2 id="编码实现"><a href="#编码实现" class="headerlink" title="编码实现"></a>编码实现</h2><h3 id="target"><a href="#target" class="headerlink" title="target"></a>target</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 成绩操作接口</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>: fanyuzeng on 2018/2/24 11:14</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ScoreOperation</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 对成绩进行排序</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> array 成绩数组</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> 排序过后的成绩数组</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array);</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 查找某一特定成绩</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> array 成绩数组</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> key   特定成绩</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> 若成绩数据中存在该特定成绩，则返回该特定成绩在成绩数组中的索引，否则返回 -1</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> key)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="adaptee"><a href="#adaptee" class="headerlink" title="adaptee"></a>adaptee</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 快速排序工具类</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>: fanyuzeng on 2018/2/24 11:18</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuickSort</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] quickSort(<span class="keyword">int</span> array[]) &#123;</div><div class="line">        sort(array, <span class="number">0</span>, array.length - <span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> array;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> array[], <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> q = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span> (p &lt; r) &#123;</div><div class="line">            q = partition(array, p, r);</div><div class="line">            sort(array, p, q - <span class="number">1</span>);</div><div class="line">            sort(array, q + <span class="number">1</span>, r);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> x = a[r];</div><div class="line">        <span class="keyword">int</span> j = p - <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = p; i &lt;= r - <span class="number">1</span>; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (a[i] &lt;= x) &#123;</div><div class="line">                j++;</div><div class="line">                swap(a, j, i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        swap(a, j + <span class="number">1</span>, r);</div><div class="line">        <span class="keyword">return</span> j + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> t = a[i];</div><div class="line">        a[i] = a[j];</div><div class="line">        a[j] = t;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 二分查找工具类</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>: fanyuzeng on 2018/2/24 11:18</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySearch</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span> array[], <span class="keyword">int</span> key)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> low = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> high = array.length - <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</div><div class="line">            <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">int</span> midVal = array[mid];</div><div class="line">            <span class="keyword">if</span> (midVal &lt; key) &#123;</div><div class="line">                low = mid + <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (midVal &gt; key) &#123;</div><div class="line">                high = mid - <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> mid; <span class="comment">//找到元素返回索引</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;  <span class="comment">//未找到元素返回-1</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="adapter"><a href="#adapter" class="headerlink" title="adapter"></a>adapter</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>: fanyuzeng on 2018/2/24 11:22</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OperationAdapter</span> <span class="keyword">implements</span> <span class="title">ScoreOperation</span> </span>&#123;</div><div class="line">    <span class="comment">//适配者</span></div><div class="line">    <span class="keyword">private</span> BinarySearch mBinarySearch;</div><div class="line">    <span class="comment">//适配者</span></div><div class="line">    <span class="keyword">private</span> QuickSort mQuickSort;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OperationAdapter</span><span class="params">()</span> </span>&#123;</div><div class="line">        mBinarySearch = <span class="keyword">new</span> BinarySearch();</div><div class="line">        mQuickSort = <span class="keyword">new</span> QuickSort();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array) &#123;</div><div class="line">        <span class="comment">//调用适配者的快排方法</span></div><div class="line">        <span class="keyword">return</span> mQuickSort.quickSort(array);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> key)</span> </span>&#123;</div><div class="line">        <span class="comment">//调用适配者的二分查找方法</span></div><div class="line">        <span class="keyword">return</span> mBinarySearch.binarySearch(array, key);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="client"><a href="#client" class="headerlink" title="client"></a>client</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span>: fanyuzeng on 2018/2/24 11:23</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        ScoreOperation operation;  <span class="comment">//针对抽象目标接口编程</span></div><div class="line">        operation = <span class="keyword">new</span> OperationAdapter();</div><div class="line">        <span class="keyword">int</span> scores[] = &#123;<span class="number">84</span>, <span class="number">76</span>, <span class="number">50</span>, <span class="number">69</span>, <span class="number">90</span>, <span class="number">91</span>, <span class="number">88</span>, <span class="number">96</span>&#125;; <span class="comment">//定义成绩数组</span></div><div class="line">        <span class="keyword">int</span> result[];</div><div class="line">        <span class="keyword">int</span> index;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"成绩排序结果："</span>);</div><div class="line">        result = operation.sort(scores);</div><div class="line"></div><div class="line">        <span class="comment">//遍历输出成绩</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : scores) &#123;</div><div class="line">            System.out.print(i + <span class="string">","</span>);</div><div class="line">        &#125;</div><div class="line">        System.out.println();</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"查找成绩90："</span>);</div><div class="line">        index = operation.search(result, <span class="number">90</span>);</div><div class="line">        <span class="keyword">if</span> (index != -<span class="number">1</span>) &#123;</div><div class="line">            System.out.println(<span class="string">"找到成绩90。在数组中的所因为："</span> + index);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            System.out.println(<span class="string">"没有找到成绩90。"</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"查找成绩92："</span>);</div><div class="line">        index = operation.search(result, <span class="number">92</span>);</div><div class="line">        <span class="keyword">if</span> (index != -<span class="number">1</span>) &#123;</div><div class="line">            System.out.println(<span class="string">"找到成绩92。在数组中的所因为："</span> + index);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            System.out.println(<span class="string">"没有找到成绩92。"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出为：</p>
+<pre><code>成绩排序结果：
+50,69,76,84,88,90,91,96,
+查找成绩90：
+找到成绩90。
+查找成绩92：
+没有找到成绩92。
+</code></pre><h1 id="类适配器模式"><a href="#类适配器模式" class="headerlink" title="类适配器模式"></a>类适配器模式</h1><p>除了对象适配器模式之外，适配器模式还有一种形式，那就是 <strong>类适配器模式</strong>，类适配器模式和对象适配器模式最大的区别在于适配器和适配者之间的关系不同，对象适配器模式中适配器和适配者之间是<strong>关联</strong>关系，而类适配器模式中适配器和适配者是<strong>继承</strong>关系，类适配器模式结构如图所示：</p>
+<p><img src="https://i.imgur.com/8x1Uzph.png" alt=""></p>
+<p>典型代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">calss Adapter imlements Target extends Adaptee&#123;</div><div class="line">    <span class="meta">@override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>&#123;</div><div class="line">        specificRequest();</div><div class="line">    &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于 Java、C# 等语言不支持多重类继承，因此类适配器的使用受到很多限制，例如如果目标抽象类 Target 不是接口，而是一个类，就无法使用类适配器；此外，如果适配者 Adapter 为最终（Final）类，也无法使用类适配器。在 Java 等面向对象编程语言中，大部分情况下我们使用的是对象适配器，<strong>类适配器较少使用</strong>。</p>
+<h1 id="缺省适配器"><a href="#缺省适配器" class="headerlink" title="缺省适配器"></a>缺省适配器</h1><p>缺省适配器模式是适配器模式的一种变体，其应用也较为广泛。缺省适配器模式的定义如下： 缺省适配器模式(Default Adapter Pattern)：当不需要实现一个接口所提供的所有方法时，可先设计一个抽象类实现该接口，并为接口中每个方法提供一个<strong>默认实现（空方法）</strong>，那么该抽象类的子类可以<strong>选择性地覆盖</strong>父类的某些方法来实现需求，它适用于不想使用一个接口中的所有方法的情况，又称为单接口适配器模式。UML 图如下：</p>
+<p><img src="https://i.imgur.com/hS9XFYl.png" alt=""></p>
+<p>在缺省适配器模式中，包含如下三个角色：</p>
+<ul>
+<li><p>ServiceInterface（适配者接口）：它是一个接口，通常在该接口中声明了大量的方法。</p>
+</li>
+<li><p>AbstractServiceClass（缺省适配器类）：它是缺省适配器模式的核心类，使用空方法的形式实现了在 ServiceInterface 接口中声明的方法。通常将它定义为抽象类，因为对它进行实例化没有任何意义。</p>
+</li>
+<li><p>ConcreteServiceClass（具体业务类）：它是缺省适配器类的子类，在没有引入适配器之前，它需要实现适配者接口，因此需要实现在适配者接口中定义的所有方法，而对于一些无须使用的方法也不得不提供空实现。在有了缺省适配器之后，可以直接继承该适配器类，根据需要有选择性地覆盖在适配器类中定义的方法。</p>
+</li>
+</ul>
+<p>在 JDK 类库的事件处理包 java.awt.event 中广泛使用了缺省适配器模式，如 WindowAdapter、KeyAdapter、MouseAdapter 等。下面我们以处理窗口事件为例来进行说明：在 Java 语言中，一般我们可以使用两种方式来实现窗口事件处理类，<strong>一种是通过实现 WindowListener 接口，另一种是通过继承 WindowAdapter 适配器类</strong>。</p>
+<p>如果是使用第一种方式，直接实现 WindowListener 接口，事件处理类需要实现在该接口中定义的七个方法，而对于大部分需求可能只需要实现一两个方法，其他方法都无须实现，但由于语言特性我们不得不为其他方法也提供一个简单的实现（通常是空实现），这给使用带来了麻烦。</p>
+<p>而使用缺省适配器模式就可以很好地解决这一问题，在 JDK 中提供了一个适配器类 WindowAdapter 来实现 WindowListener 接口，该适配器类为接口中的每一个方法都提供了一个空实现，此时事件处理类可以继承 WindowAdapter 类，而无须再为接口中的每个方法都提供实现。</p>
+<h1 id="适配器模式总结"><a href="#适配器模式总结" class="headerlink" title="适配器模式总结"></a>适配器模式总结</h1><h2 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h2><p>无论是对象适配器模式还是类适配器模式都具有如下优点：</p>
+<p>(1) 将目标类和适配者类解耦，通过引入一个适配器类来重用现有的适配者类，无须修改原有结构。</p>
+<p>(2) 增加了类的透明性和复用性，将具体的业务实现过程封装在适配者类中，对于客户端类而言是透明的，而且提高了适配者的复用性，同一个适配者类可以在多个不同的系统中复用。</p>
+<p>(3) 灵活性和扩展性都非常好，通过使用配置文件，可以很方便地更换适配器，也可以在不修改原有代码的基础上增加新的适配器类，完全符合“开闭原则”。</p>
+<p>具体来说，类适配器模式还有如下优点：</p>
+<p>由于适配器类是适配者类的子类，因此可以在适配器类中置换一些适配者的方法，使得适配器的灵活性更强。</p>
+<p>对象适配器模式还有如下优点：</p>
+<p>(1) 一个对象适配器可以把多个不同的适配者适配到同一个目标；</p>
+<p>(2) 可以适配一个适配者的子类，由于适配器和适配者之间是关联关系，根据“里氏代换原则”，适配者的子类也可通过该适配器进行适配。</p>
+<h2 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h2><p>类适配器模式的缺点如下：</p>
+<p>(1) 对于 Java、C# 等不支持多重类继承的语言，一次最多只能适配一个适配者类，不能同时适配多个适配者；</p>
+<p>(2) 适配者类不能为最终类，如在 Java 中不能为 final 类，C# 中不能为 sealed 类；</p>
+<p>(3) 在 Java、C# 等语言中，类适配器模式中的目标抽象类只能为接口，不能为类，其使用有一定的局限性。</p>
+<p>对象适配器模式的缺点如下：</p>
+<p>与类适配器模式相比，要在适配器中置换适配者类的某些方法比较麻烦。如果一定要置换掉适配者类的一个或多个方法，可以先做一个适配者类的子类，将适配者类的方法置换掉，然后再把适配者类的子类当做真正的适配者进行适配，实现过程较为复杂。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>在以下情况下可以考虑使用适配器模式：</p>
+<p>(1) 系统需要使用一些现有的类，而这些类的接口（如方法名）不符合系统的需要，甚至没有这些类的源代码。</p>
+<p>(2) 想创建一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Design-Patterns/" rel="tag"># Design Patterns</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/24/RxJava5/" rel="next" title="只因为在众多框架中多看了你一眼 RxJava （五） 背压问题引入">
+                <i class="fa fa-chevron-left"></i> 只因为在众多框架中多看了你一眼 RxJava （五） 背压问题引入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/26/RxJava6/" rel="prev" title="只因为在众多框架中多看了你一眼 RxJava （六） 背压策略">
+                只因为在众多框架中多看了你一眼 RxJava （六） 背压策略 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_z.jpg"
+                alt="BIGZ" />
+            
+              <p class="site-author-name" itemprop="name">BIGZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zengfanyu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zengfanyunb@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象适配器模式概述"><span class="nav-number">2.</span> <span class="nav-text">对象适配器模式概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#没有源码的算法库的适配器解决方案"><span class="nav-number">3.</span> <span class="nav-text">没有源码的算法库的适配器解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">3.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML-图"><span class="nav-number">3.2.</span> <span class="nav-text">UML 图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码实现"><span class="nav-number">3.3.</span> <span class="nav-text">编码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#target"><span class="nav-number">3.3.1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#adaptee"><span class="nav-number">3.3.2.</span> <span class="nav-text">adaptee</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#adapter"><span class="nav-number">3.3.3.</span> <span class="nav-text">adapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client"><span class="nav-number">3.3.4.</span> <span class="nav-text">client</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类适配器模式"><span class="nav-number">4.</span> <span class="nav-text">类适配器模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缺省适配器"><span class="nav-number">5.</span> <span class="nav-text">缺省适配器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适配器模式总结"><span class="nav-number">6.</span> <span class="nav-text">适配器模式总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要优点"><span class="nav-number">6.1.</span> <span class="nav-text">主要优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要缺点"><span class="nav-number">6.2.</span> <span class="nav-text">主要缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用场景"><span class="nav-number">6.3.</span> <span class="nav-text">适用场景</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BIGZ</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Every little makes a mickel</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("YbNmOD8tolbrONHtHJyWdEq7-gzGzoHsz", "PTVGwiHfE44yKqqU8xYjhJOJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
