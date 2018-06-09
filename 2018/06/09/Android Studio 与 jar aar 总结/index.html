@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CODE FRAMER BIGZ" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Studio 中打 jar 包和 aar 包姿势总结">
+<meta property="og:url" content="http://zengfanyu.top/2018/06/09/Android Studio 与 jar aar 总结/index.html">
+<meta property="og:site_name" content="CODE FRAMER BIGZ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://techcrunch.com/wp-content/uploads/2017/02/android-studio-logo.png?w=1390&crop=1">
+<meta property="og:image" content="https://i.imgur.com/svRf0OA.png">
+<meta property="og:image" content="https://i.imgur.com/OR8qoL5.png">
+<meta property="og:image" content="https://i.imgur.com/59gqp5B.png">
+<meta property="og:image" content="https://i.imgur.com/n9hAgIs.png">
+<meta property="og:image" content="https://i.imgur.com/sETw4fs.png">
+<meta property="og:image" content="https://i.imgur.com/Slszuph.png">
+<meta property="og:image" content="https://i.imgur.com/1vdsH5E.png">
+<meta property="og:image" content="https://i.imgur.com/m7YmXCo.png">
+<meta property="og:updated_time" content="2018-06-09T02:30:05.835Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Studio 中打 jar 包和 aar 包姿势总结">
+<meta name="twitter:image" content="https://techcrunch.com/wp-content/uploads/2017/02/android-studio-logo.png?w=1390&crop=1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2018/06/09/Android Studio 与 jar aar 总结/"/>
+
+
+
+
+
+  <title>Android Studio 中打 jar 包和 aar 包姿势总结 | CODE FRAMER BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE FRAMER BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2018/06/09/Android Studio 与 jar aar 总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BIGZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_z.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE FRAMER BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Studio 中打 jar 包和 aar 包姿势总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+           
+             <span class="post-letters-count">
+              &nbsp; | &nbsp;
+           <span>2,550 字</span>
+               &nbsp; | &nbsp;
+           <span>10 min</span>
+            </span>
+           
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-09T10:28:16+08:00">
+                2018-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/09/Android Studio 与 jar aar 总结/" class="leancloud_visitors" data-flag-title="Android Studio 中打 jar 包和 aar 包姿势总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://techcrunch.com/wp-content/uploads/2017/02/android-studio-logo.png?w=1390&amp;crop=1" alt=""></p>
+<a id="more"></a>
+<font face="黑体">
+
+<p>好久没有写博客了，最近部门低延迟会议项目提测了新版本，这周六可以来公司看看书，写写博客。<br>前阵子的工作中，有件事情还是耗费了我很长的时间的，就是重新打包对外输出的 SDK，之前只是用过了解过 aar 和 jar ，但并不明白他们之间的关，问题列举：</p>
+<ul>
+<li>打的 jar 包中没有包含 libs 目录下引用的 jar 导致目标项目无法直接使用</li>
+<li>打的 aar 包引用了 maven 库，目标项目无法直接使用</li>
+</ul>
+<p>通过这篇博客，记录如何解决如下几个问题：</p>
+<ul>
+<li>在 Android Studio 中如何打 jar 包、使用 jar 包</li>
+<li>如何把 libs 目录下依赖的 jar 打进总的 jar 中</li>
+<li>如何修改 jar 包中的类</li>
+<li>如何在Android Studio 中打 aar 包、使用 aar 包</li>
+<li>解决 aar 中依赖的 maven 库在目标工程中无法使用的问题</li>
+</ul>
+<h1 id="Android-Studio-中打-jar-包"><a href="#Android-Studio-中打-jar-包" class="headerlink" title="Android Studio 中打 jar 包"></a>Android Studio 中打 jar 包</h1><p>总的来说，有两种方法，这两种方法的前提都是这个 module 的 gradle 文件使用 apply plugin: ‘com.android.library’</p>
+<h2 id="直接编译实现"><a href="#直接编译实现" class="headerlink" title="直接编译实现"></a>直接编译实现</h2><p>直接 Rebuild Project ，然后在以下目录中可以找到 Jar 包：</p>
+<p><img src="https://i.imgur.com/svRf0OA.png" alt=""></p>
+<p>图中红色框框中的 jar 包就是 media_upload 这个 moudle 的 jar 包。直接复制到其他 moudle 的 libs 文件夹下，然后进行相应的配置就可以使用。</p>
+<h2 id="通过-gradle-脚本实现"><a href="#通过-gradle-脚本实现" class="headerlink" title="通过 gradle 脚本实现"></a>通过 gradle 脚本实现</h2><p>首先将下面的 gradle 脚本添加到 media_upload moudle 的 gradle 文件中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">task <span class="title">makeJar</span><span class="params">(type: Jar)</span> </span>&#123;  </div><div class="line">       archiveName = <span class="string">'upload-sdk.jar'</span>  </div><div class="line">       from(<span class="string">'build/intermediates/classes/debug/'</span>)  </div><div class="line">       destinationDir = file(<span class="string">'build/lib'</span>)  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>makeJar： Task 的名字</li>
+<li>type: Jar：告诉 gradle 新建的 task对象从 Jar 基类派生。</li>
+<li>archiveName：生成 jar 包的名字</li>
+<li>from(‘build/intermediates/classes/debug/‘)：将此路径下所有 class 文件都打包到 jar 包内（这里是 debug 版本）</li>
+<li>destinationDir：生成 jar 包的目录</li>
+</ul>
+<p>然后到 gradle 窗口中，找到 media_upload moudle，然后在它下面的目录找到我们定义名字为 makeJar 的 task：</p>
+<p><img src="https://i.imgur.com/OR8qoL5.png" alt=""></p>
+<p>双击这个 task ，看到以下界面代表 task 执行成功：</p>
+<p><img src="https://i.imgur.com/59gqp5B.png" alt=""></p>
+<p>这样，生成的 jar 包的名字就是 upload-sdk ，存放于 build/lib 路径处，如下图：</p>
+<p><img src="https://i.imgur.com/n9hAgIs.png" alt=""></p>
+<p>这种打包方法虽然比较麻烦，有一个优点：假设 media_upload 这个 module 还依赖于其他的 jar 包（位于 libs 目录下），那么使用这种方法可以将 media_upload 依赖的其他 jar 包也一并打入总的 upload-sdk.jar 中。</p>
+<h2 id="将-libs-下的-jar-打到总的-jar-包下"><a href="#将-libs-下的-jar-打到总的-jar-包下" class="headerlink" title="将 libs 下的 jar 打到总的 jar 包下"></a>将 libs 下的 jar 打到总的 jar 包下</h2><p><img src="https://i.imgur.com/sETw4fs.png" alt=""></p>
+<p>从上图中可以看到， media_upload 这个 moudle 是依赖于 httpclient 和 okhttputils 这两个 jar 包的，如果直接使用上面的第一种方法，直接编译，这两个 jar 是不会被打进总的 jar 中的；而使用第二种 gradle 脚本的方式，就可以实现，但是 gradle 的脚本需要改变一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">	<span class="function">task <span class="title">makeJar</span><span class="params">(type: Jar)</span> </span>&#123;</div><div class="line">    archiveName = <span class="string">'upload-sdk.jar'</span></div><div class="line">    from(<span class="string">'build/intermediates/classes/debug/'</span>)</div><div class="line">    from (project.zipTree(<span class="string">'libs/okhttputils-2_6_2.jar'</span>))</div><div class="line">    from (project.zipTree(<span class="string">'libs/httpclient-4.2.3.jar'</span>))</div><div class="line">    destinationDir = file(<span class="string">'build/lib'</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>多添加的两行也很好理解：</p>
+<ul>
+<li>from (project.zipTree(‘libs/okhttputils-2_6_2.jar’))：将 libs/okhttputils-2_6_2.jar 给打包进 upload-sdk.jar 中。</li>
+<li>from (project.zipTree(‘libs/httpclient-4.2.3.jar’))：将 libs/httpclient-4.2.3.jar 给打包进 upload-sdk.jar 中。</li>
+</ul>
+<p>这样最后生成的 upload-sdk.jar 中就已经包含了 httpclient 和 okhttputils 这两个 jar 包了。</p>
+<h2 id="在主-module-中使用依赖-jar"><a href="#在主-module-中使用依赖-jar" class="headerlink" title="在主 module 中使用依赖 jar"></a>在主 module 中使用依赖 jar</h2><p>至于使用 jar 包，先把 jar 包放置于主 moudle 的 libs 文件夹下，然后再主 module 的 gradle 文件的 dependencies 下添加：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">compile <span class="title">fileTree</span><span class="params">(dir: <span class="string">'libs'</span>, include: [<span class="string">'*.jar'</span>])</span></span></div></pre></td></tr></table></figure>
+<p>也就是引用 libs 文件夹下所有以 jar 结尾的包。</p>
+<p>或者指定引用某一个：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">compile <span class="title">files</span><span class="params">(<span class="string">'libs/xxxx.jar'</span>)</span></span></div></pre></td></tr></table></figure>
+<p>在平时编写 SDK 时，一般会存在一个或多个 library 的 moudle，然后会有一个主 moduel 用于针对 library 编写 demo 测试，这时主 moudle 是需要依赖 libray module 的，在主 module 的 gradle 文件中编写如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">compile <span class="title">project</span><span class="params">(<span class="string">':aaaaa'</span>)</span></span></div><div class="line"><span class="function">compile <span class="title">project</span><span class="params">(<span class="string">':bbbbb'</span>)</span></span></div><div class="line"><span class="function">compile <span class="title">project</span><span class="params">(<span class="string">':ccccc'</span>)</span></span></div></pre></td></tr></table></figure>
+<p>其中 aaaaa bbbbb ccccc 分别为依赖的 moudle 的名字。不能忘了在 setting.gradle 中添加各个 moudle：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">include <span class="string">':aaaaa'</span></div><div class="line">include <span class="string">':aaaaa'</span></div><div class="line">include <span class="string">':aaaaa'</span></div></pre></td></tr></table></figure>
+<p>这样各个 moudle 才会被编译，Android Studio 中会自动添加。</p>
+<h1 id="替换-Jar-包中的类"><a href="#替换-Jar-包中的类" class="headerlink" title="替换 Jar 包中的类"></a>替换 Jar 包中的类</h1><p>这个事情的场景是这样：我们上传的 SDK 在计算分段文件的 MD5 值时，计算失败的情况当时由于编码原因，并没有相关的回调到上层，这时候使用我们 SDK 的同事需要联系我们，然后让我们修改代码，重新打 Jar 包，在给他们，然后他们那边再更新验证。</p>
+<p>其实添加个回调到上层很简单，但是如果 SDK 的开发部门和使用部门不是同一个，还是比较麻烦，为了避免以后我自己遇到这样的情况，我在想，<strong>能不能我自己修改 Jar 包中的类</strong>？</p>
+<h2 id="修改第三方库中类的方法"><a href="#修改第三方库中类的方法" class="headerlink" title="修改第三方库中类的方法"></a>修改第三方库中类的方法</h2><ul>
+<li>下载并引入所有第三方类中的源码，然后对应修改。</li>
+<li>使用 ASM 等工具直接修改对应类的字节码。</li>
+</ul>
+<p>第一种方法的优点是不容易出错，debug 时方便，但是比较麻烦，如果碰上 okhttp 这种用 Maven 组织的项目，对于习惯 Gradle 组织项目的 Android 工程师来说，确实是一个很头疼的事情。</p>
+<p>第二种方法的优点是非入侵，但是由于修改了字节码文件，无法和源码对应，同事会导致 debug 时出错几率增大 。</p>
+<h2 id="Duplicate-Class"><a href="#Duplicate-Class" class="headerlink" title="Duplicate Class"></a>Duplicate Class</h2><p>相信很多人在打包 Apk 的编译期（Build Time）遇到过「Duplicate Class」的错误。原因是 Dex 构建工具在把所有类打包进同一个 Dex 的时候，如果发现如果有重复的类要打包进 Dex 的话，就会报错。</p>
+<p>而在编辑期（Edit Time）的时候，如果我们的所有源码中有重复类的话，IDE 也会提示错误。但是如果我们的源码里有一个和第三方 Jar 包里重复的类，IDE 是不会提示错误的。为什么呢？</p>
+<p>因为重复类并不在同一个 Archive 里。Archive 可以看作类的容器，可以是一个 Jar 包，也可以是一个 Dex。当然你某个 Module 中的所有源码，也可以想像成是一个 Archive，所以源码有重复类是会提示错误的。</p>
+<p>总结一下，在源码中的类和 Jar 包里的类有重复的情况下，在编辑期是不会提示错误的。只有当到了编译期，构建工具将你源码编译出来的类，和第三方 Jar 里的重复的类，混合到同一个 Archive 里的时候才会报错。</p>
+<h2 id="修改-Jar-中类的方法"><a href="#修改-Jar-中类的方法" class="headerlink" title="修改 Jar 中类的方法"></a>修改 Jar 中类的方法</h2><p>既然，IDE 允许源码中有和 Jar<br>里的类重复的类。那么，对于开头提到的问题，我们可以提出一种新的解决方案：</p>
+<p><strong>只把 Jar 里想要修改的类的对应源码拷贝到项目中修改，然后在最终编译的时候把 Jar 包里这些类给删除掉。保证在打包进 Dex 的时候只有我们拷贝的源码编译出来的类即可。</strong></p>
+<p>这里引入一个库：<a href="https://github.com/nekocode/JarFilterPlugin" target="_blank" rel="external">JarFilterPlugin</a>，它的作用在它主页上写的很明确： Before building the jars into android dex archives, filter files inside them.</p>
+<p>使用方法：</p>
+<ul>
+<li>Intergate this gralde plugin:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        maven &#123; url <span class="string">"https://jitpack.io"</span> &#125;</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath <span class="string">"com.github.nekocode:JarFilterPlugin:$&#123;lastest-verion&#125;"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Apply and configure the plugin:</li>
+</ul>
+<p>假设我们想要修改 Android Support V7 包里的 AppCompatActivity 类。我们只需要把 AppCompatActivity 类的源码拷贝到我们的项目中，然后在 App Module 的 budil.gradle 下添加如下配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">apply plugin: <span class="string">'jar-filter'</span></div><div class="line"></div><div class="line">jarFilters &#123;</div><div class="line">    <span class="string">"com.android.support:appcompat-v7:(.*)"</span> &#123;</div><div class="line">        excludes = [</div><div class="line">                <span class="string">'android/support/v7/app/AppCompatActivity.class'</span>,</div><div class="line">                <span class="string">'android/support/v7/app/AppCompatActivity\\$(.*).class'</span></div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Local jar</span></div><div class="line">    <span class="string">"android.local.jars:xxx.jar:(.*)"</span> &#123;</div><div class="line">        includes = [</div><div class="line">                <span class="string">'xxx'</span></div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Android-Studio-中打-aar-包"><a href="#Android-Studio-中打-aar-包" class="headerlink" title="Android Studio 中打 aar 包"></a>Android Studio 中打 aar 包</h1><h2 id="aar-中依赖的-maven-库在目标工程中无法直接使用的问题"><a href="#aar-中依赖的-maven-库在目标工程中无法直接使用的问题" class="headerlink" title="aar 中依赖的 maven 库在目标工程中无法直接使用的问题"></a>aar 中依赖的 maven 库在目标工程中无法直接使用的问题</h2><p>部门经常对外输出 SDK ，Android 端是以 aar 或者 jar 的形式对外输出，并配套相关 demo ，jar 相关的上面已经记录了，这里记录一下 aar 相关。</p>
+<p>假设我有一个 library 引用了 okhttp 的 maven 库，那么如果我在 demo 里使用 build project 从 outputs/aar 路径下拿出来的 aar，那么就会报错，找不到 okhttp 相关的类。 也就是说，直接 build project 这种方式输出的 aar ，在目标项目中直接引用，是没办法使用到 aar 当中的依赖的，当然，在目标项目中将 arr 的依赖再重新依赖一遍，是可以的使用的，但是这种操作确实不太优雅，和我们模块独立的想法也有冲突，那么就要有一种方法解决这个问题。</p>
+<h3 id="解决方案1"><a href="#解决方案1" class="headerlink" title="解决方案1"></a>解决方案1</h3><p>将 aar 发布到本地或者发布到公司的私服上，私服上会自动让 aar 继续依赖其他的第三方库,这样在目标项目中就可以在 build.gradle 中以依赖的形式来集成aar，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">ext &#123;</div><div class="line">    PUBLISH_GROUP_ID = &apos;com.xxxx.yyyy&apos;</div><div class="line">    PUBLISH_ARTIFACT_ID = &apos;zzzz-sdk&apos;</div><div class="line">    PUBLISH_VERSION = &apos;0.0.7&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">def getRepositoryUsername() &#123;</div><div class="line">    return hasProperty(&apos;NEXUS_USERNAME&apos;) ? NEXUS_USERNAME : &quot;&quot; //账号 放置于 local.properties 不同步至 maven</div><div class="line">&#125;</div><div class="line"></div><div class="line">def getRepositoryPassword() &#123;</div><div class="line">    return hasProperty(&apos;NEXUS_PASSWORD&apos;) ? NEXUS_PASSWORD : &quot;&quot;//密码 放置于 local.properties 不同步至 maven</div><div class="line">&#125;</div><div class="line"></div><div class="line">uploadArchives &#123;</div><div class="line">    repositories.mavenDeployer &#123;</div><div class="line">//        name = &apos;mavenCentralReleaseDeployer&apos;</div><div class="line"></div><div class="line">        repository(url: &apos;http://maven.nnnn.com/content/repositories/releases/&apos;) &#123;//公司私服</div><div class="line">//        repository(url:&apos;file:///E:/Library/nexus-2.12.0-01-bundle/sonatype-work/nexus/storage/releases&apos;)&#123; //本地仓库</div><div class="line">            authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        pom.project &#123;</div><div class="line">            groupId project.PUBLISH_GROUP_ID</div><div class="line">            artifactId project.PUBLISH_ARTIFACT_ID</div><div class="line">            version project.PUBLISH_VERSION</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        pom.packaging = &quot;aar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在目标项目的 root build.gradle 中引用本地仓库地址或者公司私服地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line"></div><div class="line">        maven &#123;</div><div class="line">            url &apos;http://maven.nnnn.com/content/repositories/releases&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在目标项目的 build.gradle 中依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"></div><div class="line">    compile(&quot;com.xxxx.yyyy:zzzz-sdk:0.0.7&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="解决方案2"><a href="#解决方案2" class="headerlink" title="解决方案2"></a>解决方案2</h3><ol>
+<li>我们上传 SDK 依赖的 okhttp3 和 gson ，那么首先去下载这两个库对应版本的 jar，放置于 libs 目录下</li>
+</ol>
+<p><img src="https://i.imgur.com/Slszuph.png" alt=""></p>
+<blockquote>
+<p>okhttp 内部有使用 okio ，所以此处也需要引入进来。</p>
+</blockquote>
+<ol>
+<li>在 liarbay 的 build.gradle 中添加 jar 的依赖</li>
+</ol>
+<p><img src="https://i.imgur.com/1vdsH5E.png" alt=""></p>
+<p>3.此时的 xxxxx-upload-sdk-v0.1.0.aar 结构如下：</p>
+<p><img src="https://i.imgur.com/m7YmXCo.png" alt=""></p>
+<p>已经将 gson、okhttp、okio、classes 都包含进来了。</p>
+<ol>
+<li>build project 从 outputs/aar 路径中拿到 aar 放置于目标工程的 libs 目录下并配置使用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">repositories &#123;</div><div class="line">    flatDir &#123;</div><div class="line">        dirs &apos;libs&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">     compile(name: &apos;xxxxx-upload-sdk-v0.1.0&apos;, ext:&apos;aar&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</font>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/24/责任链模式/" rel="next" title="一口一口啃完Java中的24种设计模式---责任链模式">
+                <i class="fa fa-chevron-left"></i> 一口一口啃完Java中的24种设计模式---责任链模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/09/工厂模式三兄弟/" rel="prev" title="一口一口啃完Java中的24种设计模式---简单工厂模式、工厂方法模式、抽象工厂方法模式">
+                一口一口啃完Java中的24种设计模式---简单工厂模式、工厂方法模式、抽象工厂方法模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  <div class="theme-info">
+   <div class="powered-by"></div>
+   <span class="post-count">共81.1k字</span>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_z.jpg"
+                alt="BIGZ" />
+            
+              <p class="site-author-name" itemprop="name">BIGZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zengfanyu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zengfanyunb@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Studio-中打-jar-包"><span class="nav-number">1.</span> <span class="nav-text">Android Studio 中打 jar 包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接编译实现"><span class="nav-number">1.1.</span> <span class="nav-text">直接编译实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过-gradle-脚本实现"><span class="nav-number">1.2.</span> <span class="nav-text">通过 gradle 脚本实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将-libs-下的-jar-打到总的-jar-包下"><span class="nav-number">1.3.</span> <span class="nav-text">将 libs 下的 jar 打到总的 jar 包下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在主-module-中使用依赖-jar"><span class="nav-number">1.4.</span> <span class="nav-text">在主 module 中使用依赖 jar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换-Jar-包中的类"><span class="nav-number">2.</span> <span class="nav-text">替换 Jar 包中的类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改第三方库中类的方法"><span class="nav-number">2.1.</span> <span class="nav-text">修改第三方库中类的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Duplicate-Class"><span class="nav-number">2.2.</span> <span class="nav-text">Duplicate Class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-Jar-中类的方法"><span class="nav-number">2.3.</span> <span class="nav-text">修改 Jar 中类的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Studio-中打-aar-包"><span class="nav-number">3.</span> <span class="nav-text">Android Studio 中打 aar 包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#aar-中依赖的-maven-库在目标工程中无法直接使用的问题"><span class="nav-number">3.1.</span> <span class="nav-text">aar 中依赖的 maven 库在目标工程中无法直接使用的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案1"><span class="nav-number">3.1.1.</span> <span class="nav-text">解决方案1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案2"><span class="nav-number">3.1.2.</span> <span class="nav-text">解决方案2</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BIGZ</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Every little makes a mickel</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("YbNmOD8tolbrONHtHJyWdEq7-gzGzoHsz", "PTVGwiHfE44yKqqU8xYjhJOJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
