@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="RxJava," />
+  <meta name="keywords" content="BugFix," />
 
 
 
@@ -81,33 +81,26 @@
 
 
 
-<meta name="description" content="摘要：一开始学习 RxJava ，觉得这东西特抽象，不好把握，但是在阅读了一些文章之后，也逐渐对 RxJaba 在宏观上有一个大概的认识，这一篇就记录一下我对 RxJava 最基础的理解。">
-<meta name="keywords" content="RxJava">
+<meta name="description" content="摘要：java.lang.IllegalStateException: Couldn’t read row 0, col -1 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.">
+<meta name="keywords" content="BugFix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="只因为在众多框架中多看了你一眼 RxJava （二） 从概念上理解 RxJava">
-<meta property="og:url" content="http://zengfanyu.top/2018/01/06/RxJava2/index.html">
+<meta property="og:title" content="记录 SDK 对外输出时碰到的两个问题">
+<meta property="og:url" content="http://zengfanyu.top/2018/08/18/debug/index.html">
 <meta property="og:site_name" content="CODE FRAMER BIGZ">
-<meta property="og:description" content="摘要：一开始学习 RxJava ，觉得这东西特抽象，不好把握，但是在阅读了一些文章之后，也逐渐对 RxJaba 在宏观上有一个大概的认识，这一篇就记录一下我对 RxJava 最基础的理解。">
+<meta property="og:description" content="摘要：java.lang.IllegalStateException: Couldn’t read row 0, col -1 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/cCjinS0.png">
-<meta property="og:image" content="https://i.imgur.com/AhpeI4B.png">
-<meta property="og:image" content="https://i.imgur.com/6z9gunU.png">
-<meta property="og:image" content="https://i.imgur.com/7HYKYLy.png">
-<meta property="og:image" content="https://i.imgur.com/E31Ycqd.png">
-<meta property="og:image" content="https://i.imgur.com/HYAnpoS.png">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1.jpg">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2.jpg">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3.jpg">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4.jpeg">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5.jpg">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6.png">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7.jpg">
-<meta property="og:image" content="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_8.jpg">
-<meta property="og:updated_time" content="2018-01-06T09:23:54.313Z">
+<meta property="og:image" content="https://i.imgur.com/xUBT0kU.png">
+<meta property="og:image" content="https://i.imgur.com/QHS11UH.png">
+<meta property="og:image" content="https://i.imgur.com/8yX4a1v.png">
+<meta property="og:image" content="https://i.imgur.com/yfUZNvk.png">
+<meta property="og:image" content="https://i.imgur.com/mbU3Un4.png">
+<meta property="og:image" content="https://i.imgur.com/rmLX2gN.png">
+<meta property="og:image" content="https://i.imgur.com/sRMlACZ.png">
+<meta property="og:updated_time" content="2018-08-18T10:13:53.636Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="只因为在众多框架中多看了你一眼 RxJava （二） 从概念上理解 RxJava">
-<meta name="twitter:description" content="摘要：一开始学习 RxJava ，觉得这东西特抽象，不好把握，但是在阅读了一些文章之后，也逐渐对 RxJaba 在宏观上有一个大概的认识，这一篇就记录一下我对 RxJava 最基础的理解。">
-<meta name="twitter:image" content="https://i.imgur.com/cCjinS0.png">
+<meta name="twitter:title" content="记录 SDK 对外输出时碰到的两个问题">
+<meta name="twitter:description" content="摘要：java.lang.IllegalStateException: Couldn’t read row 0, col -1 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.">
+<meta name="twitter:image" content="https://i.imgur.com/xUBT0kU.png">
 
 
 
@@ -137,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://zengfanyu.top/2018/01/06/RxJava2/"/>
+  <link rel="canonical" href="http://zengfanyu.top/2018/08/18/debug/"/>
 
 
 
 
 
-  <title>只因为在众多框架中多看了你一眼 RxJava （二） 从概念上理解 RxJava | CODE FRAMER BIGZ</title>
+  <title>记录 SDK 对外输出时碰到的两个问题 | CODE FRAMER BIGZ</title>
   
 
 
@@ -270,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2018/01/06/RxJava2/">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2018/08/18/debug/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BIGZ">
@@ -287,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">只因为在众多框架中多看了你一眼 RxJava （二） 从概念上理解 RxJava</h1>
+          <h1 class="post-title" itemprop="name headline">记录 SDK 对外输出时碰到的两个问题</h1>
         
 
         <div class="post-meta">
@@ -296,9 +289,9 @@
            
              <span class="post-letters-count">
               &nbsp; | &nbsp;
-           <span>2,078 字</span>
+           <span>1,148 字</span>
                &nbsp; | &nbsp;
-           <span>7 min</span>
+           <span>5 min</span>
             </span>
            
 
@@ -309,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T16:27:15+08:00">
-                2018-01-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-18T18:00:16+08:00">
+                2018-08-18
               </time>
             
 
@@ -349,7 +342,7 @@
 
           
           
-             <span id="/2018/01/06/RxJava2/" class="leancloud_visitors" data-flag-title="只因为在众多框架中多看了你一眼 RxJava （二） 从概念上理解 RxJava">
+             <span id="/2018/08/18/debug/" class="leancloud_visitors" data-flag-title="记录 SDK 对外输出时碰到的两个问题">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -380,71 +373,55 @@
       
 
       
-        <p><img src="https://i.imgur.com/cCjinS0.png" alt=""><br>摘要：一开始学习 RxJava ，觉得这东西特抽象，不好把握，但是在阅读了一些文章之后，也逐渐对 RxJaba 在宏观上有一个大概的认识，这一篇就记录一下我对 RxJava 最基础的理解。</p>
+        <p><img src="https://i.imgur.com/xUBT0kU.png" alt=""></p>
+<p>摘要：java.lang.IllegalStateException: Couldn’t read row 0, col -1 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.</p>
 <a id="more"></a>
 <font face="黑体">
 
-<h1 id="RxJava-是什么"><a href="#RxJava-是什么" class="headerlink" title="RxJava 是什么"></a>RxJava 是什么</h1><p>想要知道 RxJava 是什么，当然还是要去看看 RxJava 在 Github 上面的主页，毕竟官方的介绍是最准确的。</p>
-<p>RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.</p>
-<p>对，这就是官方对 RxJava 的解释，翻译一下：RxJava—JVM的反应式扩展。 是一个使用可观测的序列来组成异步的，基于事件序列的库。这么一说，我还是不能理解这个库到底是干嘛的，毕竟这是官方站在一定的高度上对 RxJava 的总结，就类似于在 Java 中的一句话：Everything is objects，刚开始接触 Java 时肯定也无法理解这句话的意思 。</p>
-<p>既然官方的解释对于初学者的我来说这么难懂，那就先看看 Rx 是什么意思吧。Rx—全称是Reactive Extensions，直译过来就是响应式扩展。Rx<strong>基于观察者模式</strong>，他是一种编程模型，目标是提供一致的编程接口，帮助开发者更方便的处理异步数据流。ReactiveX.io给的定义是，Rx是一个使用可观察数据流进行异步编程的编程接口，ReactiveX结合了观察者模式、迭代器模式和函数式编程的精华。</p>
-<p>这么一捋之后，我似乎有一点点理解了，它完成的功能似乎就是和 Google 官方的 AsyncTask Handler 类似，<strong>解决异步问题的</strong>，<strong>但是为什么大家都用它而不去使用 AsyncTask Handler 呢？ 这些也都是解决异步的呀？</strong> </p>
-<p>答案是：<strong>简洁</strong>，逻辑上的简洁。</p>
-<p>所以这里就一句话，<strong>RxJava 是用一种扩展的观察者模式解决异步问题的基于事件序列的库</strong>。</p>
-<p>所以我就从观察者模式开始学习了。</p>
-<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>那就要先说说观察者模式了。</p>
-<p>打个比方来说，我们公司外面的馄饨店，每天中午好多人都回去哪里吃馄饨，大家过去了之后「点了一碗馄饨并付账」，就坐在那里等着老板叫号了。老板一叫：25号鲜肉小馄饨好了，那么一哥们听到之后，就立马「屁颠颠的跑过去端回来吃」，老板又叫：28号荠菜大馄饨好了，一妹子又「屁颠颠的跑过去端回来吃」。这个过程就是一个观察者模式。</p>
-<p>这里涉及到三个对象，观察者：坐着等馄饨的吃货们。被观察者：馄饨店老板。订阅关系：点了一碗馄饨并付账。 还涉及到一个具体的反应过程：「屁颠颠的跑过去端回来吃」。</p>
-<p>图解：</p>
-<p><img src="https://i.imgur.com/AhpeI4B.png" alt=""></p>
-<p>再说说在 Android 开发中会经常接触到的观察者模式，对一个 Button 的监听。Button 是被观察者，OnClickListener 是观察者，两者通过 setOnClickListener 方法达成订阅关系，那么此时 OnClickListener 就对 Button 的点击事件高度敏感了，只要 Button 以被用户点击，那么 OnClickListener 就会“立马”（这个立马，要打个引号，应为这里还涉及到事件的分发过程，不展开说了）做出反应，也就是调用它的 onClick 方法。</p>
-<p>图解：</p>
-<p><img src="https://i.imgur.com/6z9gunU.png" alt=""></p>
-<p>其实上面两个过程我们也可以这样理解，<strong>观察者和被观察者之间先有订阅关系，然后被观察者发出了一个事件，然后观察者接收到这个事件之后，做出了响应</strong>。</p>
-<p>在从事件出发的角度捋捋上面两个过程：</p>
-<p>吃货去馄饨店里「点了一碗馄饨并付账」，那么就<strong>订阅了馄饨店老板发出的 HuntunReady 事件</strong>。当馄饨店老板<strong>发出了一个 HuntunReady 的事件</strong>（图中没有画出）的时候，吃货A<strong>接收到这个事件</strong>并做出反应，也就是<strong>调用了 onHuntunReady 方法去处理</strong>,具体的处理逻辑就是：「屁颠颠的跑过去端回来吃」（图中也没有画出）。</p>
-<p>OnClickListener 通过 setOnclickListener 订阅 Button 的 Click 事件，当Button 发出了一个 Click 的事件， OnClickListener 接受到了这个事件，就要做出了反映，也就是调用 onClick 方法，执行当中的逻辑。</p>
-<p>对照表：</p>
-<p><img src="https://i.imgur.com/7HYKYLy.png" alt=""></p>
-<p>那么我们把这个概念抽象为观察者，被观察者，订阅，那么图应该是这样的：</p>
-<p><img src="https://i.imgur.com/E31Ycqd.png" alt=""></p>
-<h2 id="RxJava-当中的观察者模式"><a href="#RxJava-当中的观察者模式" class="headerlink" title="RxJava 当中的观察者模式"></a>RxJava 当中的观察者模式</h2><p>有了上面两个例子的铺垫，这里就推导出，RxJava 就是 Observer 和 Observable 两者先发生订阅关系，然后 Observable 发出事件序列，Observer 接受事件并响应处理。</p>
-<p>但之前又说到 RxJava 使用的是一种扩展的观察者模式，那么跟上面两个例子中肯定是有不同的。它扩展之后的形式如下：</p>
-<p><img src="https://i.imgur.com/HYAnpoS.png" alt=""></p>
-<h3 id="区别（一）"><a href="#区别（一）" class="headerlink" title="区别（一）"></a>区别（一）</h3><p>看的出来， RxJava 中的观察者模式跟传统观察者模式比起来，事件的回调方法除了普通事件 onNext（相当于上面例子中的 onClick 和 onHuntunReady）之外，还定义了两个特殊的事件， onCompleted()， onError();</p>
-<p>这三个事件遵从一定的规则：</p>
-<ol>
-<li>Observable 可以发送无限个 onNext 事件，Observer 可以接受无限个 onNext 事件。</li>
-<li>当 Observable 发送了 onCompleted 或者 onError 序列之后，之后的事件序列仍然会发送，但是 Observer 这边在接收到 onCompleted 或者 onError 事件之后，是不会在继续接收之后的事件序列的。</li>
-<li>Observable 可以不发送 onCompleted 或者 onError 事件。</li>
-<li>onCompleted 和 onError 事件必须互斥。也就是说在一个事件序列中，要么是没有 onCompleted 和 onError 事件，要么有且只能有其中一个。</li>
-</ol>
-<h3 id="区别（二）"><a href="#区别（二）" class="headerlink" title="区别（二）"></a>区别（二）</h3><p>就是 Observable 在发送事件到 Observer 的过程中，多了一个 Operate 过程，这个操作就是对事件进行一系列的处理，然后再发送至 Observer。要说到这个操作就不得不提 Java8 当中的 Stream 和它对其中每一个元素进行的函数式操作。</p>
-<p>我们用“过滤”这个操作来打个比方，</p>
-<blockquote>
-<p>就像下面这幅图中画的那样，我有一杯混合着大大小小石子的蓝色的水。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1.jpg" alt=""></p>
-<p>现在按照我们关于“流”的定义，我用下图中的方法将水转化成“流”。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2.jpg" alt=""></p>
-<p>为了让水变成水流，我把水从一个杯子倒进另一个杯子 里。现在我想去掉水中的大石子，所以我造了一&gt;</p>
-<p>个可以帮我滤掉大石子的过滤器。“大石子过滤器”如下图所示。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3.jpg" alt=""></p>
-<p>现在，将这个过滤器作用在水流上，这会得到不包含大石子的水。如下图所示。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4.jpeg" alt=""></p>
-<p>接下来，我想从水中清除掉所有石子。已经有一个过滤大石子的过滤器了，我们需要造一个新的来过滤&gt;小石子。“小石子过滤器”如下图所示。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5.jpg" alt=""></p>
-<p>像下图这样，将两个过滤器同时作用于水流上。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6.png" alt=""></p>
-<p>接下来，我想把水的颜色从蓝色变成黑色。为了达到这个目的，我需要造一个像下图这样的“水颜色转换器（mapper）”。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7.jpg" alt=""></p>
-<p>像下图这样使用这个转换器。</p>
-<p><img src="http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_8.jpg" alt=""></p>
-<p>把水转换成水流后，我们做了很多事情。我先用一个过滤器去掉了大石子，然后用另一个过滤器去掉了&gt;小石子， 最后用一个转换器（map）把水的颜色从蓝色变成黑色。</p>
-<p>这个过程就是 Java8 当中对流的操作的一个具体的体现。</p>
-</blockquote>
-<p>好了，现在可以回到 Rxjava 当中了。</p>
-<p>RxJava 当中的 operate 过程也类似于上面的过滤过程，在 Observable 发出事件之后，可以利用「操作符」对事件进行一系列的操作，包括但不仅仅局限于 “过滤”、“合并”、“线程切换”等等，得到我们最终想要的“过滤”后的事件。</p>
-<p>恩，这就是 RxJava 当中最基础的东西了，先对 RxJava 有一个宏观上的认识，后面才好继续学习。</p>
+<p>记录一下最近对接 SDK 碰到的一些问题，后面再次碰到时能够快速结局。</p>
+<h2 id="问题一-关于compile、provided"><a href="#问题一-关于compile、provided" class="headerlink" title="问题一 关于compile、provided"></a>问题一 关于compile、provided</h2><p>背景：由于 SO 冲突的原因，我们对外提供的 SDK 现在需要从原来的 aar 形式改为 Jar + SO 的形式，假设我们统一对外提供的 SDK 叫 A.aar，  A 在内部会依赖 SDK B.aar 和 So 库。</p>
+<p>先复习一下 aar 和 jar 的压缩文件结构：</p>
+<ul>
+<li>aar 结构</li>
+</ul>
+<p><img src="https://i.imgur.com/QHS11UH.png" alt=""></p>
+<p> res 中放置的是资源文件<br>libs 中放置的是 jar<br>jni 中放置的是 so</p>
+<ul>
+<li>jar 结构</li>
+</ul>
+<p><img src="https://i.imgur.com/8yX4a1v.png" alt=""></p>
+<p>里面就是 Library 的包结构以及类的 CLASS 文件。</p>
+<p>一开始我<strong>把 SDK B 打包成 B.jar，然后在 SDK A 中依赖 B.jar ，然后在打 jar 包的时候将 B 一起给打进 A.jar 中</strong>（如何在打 jar 包时将 libs 下的 jar 一并打入: <a href="http://zengfanyu.top/2018/06/09/Android%20Studio%20%E4%B8%8E%20jar%20aar%20%E6%80%BB%E7%BB%93/">Android Studio 中打 jar 包和 aar 包姿势总结</a>），然后对外提供新的 A.jar + SO ，但是使用方在编译时报出如下错误：</p>
+<p><img src="https://i.imgur.com/yfUZNvk.png" alt=""></p>
+<p>重点： <code>android.view.inflateexception binary xml file line #0 error inflating class ...</code></p>
+<p>在 inflate XML 文件的时候出错了，到这里，我立马就想到，<strong>是不是 SDK A 或者 B 中有用到一些资源文件，而  Jar  包并不能包含资源文件所导致的？</strong></p>
+<p>回去检查后发现，SDK B 中确实依赖有一个 XML 文件，但是 jar 中是没有包含的，所以在运行时会报出错误。</p>
+<p>这么说，直接将 B 的 jar 给 打进 A 的 jar 中这种方法因为资源文件的问题，是不可行的了，所以又想到一个方法：</p>
+<p><strong>A SDK 还是依赖 B SDK 的 aar，然后在编译阶段是可以通过的，并且在最后打 jar 包时，是没办法将 B.aar 给打进总的 jar 中的，所以就额外提供 B.aar，最后对外输出是 A.jar + B.aar + so。</strong></p>
+<p>其中 A 的 gradle 文件如下：</p>
+<p><img src="https://i.imgur.com/mbU3Un4.png" alt=""></p>
+<p>这样使用方在使用的时候就正常了， 但是在混淆后打 APK 包时，又出现了一个错误：</p>
+<p><img src="https://i.imgur.com/rmLX2gN.png" alt=""></p>
+<p>重点： <code>Duplicate zip entry [com/xxx/xxx/R$anim.class))</code></p>
+<p>通过包名可以确定 com/xxx/xxx/R$anim.class 是 B SDK 中的类。</p>
+<p>问题很清楚了，是因为 B SDK 引用了两次，在打包时反射调用动画的 id 时报出来的错误，所以将 A.jar 重复依赖的 B.aar 给删除掉就行了。但是检查了一遍又一遍发现，B.aar 并没有被依赖多次。</p>
+<p>但是从逻辑上来说，A.jar 依赖了 B.aar ，然后又额外提供了 B.aar ，只有这个地方是存在逻辑上的重复依赖的，但是并没有真的重复依赖。</p>
+<p>注意上图中 <strong><code>compile(name:&#39;B&#39;,ext:&#39;aar&#39;)</code></strong> 其中 compile 的含义：<strong>对所有 buildType 以及 flavors 进行编译并打包到 apk。</strong> </p>
+<p>到这里就基本清楚了， 我们在 A 中依赖的 B.aar 只是为了让编译通过，并不需要这里的 B 的相关数据给打包打 APK 中，需要打包到 APK 中的应该是额外提供的 B.aar。</p>
+<p>所以将 comile 给换成 provided ，其作用是：只在编译时使用，只参与编译，不打包到最终 apk 。</p>
+<p>这么一来，成功解决如上问题。</p>
+<h2 id="问题二-moudle-间本地和远程包依赖"><a href="#问题二-moudle-间本地和远程包依赖" class="headerlink" title="问题二 moudle 间本地和远程包依赖"></a>问题二 moudle 间本地和远程包依赖</h2><p>假设主 moudleA 依赖子 moudleB ，在 moudle B 中会依赖远程的库 pp-sdk：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.aaa.bbb:pp-sdk:1.0.14'</span></div></pre></td></tr></table></figure>
+<p> moudle A B 之间的依赖关系：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">   #A的build.gradle文件</div><div class="line">   </div><div class="line">android &#123;</div><div class="line">   .....</div><div class="line">    <span class="keyword">repositories</span> &#123;</div><div class="line">        <span class="keyword">flatDir</span> &#123;</div><div class="line">            dirs <span class="string">'libs'</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"> <span class="keyword">dependencies</span> &#123;</div><div class="line">    <span class="keyword">compile</span> <span class="keyword">project</span>(<span class="string">':B'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种依赖方式编译和运行都是没问题的，但是如果 B moudle 依赖的 pp-sdk 由远程仓库的变成本地的 aar:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">complie(name:<span class="string">'pp-sdk-v1.0.14'</span>,ext:<span class="string">'aar'</span>)</div></pre></td></tr></table></figure>
+<p>那么就会报错：</p>
+<p><img src="https://i.imgur.com/sRMlACZ.png" alt=""></p>
+<p>原因是 moudle A 用到了 pp-sdk 中的类，但是 moudle A 在它自己的 libs 文件夹下找不到这个类的地址，所以应该让 moudle A 也能找到 moudle B 中的 libs 路径，也就是说，如果有一个全局的地方，能够让 moudle A 设置一下 moudle B 的 libs 地址，那就可以了。</p>
+<p>根目录下的 build.gradle 刚好就可以提供这样的功能：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">allprojects</span> &#123;</div><div class="line">   <span class="keyword">repositories</span> &#123;</div><div class="line">       jcenter()</div><div class="line">       <span class="comment">//添加如下代码</span></div><div class="line">		<span class="keyword">flatDir</span>&#123;</div><div class="line">		dirs <span class="keyword">project</span>(<span class="string">':B'</span>).<span class="keyword">file</span>(<span class="string">'libs'</span>)</div><div class="line">		&#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 在<code>allprojects</code> 这个方法下的配置是应用到所有的 moudle 中的，所以在这里将 moudle B 的 libs 地址给添加进来，moudle A 就能找到 moudle B 中 libs 目录下的 pp-sdk 了。</p>
 </font>
       
     </div>
@@ -462,7 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/RxJava/" rel="tag"># RxJava</a>
+            <a href="/tags/BugFix/" rel="tag"># BugFix</a>
           
         </div>
       
@@ -475,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/04/Rxjava1/" rel="next" title="只因为在众多框架中多看了你一眼 RxJava （一）">
-                <i class="fa fa-chevron-left"></i> 只因为在众多框架中多看了你一眼 RxJava （一）
+              <a href="/2018/08/18/SQLiteException/" rel="next" title="工作中碰到的问题记录">
+                <i class="fa fa-chevron-left"></i> 工作中碰到的问题记录
               </a>
             
           </div>
@@ -484,10 +461,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/06/RxJava3/" rel="prev" title="只因为在众多框架中多看了你一眼 RxJava （三） RxJava 最基础的使用">
-                只因为在众多框架中多看了你一眼 RxJava （三） RxJava 最基础的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxJava-是什么"><span class="nav-number">1.</span> <span class="nav-text">RxJava 是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-number">1.1.</span> <span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RxJava-当中的观察者模式"><span class="nav-number">1.2.</span> <span class="nav-text">RxJava 当中的观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区别（一）"><span class="nav-number">1.2.1.</span> <span class="nav-text">区别（一）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别（二）"><span class="nav-number">1.2.2.</span> <span class="nav-text">区别（二）</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一-关于compile、provided"><span class="nav-number">1.</span> <span class="nav-text">问题一 关于compile、provided</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题二-moudle-间本地和远程包依赖"><span class="nav-number">2.</span> <span class="nav-text">问题二 moudle 间本地和远程包依赖</span></a></li></ol></div>
             
 
           </div>
