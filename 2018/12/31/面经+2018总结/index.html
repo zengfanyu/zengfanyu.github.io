@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CODE FRAMER BIGZ" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、2018.12 面试问题记录拼多多一面「现场面」 设计一个全平台唯一的id  a b c 三个库同时引入了不同版本的 d库，然后 e 需要引入 a b c 三个库，如何解决兼容性的问题「如果是通过gradle方式远程依赖，可以用exclude关键字去剔除不同版本的包，以某一个版本的为准」？  ThreadLocal  进程之间通讯的方式  Actitivty旋转之后的生命周期怎么走  Hash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CODE FRAMER BIGZ">
+<meta property="og:url" content="http://zengfanyu.top/2018/12/31/面经+2018总结/index.html">
+<meta property="og:site_name" content="CODE FRAMER BIGZ">
+<meta property="og:description" content="一、2018.12 面试问题记录拼多多一面「现场面」 设计一个全平台唯一的id  a b c 三个库同时引入了不同版本的 d库，然后 e 需要引入 a b c 三个库，如何解决兼容性的问题「如果是通过gradle方式远程依赖，可以用exclude关键字去剔除不同版本的包，以某一个版本的为准」？  ThreadLocal  进程之间通讯的方式  Actitivty旋转之后的生命周期怎么走  Hash">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/bRafZBX.jpg">
+<meta property="og:image" content="https://i.imgur.com/VDCdclE.png">
+<meta property="og:image" content="https://i.imgur.com/gYvv9B9.jpg">
+<meta property="og:image" content="https://i.imgur.com/TYeXRQx.jpg">
+<meta property="og:image" content="https://i.imgur.com/lbGA4nC.png">
+<meta property="og:updated_time" content="2018-12-31T12:28:54.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CODE FRAMER BIGZ">
+<meta name="twitter:description" content="一、2018.12 面试问题记录拼多多一面「现场面」 设计一个全平台唯一的id  a b c 三个库同时引入了不同版本的 d库，然后 e 需要引入 a b c 三个库，如何解决兼容性的问题「如果是通过gradle方式远程依赖，可以用exclude关键字去剔除不同版本的包，以某一个版本的为准」？  ThreadLocal  进程之间通讯的方式  Actitivty旋转之后的生命周期怎么走  Hash">
+<meta name="twitter:image" content="https://i.imgur.com/bRafZBX.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2018/12/31/面经+2018总结/"/>
+
+
+
+
+
+  <title> | CODE FRAMER BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE FRAMER BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2018/12/31/面经+2018总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BIGZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_z.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE FRAMER BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+           
+             <span class="post-letters-count">
+              &nbsp; | &nbsp;
+           <span>6,410 字</span>
+               &nbsp; | &nbsp;
+           <span>23 min</span>
+            </span>
+           
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-31T20:28:54+08:00">
+                2018-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/31/面经+2018总结/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、2018-12-面试问题记录"><a href="#一、2018-12-面试问题记录" class="headerlink" title="一、2018.12 面试问题记录"></a>一、2018.12 面试问题记录</h1><h2 id="拼多多"><a href="#拼多多" class="headerlink" title="拼多多"></a>拼多多</h2><h3 id="一面「现场面」"><a href="#一面「现场面」" class="headerlink" title="一面「现场面」"></a>一面「现场面」</h3><ol>
+<li><p>设计一个全平台唯一的id</p>
+</li>
+<li><p>a b c 三个库同时引入了不同版本的 d库，然后 e 需要引入 a b c 三个库，如何解决兼容性的问题「如果是通过gradle方式远程依赖，可以用exclude关键字去剔除不同版本的包，以某一个版本的为准」？</p>
+</li>
+<li><p>ThreadLocal</p>
+</li>
+<li><p>进程之间通讯的方式</p>
+</li>
+<li><p>Actitivty旋转之后的生命周期怎么走</p>
+</li>
+<li><p>HashMap 和 ConcurrentHashMap</p>
+</li>
+<li><p>ArrayList 和 LinkedList， ArrayList 怎么扩容的</p>
+</li>
+<li><p>输入一个域名，它整个的流程？如何优化这个流程？ 域名劫持知道吗？</p>
+</li>
+<li><p>算法一： String 类型的List，去掉非法字符  “” 和 null，保证相对顺序不变</p>
+</li>
+</ol>
+<p>10，算法二： 在算法一的基础上，如何去掉重复的字符</p>
+<h3 id="二面「现场面」"><a href="#二面「现场面」" class="headerlink" title="二面「现场面」"></a>二面「现场面」</h3><ol>
+<li><p>项目中为什么使用webrtc，或者你跟我讲讲webrtc是什么，它做了哪些工作去保证低延迟？</p>
+</li>
+<li><p>http协议了解吗？ 讲一下它的作用</p>
+</li>
+<li><p>http协议是怎么分配端口号的</p>
+</li>
+<li><p>http1.1 和 1.0的区别</p>
+</li>
+<li><p>已经有了TCP，它本来就可以传输数据，为什么还需要HTTP？</p>
+</li>
+<li><p>TCP 和 UDP的区别，为什么TCP是可靠的？他是怎么完成的</p>
+</li>
+<li><p>项目当中日志sdk是怎么做的？打印日志格式化怎么格式化？ 怎么打印的行号？ 怎么传到服务端？</p>
+</li>
+<li><p>上传SDK项目是怎么做的？SDK的流程？怎么实现并发的？</p>
+</li>
+<li><p>算法，求一个二叉树的高度 「递归」</p>
+</li>
+<li><p>我们公司的工作时间你了解吗？ 能接受吗？ 目前公司的工作时间是怎么样的？</p>
+</li>
+<li><p>你现在的薪资？期望的薪资？</p>
+</li>
+</ol>
+<h2 id="哔站"><a href="#哔站" class="headerlink" title="哔站"></a>哔站</h2><h3 id="一面「现场面」-1"><a href="#一面「现场面」-1" class="headerlink" title="一面「现场面」"></a>一面「现场面」</h3><ol>
+<li><p>毕业时间一年多，不长呀，为啥跳槽呀？这都年底了</p>
+</li>
+<li><p>在学校学哪些东西「软件、硬件、电子啥都学」？哪儿学的Android开发「自学」？</p>
+</li>
+<li><p>数据结构、操作系统、计算机网络了解吗「了解，一直在学习」?</p>
+</li>
+<li><p>HashMap用过吗？讲一下hashcode怎么计算，比如我给你一个类A，他有三个成员变量 String s, int i, boolean b, 怎么计算hashcode？</p>
+</li>
+<li><p>如果我只用string s 去计算 hashcode，有什么问题吗「这儿我提到了如果不同的 A 类， s相同而其他变量不相同，会导致hash碰撞多，并且散列不均匀，导致map的插入在同一个链上，最终影响查找效率，针对这一点hashmap在java1.8增加了红黑树结构」？</p>
+</li>
+<li><p>为什么当链表长度超过8就转换成红黑树「查找时间复杂度 o(n) 和 o(logn) 的区别」？</p>
+</li>
+<li><p>为什么是转换成红黑数查找就是 o(logn)了 「二分查找，分治思想」，普通二叉树可以么「不行，普通二叉树不平衡，不能保证平均查找效率」？</p>
+</li>
+<li><p>SparseArray 知道么？它拿来干嘛的「google 建议替换 hashmap key 为 Integer情况」？为什么要用它去替换？它的数据结构是怎么样的？假设现在不考虑哈希碰撞和散列不均匀，10000个数据，你用hashmap还是sparseArray「我说sparseArray， 提到了对于 Integer int 的装箱和解箱操作」？</p>
+</li>
+<li><p>你在开发中怎么用线程「runnable callable Future FutureTask ThreadPoolExecutor」？线程池怎么用？如何选择线程池，或者说它的参数怎么配置？假设我现在要做网络请求，高并发的，你怎么去配置线程池的参数或者说怎么使用Collections的工厂方法去创建「我从OkHttp源码中使用的是 核心线程数为0 最大线程数为 Integer 最大值，超时时间 60s 这里来回答的，采用这种配置，或者是使用 Collections.newCacheThreadPool， 从高并发和超时时间这里入手」？</p>
+</li>
+<li><p>HandlerThread什么原理？它和Thread有什么区别「Looper角度回答」？Looper是什么？普通线程有Looper吗？Looper怎么用「这里提到了ThreadLocal」？</p>
+</li>
+<li><p>ThreadLocal是干嘛的？在哪儿用的？怎么用？</p>
+</li>
+</ol>
+<p>12.OkHttp知道吗？用过吗？源码了解吗？画个流程图？你觉得源码设计最经典的是什么「责任链模式」？有哪些拦截器？调用顺序？普通interceptor和networkIntercptor有什么区别？怎么选择？连接网络在哪个拦截器？</p>
+<ol>
+<li>手写一个单例看看「volatile + 双重锁模式」。为什么这里要有volatile「从可见性和指令重排序角度分析」？为什么有两个判断？你用的synchronized代码块的this表示什么？如果我就以饿汗式去实现，它是安全的吗「这个问题没回答上，于是面试官换了一个问法」？这个static得成员变量在哪里初始化的「static是属于这个类的， 随类一起初始化」？具体是在哪儿呢「一脸懵逼，不知道」？了解过ClassLoader吗「听说过，不了解，面试官说静态的初始化在ClassLoader当中，是线程安全的，所以说，这种形式是可以保证安全的」？</li>
+</ol>
+<h3 id="二面「现场面」-1"><a href="#二面「现场面」-1" class="headerlink" title="二面「现场面」"></a>二面「现场面」</h3><ol>
+<li>WebRTC这个项目你们几个人做？你在WebRTC 这个项目中的具体工作内容？</li>
+<li>你入职一年以来主要是在做哪个项目？</li>
+<li>WebRTC 这个项目我看Android端主要是你在做的，能说说SDK大概的架构吗？</li>
+<li>WebRTC 这个我看你做了重连模块？为什么要做这个模块？具体怎么做的？</li>
+<li>现在写C++有困难吗？</li>
+<li>你们这个视频上传的主要过程？</li>
+<li>为什么有这个日志上传的SDK，它主要做什么？</li>
+<li>。。。后面的时间太久，记不住了。</li>
+</ol>
+<h2 id="声网"><a href="#声网" class="headerlink" title="声网"></a>声网</h2><h3 id="一面「电话面」"><a href="#一面「电话面」" class="headerlink" title="一面「电话面」"></a>一面「电话面」</h3><ol>
+<li>自我介绍下自己</li>
+<li>为什么这个时候跳槽？</li>
+<li>WebRTC 这个项目你们几个人做，分工是怎样的？</li>
+<li>WebRTC 视频会议系统架构是怎么样的？项目的细节，房间流数目怎么限制的？分辨率怎么设置的？码率是多少？屏幕流时怎么采集的？</li>
+<li>你们WebRTC应该只是在国内用，那你们怎么进行连接的呢「ICE STUN + TURN」？</li>
+<li>Android中多进程有哪些方式「Messenger、Socket、ContentProvider、文件、AIDL」？AILD的底层实现是什么「Binder」？Binder的工作原理？</li>
+<li>Java GC 了解么「描述了一下Java运行时的内存分区，几种GC算法引用计数、停止复制、标记清除、分代收集」？ </li>
+<li>View SurfacView GLSurface 的区别了解吗「这个不知道。。。」？</li>
+<li>TCP 和 UDP 区别「面向连接、可靠、字节流； 无连接、不可靠、用户数据报」？TCP做了哪些操作保证连接可靠？ UDP 使用的场景「WebRTC 中视频数据的分发」？</li>
+<li>你觉得你工作一年多遇到最大的挑战？</li>
+<li>你觉得你喜欢编程吗？</li>
+<li>多媒体流的格式？</li>
+<li>硬解软解这些有了解吗？</li>
+</ol>
+<h3 id="二面「现场面」-2"><a href="#二面「现场面」-2" class="headerlink" title="二面「现场面」"></a><strong>二面</strong>「现场面」</h3><blockquote>
+<p>约得下午两点，由于对路况不熟悉，所以提前出发了，一点多一点就到了，面试官都去吃饭了，于是一个阿姨联系HR之后，给了一份笔试题我先做做。</p>
+</blockquote>
+<p>笔试题的内容主要包括三块：</p>
+<p>Android的基础知识、数据结构和算法的题目、两道程序题「看代码写出运行结果」、JNI相关题目、计算机网络相关。后来做完题面试官过来了，就正式开始了。</p>
+<ol>
+<li>自我介绍一下</li>
+<li>Android开发是怎么学习的？</li>
+<li>现在工作中主要是做哪一块？</li>
+<li>工作中有涉及到SDK技术支持吗？还是主要负责编码不做技术支持？</li>
+<li>你们SDK用Java写的，没有其他的语言的需求吗？你出了Java还会哪一门语言？</li>
+<li>对于Android程序的运行原理了解吗？就是在桌面上点击一个app图标只有，到app启动这一系列的过程？</li>
+<li>JNI 和 NDK这一块了解吗？</li>
+<li>Android 当中常用的异步方式有哪些？</li>
+<li>Handler的运行机制？ThreadLoca？Looper？HandlerThread？</li>
+<li>按照你的描述，你平时开发应该是Java用的比较多，JMM了解吗？Java运行时内存区域划分？volatile synchronized？一个类的实例在内存空间的哪儿？方法局部变量存在内存空间的哪一块？类的成员变量存在类的哪一块？</li>
+<li>abstract 和 interface？语法上的区别？使用上的区别？</li>
+<li>WebRTC这个项目你主要是做哪一块？详细到WebRTC的一些使用细节</li>
+<li>你用过我们的实时视频会议的app吗？你觉得跟你们的app比起来区别在哪？</li>
+</ol>
+<blockquote>
+<p>二面应该是对我个人做一个大概的定位，包括技术广度和深度。</p>
+</blockquote>
+<h3 id="三面「现场面」"><a href="#三面「现场面」" class="headerlink" title="三面「现场面」"></a>三面「现场面」</h3><blockquote>
+<p>面试官自我介绍是iOS的负责人，应该是属于交叉面吧。主要聊的是RTC项目细节</p>
+</blockquote>
+<ol>
+<li>你们WebRTC项目你主要做哪一块？怎么分工的？</li>
+<li>你刚才说道日志记录上传模块，你是怎么做的「分SDK，策略设计模式、主动上报、被动上报」？</li>
+<li>哪种情况下被动上报「结合RTC项目描述了一下」？</li>
+<li>web api 、socketio、peerconnetion 的重连逻辑细节。</li>
+<li>按照你刚才的描述，如果现在是有wifi网络的，但是因为wifi的速度不快，没有成功连接，那么这时候日志还去上报，那么会不会导致网络更差？</li>
+<li>日志存在哪儿「本地文件」？多大「5M」？每次上报都传5M「不一定，要看上报时刻的大小，并且还会做压缩」？超过5M怎么办「删除文件重新写」？会不会刚好删除了文件，上吧之后是一个空的日志文件，或者说关键记录被删除了然后正好上报了「理论上会出现」？怎么解决「另开一个backup路径，这个路径用LRU算法，限制为10M，原有日志路径下的日志需要删除时，转移到此处，然后在上报时刻一起压缩上报」？</li>
+<li>日志这一块有专业的工具吗「demo的app层用到了云迹，后期接入方应该也会用这个工具」？那SDK日志你们是怎么分析的「上报日志、后台获取、人工定位分析」？你们一次进入频道三客户端正常交互，然后离开频道，这个过程日志有多少「几千行应该有」？说说你具体的分析过程，比如我现在进入频道，应该看到3个人，但是只看到两个，你拿到一个全量的日志，怎么分析？</li>
+<li>你们RTC项目对房间中流数量有限制吗？NAT穿透这块你们是怎么做的？JNI层你有涉及到吗「面试前两天，刚好是弄了一个ubuntu系统，把RTC的Android端源码拉下来成功编译了，就这个过程聊了一阵子」？编译出来之后，你有研究它的java层或者底层代码吗「刚编译出来就过来面试了。。平时开过摄像头画面采集这一块的java层代码」？</li>
+<li>算法题，判断链表是否成环「两指针ab，a一次走一步，b一次走两步，判断是否指向同一个节点」？两指针走任意不同步数可以吗？证明你的结论</li>
+<li>你有什么要问我的「问了一些声网的业务，然后问了一下低延时实时视频通讯声网做到哪个程度了」？</li>
+</ol>
+<h2 id="头条"><a href="#头条" class="headerlink" title="头条"></a>头条</h2><h3 id="一面-二面「视频面」"><a href="#一面-二面「视频面」" class="headerlink" title="一面  二面「视频面」"></a>一面  二面「视频面」</h3><blockquote>
+<p>头条问的问题太多了，记不清哪个是一面问的哪个是二面问的了，此处就统一记录了。</p>
+</blockquote>
+<ol>
+<li><p>自我介绍一下</p>
+</li>
+<li><p>视频上传这个项目主要是干嘛的？</p>
+</li>
+<li><p>视频上传具体的流程？</p>
+</li>
+<li><p>如果是分段上传， 两个客户端传同一个文件，服务端怎么决策，各个客户端传的字节范围？</p>
+</li>
+<li><p>TCP 和 UDP 的区别？</p>
+</li>
+<li><p>TCP 和 UDP 能不能监听同一个端口号？</p>
+</li>
+<li><p>TCP 和 UDP 是运行在 TCP/IP模型的哪一层？</p>
+</li>
+<li><p>TCP 和 UDP 的头部大小，字段？</p>
+</li>
+<li><p>TTL 是什么？</p>
+</li>
+<li><p>日志上报SDK只要是干嘛用的？</p>
+</li>
+<li><p>日志上报SDK如何进行上传？</p>
+</li>
+<li><p>日志上传上传的文件有多大「5M」？有没有压缩「项目中居然没有压缩。。。面试官说他觉得不压缩不行」？</p>
+</li>
+<li><p>日志上传上传是什么策略？用什么进行上传的？ 如果网络断开怎么办「这一块是用handler将一个runnable post到子线程去上传，并且监听设备网络连接状态，如果网络断开，会将这个runnable给缓存起来，当网络连接上时，在尝试上传。回答的时候错说成将这个5M的文件给缓存到内存中了」？</p>
+</li>
+<li><p>websocket 和 http 区别？</p>
+</li>
+<li><p>websocket 的升级过程？</p>
+</li>
+<li><p>webRTC 你了解到哪个层面？底层音视频编解码了解过吗？</p>
+</li>
+<li><p>算法 二叉树的非递归形式的前序遍历</p>
+</li>
+</ol>
+<p>卒。其中共有两个问题，面试官指出来他觉得不太好，第一个是问题4，他问我服务端怎么决策让那个客户端上传哪一段数据？我说不太清楚，我是直接调那个webapi接口，它返回的那个范围我就通过RandomAccessFile去读哪个字节。他说我对跟我业务相关的上下游的基础逻辑不太清楚，不利于问题的排查。<br>第二个问题是12，他说我负责做上传的，但是在实际上传过程没有做压缩处理，他觉得不行，5M文件太大，会占用太多资源。这一块我们wiki上其实是说了要压缩成zip格式的，但是这块是同事开发的，我做了二次开发，优化了一下代码，当时发现没有压缩，问过同事，他说也可以传，哎，自己就没太多关注，后来回公司后，马上把这块做了压缩，压缩后的大小是之前的1/16。。。</p>
+<h1 id="二、面试之后的思考"><a href="#二、面试之后的思考" class="headerlink" title="二、面试之后的思考"></a>二、面试之后的思考</h1><p>最近一共面了4家公司，对于我这么一个工作经验只有一年半的候选人来说，面试官都特别注重基础的问题，比如Android相关的源码分析「异步方式、线程池、消息机制」、Java语言相关「JMM、线程安全、GC、线程安全集合、线程同步方法」、数据结构「HashMap、SynchronizedHashMap、ConcurrentHashMap、ArrayList、LinkedList。。」、计算机网络「HTTP、TCP、UDP、IP、WebSocket、DNS。。」。其次就是对于我这一年半工作内容提问，具体到细节如何实现，在现有基础上的优化，包括我负责的模块相关上下游的问题，用于考察我对于项目的整个系统了解的程度。</p>
+<p>在这一段时间的面试中，我发现了自己身上的一个很明的短板：<strong>编码语言掌握的过于单一，工作中只涉及到Java的编程。</strong>上述四家公司，几乎都问道了我会哪些编程语言，<strong>能不能做C/C++的开发，有没有接触过JNI</strong>，但是就目前来说，我确实在这一块是非常欠缺的。其次在声网的面试当中，我认识自己做的WebRTC项目主要是在SDK API 的封装加上应用层app开发，并没有深入到音视频的底层当中去，面试官建议如果想走音视频这一块，可以多了解一些音视频的协议、包括编解码、视频采集、渲染等相关的知识，然后学习一些开源的项目。</p>
+<h1 id="三、2018年的总结"><a href="#三、2018年的总结" class="headerlink" title="三、2018年的总结"></a>三、2018年的总结</h1><p>2018 是我的本命年，24岁了，工作一年半「用某人的话说，就是典型的三无人员，没车没房没老婆。。哈哈哈」，在去年这个时候，本来也是想写一个年终总结的，但是去年一年没干什么正经事，上半年忙于春招、实习、论文，毕业之后来到上海没两天，跑去南京培训三个月，再回上海就开始正式熟悉部门的项目，开始干活，于是去年就没有写年终总结，在今年的最后一天，睡到自然醒之后，煮了个饺子吃饱肚子，开始把这一个月的面试总结一下，顺便总结一下2018这一年了。</p>
+<h2 id="工作学习方面"><a href="#工作学习方面" class="headerlink" title="工作学习方面"></a>工作学习方面</h2><p>今年一年基本上是接触了部门当中所有的项目了，包括五个SDK，主要的精力是放在 WebRTC 的视频会议 SDK 上，这个项目是从去年十一月份开始的，一直做到现在，期间发生了一些人员动荡，所以中断了一段时间，后来项目重新启动之后，前后端架构调整，又开始了各种折腾。不过说实话，我还是挺喜欢这种感觉的，因为每天都很明确自己需要干什么。有几个SDK没能接触到真正含金量高的底层，一直在做 API 的包装和 DEMO 的实现，很是遗憾。</p>
+<p>到今年下半年好多一起入职的应届生同事们都开始陆续离职，包括我的一位大学同学和一位高中同学，那段时间其实我也很迷茫，反复思考自己要不要也离职，后来综合各方面的因素，决定留下来，2018 年底或者是 2019 年初在考虑跳槽，然后在准备四个多月后，加上身边一些事情的影响，决定在 12 月开始面试，没能够去心仪的那一家公司。</p>
+<p>总结一下今年做的一些琐事：</p>
+<ol>
+<li>在被公司设备蹂躏了一年之后，在今年 8 月份决定买一台 Mac Book Pro 工作学习用，没想到没高兴一阵子，就把它摔的不忍直视。</li>
+</ol>
+<p><img src="https://i.imgur.com/bRafZBX.jpg" alt=""></p>
+<ol>
+<li>用 Hexo 搭了一个博客，今年一共写了 30 篇，不过从 8 月分换了 Mac 以来，没有重新在 Mac 上搭环境，一些总结的笔记也就没有传到 Hexo 上「可能是天道有轮回，用了不到四个月的 Mac ，被我摔地上，A 面和 C 面摔了一个大凹槽，丑死。。不过幸好屏幕没破，还可以用。」，所以我决定在今年的最后一天，在 Mac 上把 Hexo 的环境搭起来，接着写博客。学习 MarkDown 语法，配合 Typora 写博客，简直不要太爽。</li>
+</ol>
+<p><img src="https://i.imgur.com/VDCdclE.png" alt=""></p>
+<ol>
+<li><p>花了一段时间和团队测试学习抓包工具 WireShark、Charle、PostMan的使用，感觉这些工具真的是挺能提高效率的，然后会把一些书本上的理论知识在这些工具上真正的展示出来，比如说 TCP 三次握手 四次挥手、WebSocket 的连接请求升级、HTTPS 的握手过程在 WireShark 上看的清清楚楚。</p>
+</li>
+<li><p>年初对 MVP + RxJava + Dagger + Retrofit + OkHttp 这种模式的应用很感兴趣，于是花了好长一段时间去学习相关的知识，然后在博客中总结，并且按照这种模式，写了一个资讯类的应用。</p>
+</li>
+<li><p>年初说要系统的学习 Java 当中的 24 种设计模式，并且在 GitHub 上开了一个 Repo 专门提交代码，并且在博客中用文章记录。这个事情呢最后是没有坚持下来，只学习了 桥接、代理、适配器、责任链、简单工厂、工厂方法、抽象工厂方法这几种。后面 RTC 项目自己接手后，对于一个全新的东西，自己不了解更多时间放到这一块了，当然，这不是我半途而废的理由。</p>
+</li>
+<li><p>RTC 这个项目和网络这一块联系很紧密，WebAPI 用的是 OkHttp 库请求，长连接用的是 SocketIO 库，视频数据发送底层用的是 UDP 协议，所以今年把HTTP 、TCP、UDP、WebSocket 协议好好学习了一下，并且在日常工作中处处能体现出来这些之前在学校中完全没在意的课程的重要性。越发感觉在读书时候学的那些课程的重要性了。</p>
+</li>
+<li><p>看了一段时间的网络请求库 OkHttp 、老牌图片加载库 Universal-Image-Loadler、新晋图片加载库 Glide的源码，看了下 JDK 当中一写类源码： ConcurrentHashMap、SynchronizedHaahMap、LinkedBlockingQueue、LinkedHahsMap「LRUCahce 的底层实现」等等。</p>
+</li>
+<li><p>去了一趟 Google 开发者大会，感受了一下巨厂的技术氛围，顺便在从 Google 开发者大会回来之后决定，是时候开始准备复习面试了。</p>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/gYvv9B9.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/TYeXRQx.jpg" alt=""></p>
+<ol>
+<li>用 XMind 做了一个思维导图，大概长这个样子：</li>
+</ol>
+<p><img src="https://i.imgur.com/lbGA4nC.png" alt=""></p>
+<p>   展开后是特别大的一张思维导图，零零散散做了四个月的时间，涉及到 Java 基础、Android 基础、计算机网络、数据结构、设计模式、Git、SDK 开发的一些总结、项目总结等，在 12 月的面试当中验证，面试官问的问题很多在我思维导图中以及记录过了。所以我准备后期持续跟新这张思维导图，增加不同的模块。</p>
+<ol>
+<li><p>看了几本书《Thinking In Java》 这本书是大三为了准备秋招买的，后来带来上海后，一直放着没看了，今年拿出来好好看了下；《图解HTTP》跟漫画一样的一本书，用来入门 HTTP 协议还是挺不错的；《Android 开发艺术探索》 Android面试宝典，之前读书时候 IPC 这个章节感觉看不懂，今年硬是把它给啃下来了， 不过还有一个四大组件的启动流程和各种ServerManager的交互这一章没看。《Gradle 权威指南》是因为做SDK经常要打包一些 aar jar 等各种包看完之后对于Gradle的一些基本操作有了了解，顺便学了一下 Groovy 这个脚本语言，在 gradle 文件中和 java 配合写一些脚本还是可以的；《WebRTC 权威指南》看的时间最长的一本书了，今年主要精力在做WebRTC的项目；《Java并发性和多线程》极客学院的 wiki 上下载，《Java并发编程实战》实战，这两本书是因为下半年做项目，遇到的多线程问题没解决，导致项目延期，后来老大亲自出手来改的bug，后来决定好好学习这一块的知识，所以买回来看的。</p>
+</li>
+<li><p>还有好几本书没来得及看，《Effective Java》也是大三为准备秋招买回来的书；《鸟哥的Linux私房菜 基础学习篇(第三版)》《 深入理解Java虚拟机：JVM高级特性与最佳实践（第2版）》这两本书是当时和《Java并发编程实战》一起凑满减买的，也没来得及看。《Primer C++》都是眼泪。</p>
+</li>
+<li><p>周末有空做过一阵子外包活，挣到了几万块钱，但是做了一段时间之后发现，在经济上是会有一定的回报，但是占用时间确实过多，综合各方面因素，后面就没有接着做了。</p>
+</li>
+<li><p>12 月份的面试发现自己在技术方面的严重短板，掌握的编码语言过于单一，只会 Java， 但是做 Android 音视频这块，底层更多的需要的是 C/C++ ；日常工作只涉及到 app 、sdk 的开发，关于音视频的底层只有基础的认知没有深入的了解，比如各种编解码方式、各种容器封装格式、多媒体流协议、等等。 即使后面做其他的，C/C++ 也是必须要掌握的呀。对于面试的结果，五五开吧。</p>
+</li>
+</ol>
+<h2 id="生活方面"><a href="#生活方面" class="headerlink" title="生活方面"></a>生活方面</h2><p>生活方面今年这一年实在是很单调，工作日上班、周末休息睡觉，不过学习了新技能，有收获，也有一些遗憾。</p>
+<ol>
+<li>在家了几个月的饭，带到公司去吃，虽然是几个简单的菜，不过也算是会做饭的人了，哈哈哈</li>
+<li>夏天坚持了三个月的锻炼，买了个瑜伽垫，每周末去跑步，体重一度降到 132 斤，不过冬天又反弹回来了。</li>
+<li>可以一个人逛超市，吃火锅，看电影，也算是新技能了。</li>
+<li>团队来了一些新的小伙伴，都是同龄的，每天工作算是比较开心了。</li>
+<li>学习了一些投资理财方面的知识，在支付宝上买了几个基金练练手。</li>
+<li>今年没能够出去旅游一次，很大的遗憾，一直想去找成都的大兄弟耍耍，又因为各种原因没去成。</li>
+</ol>
+<h2 id="2019TODOList"><a href="#2019TODOList" class="headerlink" title="2019TODOList"></a>2019TODOList</h2><p>经过去年的教训，Flag 不能立太多。</p>
+<ol>
+<li>学 C/C++；</li>
+<li>学 python；</li>
+<li>把剩下几本书看完《Effective Java》、《 深入理解Java虚拟机：JVM高级特性与最佳实践（第2版）》、《鸟哥的Linux私房菜 基础学习篇(第三版)》、《Primer C++》；</li>
+<li>在新公司好好干；</li>
+<li>办一张健身卡，坚持锻炼；</li>
+<li>每星期给爸妈打一次电话，每个月给爷爷奶奶打一次电话，给小王把那几个色号的口口红给买全。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/18/debug/" rel="next" title="记录 SDK 对外输出时碰到的两个问题">
+                <i class="fa fa-chevron-left"></i> 记录 SDK 对外输出时碰到的两个问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  <div class="theme-info">
+   <div class="powered-by"></div>
+   <span class="post-count">共88.7k字</span>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_z.jpg"
+                alt="BIGZ" />
+            
+              <p class="site-author-name" itemprop="name">BIGZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zengfanyu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zengfanyunb@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、2018-12-面试问题记录"><span class="nav-number">1.</span> <span class="nav-text">一、2018.12 面试问题记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#拼多多"><span class="nav-number">1.1.</span> <span class="nav-text">拼多多</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面「现场面」"><span class="nav-number">1.1.1.</span> <span class="nav-text">一面「现场面」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面「现场面」"><span class="nav-number">1.1.2.</span> <span class="nav-text">二面「现场面」</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哔站"><span class="nav-number">1.2.</span> <span class="nav-text">哔站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面「现场面」-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">一面「现场面」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面「现场面」-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">二面「现场面」</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声网"><span class="nav-number">1.3.</span> <span class="nav-text">声网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面「电话面」"><span class="nav-number">1.3.1.</span> <span class="nav-text">一面「电话面」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面「现场面」-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">二面「现场面」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三面「现场面」"><span class="nav-number">1.3.3.</span> <span class="nav-text">三面「现场面」</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#头条"><span class="nav-number">1.4.</span> <span class="nav-text">头条</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面-二面「视频面」"><span class="nav-number">1.4.1.</span> <span class="nav-text">一面  二面「视频面」</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、面试之后的思考"><span class="nav-number">2.</span> <span class="nav-text">二、面试之后的思考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、2018年的总结"><span class="nav-number">3.</span> <span class="nav-text">三、2018年的总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作学习方面"><span class="nav-number">3.1.</span> <span class="nav-text">工作学习方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生活方面"><span class="nav-number">3.2.</span> <span class="nav-text">生活方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2019TODOList"><span class="nav-number">3.3.</span> <span class="nav-text">2019TODOList</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BIGZ</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Every little makes a mickel</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+.gt-container a{border-bottom: none;}
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("YbNmOD8tolbrONHtHJyWdEq7-gzGzoHsz", "PTVGwiHfE44yKqqU8xYjhJOJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
