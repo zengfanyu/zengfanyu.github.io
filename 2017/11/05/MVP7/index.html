@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://i.imgur.com/bYBS8hb.jpg">
 <meta property="og:image" content="https://i.imgur.com/y37IAgK.png">
 <meta property="og:image" content="https://github.com/googlesamples/android-architecture/wiki/images/mvp.png">
-<meta property="og:updated_time" content="2017-11-05T13:27:20.461Z">
+<meta property="og:updated_time" content="2017-11-05T13:27:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android当中的MVP模式（七）终篇---关于对MVP模式中代码臃肿问题的思考">
 <meta name="twitter:description" content="摘要：在学习 MVP 模式的过程当中，见到很多文章都提到一句话：「使用 MVP 模式引入了 Presenter 层，这样可以将 View 层和 Model 层解耦，但是项目的代码量会大大增加，不过这个牺牲是值得的。」但是这个如果不做处理的话，随着项目体量的扩大，项目当中会充斥着很多相同逻辑的代码，是在是不能忍，通过前面几章的封装可以缓解这个情况，但是还剩下一个问题是目前解决不了的，那就是 Pre">
@@ -382,7 +382,7 @@
 <blockquote>
 <p>英国计算机学家说过一句话：<br>All problems in computer science can be solved by another level of indirection.<br>翻译成中文就是：计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决。</p><p>比如十分复杂的Internet国际互联网络中数据传输的问题，也是通过分层来决绝的，这可以体现在 TCP/IP 四层模型和 OSI 七层模型当中。</p><p> 这么复杂的问题都可以引入中间层来解决，那么 MVP 中的问题就更不在话下了。</p>
 </blockquote>
-<h2 id="关于解决上述两个问题的思路"><a href="#关于解决上述两个问题的思路" class="headerlink" title="关于解决上述两个问题的思路"></a>关于解决上述两个问题的思路</h2><h3 id="View-层臃肿问题解决思路"><a href="#View-层臃肿问题解决思路" class="headerlink" title="View 层臃肿问题解决思路"></a>View 层臃肿问题解决思路</h3><p>第一个问题，<a href="http://www.cnblogs.com/tiantianbyconan/p/5036289.html" target="_blank" rel="external">天天_byconan</a>，大神的博客中有很好的解决思路，下图也是摘抄自他的博客。</p>
+<h2 id="关于解决上述两个问题的思路"><a href="#关于解决上述两个问题的思路" class="headerlink" title="关于解决上述两个问题的思路"></a>关于解决上述两个问题的思路</h2><h3 id="View-层臃肿问题解决思路"><a href="#View-层臃肿问题解决思路" class="headerlink" title="View 层臃肿问题解决思路"></a>View 层臃肿问题解决思路</h3><p>第一个问题，<a href="http://www.cnblogs.com/tiantianbyconan/p/5036289.html" target="_blank" rel="noopener">天天_byconan</a>，大神的博客中有很好的解决思路，下图也是摘抄自他的博客。</p>
 <p>先上两张图：</p>
 <h4 id="引入-PresenterProxy-层"><a href="#引入-PresenterProxy-层" class="headerlink" title="引入 PresenterProxy 层"></a>引入 PresenterProxy 层</h4><p><img src="https://i.imgur.com/893kHiF.jpg" alt=""></p>
 <ul>
@@ -393,7 +393,7 @@
 <li>为 <code>MVP</code> 模式增加一层专门用于处理各种时间派发的 <code>Controller</code> 层，<code>Controller</code> 层的作用仅仅是用于处理事件，并根据事件通过维护的 <code>Presenter</code> 层对象派发到对应的业务当中去，也就是说 <code>View</code> 层只有一个 <code>Controller</code> 对象， <code>View</code> 层不会主动的去调用 <code>Presenter</code> 层对象，但是 <code>Controller</code> 层和 <code>Presenter</code> 层都可能回调到 <code>View</code> 层来刷新UI。</li>
 </ul>
 <p>这两张图就为我们提供了很好的解决思路，虽然我还没有动手实践过，但是从思路上来说，是没有问题的。</p>
-<h3 id="Presenter-和-View-层接口管理问题解决思路"><a href="#Presenter-和-View-层接口管理问题解决思路" class="headerlink" title="Presenter 和 View 层接口管理问题解决思路"></a>Presenter 和 View 层接口管理问题解决思路</h3><p>在笔者查看了大量的文章资料之后，发现这个问题 <code>Google</code> 已经给出了一个十分好的的解决思路，这个答案就在 <a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank" rel="external">官方的TODO-MVP Sample</a>里，这个 <code>Demo</code> 通过用 <code>MVP</code> 模式实现了一个TODO应用，先贴一下这个应用在 <code>Android Studio</code> 中的代码分包情况：</p>
+<h3 id="Presenter-和-View-层接口管理问题解决思路"><a href="#Presenter-和-View-层接口管理问题解决思路" class="headerlink" title="Presenter 和 View 层接口管理问题解决思路"></a>Presenter 和 View 层接口管理问题解决思路</h3><p>在笔者查看了大量的文章资料之后，发现这个问题 <code>Google</code> 已经给出了一个十分好的的解决思路，这个答案就在 <a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank" rel="noopener">官方的TODO-MVP Sample</a>里，这个 <code>Demo</code> 通过用 <code>MVP</code> 模式实现了一个TODO应用，先贴一下这个应用在 <code>Android Studio</code> 中的代码分包情况：</p>
 <p><img src="https://i.imgur.com/y37IAgK.png" alt=""></p>
 <p>整个 <code>APP</code> 等架构十分的清晰，不愧是出自 <code>Google</code> 大牛之手！！！</p>
 <ul>
@@ -405,7 +405,7 @@
 <p>放一下项目整体架构图：</p>
 <p><img src="https://github.com/googlesamples/android-architecture/wiki/images/mvp.png" alt=""></p>
 <blockquote>
-<p>出自：<a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank" rel="external">https://github.com/googlesamples/android-architecture/tree/todo-mvp/</a></p>
+<p>出自：<a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank" rel="noopener">https://github.com/googlesamples/android-architecture/tree/todo-mvp/</a></p>
 </blockquote>
 <p>接下来准备好好研究一下这个项目的架构和实现，并且这个 <code>Google</code> 的开源库是用不同的架构去实现相同的 APP，提供了很多架构的基本应用：<code>clean</code> <code>dagger</code> <code>rxjava</code> <code>databinding</code> 等，有空一定好好研究。</p>
 <h2 id="又立-Flag"><a href="#又立-Flag" class="headerlink" title="又立 Flag"></a>又立 Flag</h2><ul>

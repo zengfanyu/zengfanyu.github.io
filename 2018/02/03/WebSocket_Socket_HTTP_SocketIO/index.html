@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://www.52im.net/data/attachment/forum/201605/25/162049w1tzfgg5z5ebvet5.png">
 <meta property="og:image" content="https://blog.zengrong.net/uploads/2014/12/socket.gif">
 <meta property="og:image" content="https://blog.zengrong.net/uploads/2014/12/socket-traffic.gif">
-<meta property="og:updated_time" content="2018-02-03T03:08:03.005Z">
+<meta property="og:updated_time" content="2018-02-03T03:08:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WebSocket、Socket、SocketIO、HTTP的关系">
 <meta name="twitter:description" content="摘要：最近部门在做一个基于 WebRTC 的视频会议系统，其中 Android 端代码需要连接三个服务器，分别是 RoomServer、MessageServer、MediaServer。 RoomServer 用于处理 client 请求（创建房间、发布视频等），并且将 MediaServer 的最新消息通过 MessageServer 推送至 client。 client 和 RoomSer">
@@ -401,15 +401,15 @@
 <blockquote>
 <p>它将软件通信过程抽象化为四个抽象层，采取协议堆叠的方式，分别实作出不同通信协议。协议套组下的各种协议，依其功能不同，被分别归属到这四个阶层之中7，常被视为是简化的七层OSI模型。</p>
 </blockquote>
-<p>这里有一张图详细介绍了 TCP/IP 协议族中的各个协议在 OSI模型 中的分布，一图胜千言（下图来自 <a href="http://www.colasoft.com.cn/download/protocols_map.php" target="_blank" rel="external">科来</a>）：</p>
+<p>这里有一张图详细介绍了 TCP/IP 协议族中的各个协议在 OSI模型 中的分布，一图胜千言（下图来自 <a href="http://www.colasoft.com.cn/download/protocols_map.php" target="_blank" rel="noopener">科来</a>）：</p>
 <p><img src="https://blog.zengrong.net/uploads/2014/12/TCP-IP.gif" alt="TCP/IP 协议族中的各个协议在 OSI模型 中的分布"></p>
 <p>HTTP 、WebSocket 等协议运行在应用层，TCP 协议运行在传输层，IP 协议运行在网络层。</p>
 <h1 id="WebSocket-与-HTTP"><a href="#WebSocket-与-HTTP" class="headerlink" title="WebSocket 与 HTTP"></a>WebSocket 与 HTTP</h1><p>从上图可以看出，HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。我们可以把这些高级协议理解成对 TCP 的封装。</p>
 <p>既然大家都使用 TCP 协议，那么大家的连接和断开，都要遵循 TCP 协议中的三次握手和四次挥手 ，只是在连接之后发送的内容不同，或者是断开的时间不同。</p>
 <p>对于 WebSocket 来说，它必须依赖 HTTP 协议进行一次握手 ，握手成功后，数据就直接从 TCP 通道传输，与 HTTP 无关了。</p>
 <p>至于具体的这里就不展开了，可以参考：</p>
-<p><a href="http://www.52im.net/thread-1258-1-1.html" target="_blank" rel="external">WebSocket详解（四）：刨根问底HTTP与WebSocket的关系(上篇)</a></p>
-<p><a href="http://www.52im.net/thread-1266-1-1.html" target="_blank" rel="external">WebSocket详解（五）：刨根问底HTTP与WebSocket的关系(下篇)</a></p>
+<p><a href="http://www.52im.net/thread-1258-1-1.html" target="_blank" rel="noopener">WebSocket详解（四）：刨根问底HTTP与WebSocket的关系(上篇)</a></p>
+<p><a href="http://www.52im.net/thread-1266-1-1.html" target="_blank" rel="noopener">WebSocket详解（五）：刨根问底HTTP与WebSocket的关系(下篇)</a></p>
 <h1 id="为什么引入WebSocket协议"><a href="#为什么引入WebSocket协议" class="headerlink" title="为什么引入WebSocket协议"></a>为什么引入WebSocket协议</h1><p>从整个计算机网络的层面面知道了 WebSocket 的定位之后，接下来的问题就是：已经有了 HTTP 协议，为什么还需要 WebSocket 协议？</p>
 <p>现在提到 WebSocket，首先会想到 “及时通讯” 和 “推送” 这类词。在 WebSocket 以前，很多网站通过其他方式来推送信息，下面我们先看看以前的推送方式，这样，有比较才能看出 WebSocket 的优势以及为什么引入WebSocket协议。</p>
 <h2 id="短-轮询（Polling）"><a href="#短-轮询（Polling）" class="headerlink" title="(短)轮询（Polling）"></a>(短)轮询（Polling）</h2><p><img src="http://img.blog.csdn.net/20130517151509160" alt="enter image description here"></p>
@@ -452,7 +452,7 @@
 </li>
 </ul>
 <p>…</p>
-<p>客户端请求响应报文：（引用自<a href="http://www.52im.net/forum.php?mod=viewthread&amp;tid=331&amp;ctid=15" target="_blank" rel="external">即时通讯网</a>）</p>
+<p>客户端请求响应报文：（引用自<a href="http://www.52im.net/forum.php?mod=viewthread&amp;tid=331&amp;ctid=15" target="_blank" rel="noopener">即时通讯网</a>）</p>
 <p><img src="http://www.52im.net/data/attachment/forum/201605/25/162049w1tzfgg5z5ebvet5.png" alt="enter image description here"></p>
 <p>以上都是利用 HTTP 协议完成的。这样，经过“请求-响应”的过程， server 与 client 的 WebSocket 连接握手成功，后续便可以进行 TCP 通讯了，也就没有 HTTP 什么事了。可以查阅WebSocket 协议栈了解 WebSocket 的 client 与 server 更详细的交互数据格式。</p>
 <h1 id="什么是-Socket"><a href="#什么是-Socket" class="headerlink" title="什么是 Socket"></a>什么是 Socket</h1><p><strong><font color="#ff0000">网络应用中，两个应用程序同时需要向对方发送消息的能力（即全双工通信），所利用到的技术就是 socket，其能够提供端对端的通信。</font></strong></p>

@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://i.imgur.com/NFcSwWg.png">
 <meta property="og:image" content="https://i.imgur.com/YiW40TM.png">
 <meta property="og:image" content="https://i.imgur.com/sNnJ74J.png">
-<meta property="og:updated_time" content="2017-10-28T10:38:12.190Z">
+<meta property="og:updated_time" content="2017-10-28T10:38:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 当中的 MVP 模式（二）封装">
 <meta name="twitter:description" content="摘要：在Android当中的MVP模式（一）基本概念中，用了一个简单的的登录Demo展示了一下 MVP 模式的基本姿势，虽然项目结构是更加清晰了，但是代码量明显增多了，原来的网络请求操作只用 1 个类可以搞定，现在需要 4 个类，并且每当有不同作用的 model 出现时，我们就需要相应的为他们添加 presenter 层的对象，但是细细查看，这些model 的作用都大体相似，与获取数据相关，类似">
@@ -387,7 +387,7 @@
         <p><img src="https://i.imgur.com/SOu2Z0j.png" alt=""></p>
 <p><em>摘要：在<a href="http://zengfanyu.top/2017/10/20/MVP1/">Android当中的MVP模式（一）基本概念</a>中，用了一个简单的的登录Demo展示了一下 <code>MVP</code> 模式的基本姿势，虽然项目结构是更加清晰了，但是代码量明显增多了，原来的网络请求操作只用 <code>1</code> 个类可以搞定，现在需要 <code>4</code> 个类，并且每当有不同作用的 <code>model</code> 出现时，我们就需要相应的为他们添加 <code>presenter</code> 层的对象，但是细细查看，这些<code>model</code> 的作用都大体相似，与获取数据相关，类似于网络请求或者是数据库 <code>DAO</code> 的操作，所以此处可以考虑将他们的共性抽取出来，封装成基累，然后子类去继承即可。</em><br><a id="more"></a></p>
 <h2 id="一个简单的网络请求"><a href="#一个简单的网络请求" class="headerlink" title="一个简单的网络请求"></a>一个简单的网络请求</h2><blockquote>
-<p>一个简单的需求：通过 <code>url</code> 获取数据，然后用 <code>Gson</code> 解析成 <code>JavaBean</code>，然后展示到 ListView上。这里使用知乎日报的获取最新消息的 <code>API</code> 接口 <em><a href="https://news-at.zhihu.com/api/4/news/latest" target="_blank" rel="external">https://news-at.zhihu.com/api/4/news/latest</a></em></p>
+<p>一个简单的需求：通过 <code>url</code> 获取数据，然后用 <code>Gson</code> 解析成 <code>JavaBean</code>，然后展示到 ListView上。这里使用知乎日报的获取最新消息的 <code>API</code> 接口 <em><a href="https://news-at.zhihu.com/api/4/news/latest" target="_blank" rel="noopener">https://news-at.zhihu.com/api/4/news/latest</a></em></p>
 </blockquote>
 <p>那么按照普通 <code>MVP</code> 的思路，首先 <code>view</code> 层：</p>
 <pre><code>为了突出重点，当前View层只做一件事情：就是展示获取的数据
@@ -521,8 +521,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/20/MVP1/" rel="next" title="Android当中的MVP模式（一）基本概念">
-                <i class="fa fa-chevron-left"></i> Android当中的MVP模式（一）基本概念
+              <a href="/2017/10/22/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
