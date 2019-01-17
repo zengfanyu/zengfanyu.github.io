@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="title: C语言基础学习—基础法语date: 2019-01-17 15:32:16tags: C语言  总结categories: [ C语言]  1. 编译器gcc支持多种编程语言：C语言、C++、Objective-C、Java等。在后来，苹果公司自己开发了一款叫做clang的编译器 2. 编译流程源文件 xxx.c 对它进行预处理，生成 xxx.i ，对与处理文件进行编译，生成汇编文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CODE FRAMER BIGZ">
+<meta property="og:url" content="http://zengfanyu.top/2019/01/07/C learning grammar/index.html">
+<meta property="og:site_name" content="CODE FRAMER BIGZ">
+<meta property="og:description" content="title: C语言基础学习—基础法语date: 2019-01-17 15:32:16tags: C语言  总结categories: [ C语言]  1. 编译器gcc支持多种编程语言：C语言、C++、Objective-C、Java等。在后来，苹果公司自己开发了一款叫做clang的编译器 2. 编译流程源文件 xxx.c 对它进行预处理，生成 xxx.i ，对与处理文件进行编译，生成汇编文件">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fyy4czy7f9j31240lqn4x.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fyzbqtwj1oj30bh0i3gnj.jpg">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d766162835.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76619262b.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7661a5c5f.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76702c4db.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7670624f0.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d767072d32.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76711d263.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76712c64d.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76712c64d.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7671426c2.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7671540fe.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7671687f3.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76717ed83.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7671e0358.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7671f34bb.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76721044c.png">
+<meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d767223bb6.png">
+<meta property="og:updated_time" content="2019-01-17T08:35:36.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CODE FRAMER BIGZ">
+<meta name="twitter:description" content="title: C语言基础学习—基础法语date: 2019-01-17 15:32:16tags: C语言  总结categories: [ C语言]  1. 编译器gcc支持多种编程语言：C语言、C++、Objective-C、Java等。在后来，苹果公司自己开发了一款叫做clang的编译器 2. 编译流程源文件 xxx.c 对它进行预处理，生成 xxx.i ，对与处理文件进行编译，生成汇编文件">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fyy4czy7f9j31240lqn4x.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2019/01/07/C learning grammar/">
+
+
+
+
+
+  <title> | CODE FRAMER BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE FRAMER BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2019/01/07/C learning grammar/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BIGZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_z.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE FRAMER BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+           
+             <span class="post-letters-count">
+              &nbsp; | &nbsp;
+           <span> 字</span>
+               &nbsp; | &nbsp;
+           <span> min</span>
+            </span>
+           
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T16:50:24+08:00">
+                2019-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/07/C learning grammar/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>title: C语言基础学习—基础法语<br>date: 2019-01-17 15:32:16<br>tags: C语言</p>
+<ul>
+<li>总结<br>categories: [ C语言]</li>
+</ul>
+<h2 id="1-编译器"><a href="#1-编译器" class="headerlink" title="1. 编译器"></a>1. 编译器</h2><p>gcc支持多种编程语言：C语言、C++、Objective-C、Java等。在后来，苹果公司自己开发了一款叫做clang的编译器</p>
+<h2 id="2-编译流程"><a href="#2-编译流程" class="headerlink" title="2. 编译流程"></a>2. 编译流程</h2><p>源文件 xxx.c 对它进行预处理，生成 xxx.i ，对与处理文件进行编译，生成汇编文件 xxx.s，对汇编文件进行编译生成目标文件 xxx.o，对目标文件进行链接生成可执行文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">生成 HelloC.o 目标文件</span></span><br><span class="line">cc -c HelloC.c</span><br><span class="line"><span class="meta">#</span><span class="bash">链接目标文件并将生成的可执行文件命名为 HelloC</span></span><br><span class="line">cc -o HelloC HelloC.o</span><br><span class="line"><span class="meta">#</span><span class="bash">编译并链接 Hello.c 源文件，并将最终生成的可执行文件命名为 HelloC。中间会生成 HelloC.o 目标文件，但它在链接完成后会被删除</span></span><br><span class="line">cc -o HelloC HelloC.c</span><br></pre></td></tr></table></figure>
+<p>链接：源文件编译成功后，会生成一个.o目标文件，这就是一个二进制文件，但是，还是不能运行。目标文件不能运行的主要原因有2个：</p>
+<p>1，在开发过程中，不可能将所有的代码都写在一个.c文件中，为了模块化开发，一般会将不同的功能写到不同的源文件中。源文件编译之后，每个源文件都有对应的.o文件，比如two.c生成了two.o、three.c生成了three.o，这些.o文件都不能单独运行，它们之间都有密不可分的关系，需要将所有相关联的.o目标文件组合在一起。</p>
+<p>2，除开组合所有的目标文件之后，还需要将C语言的函数库包含进来，才能生成可执行文件。</p>
+<p>将所有相关联的.o目标文件、以及C语言函数库组合在一起生成可执行文件的过程，我们称为“链接”。</p>
+<p>整体流程图：</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fyy4czy7f9j31240lqn4x.jpg" alt=""></p>
+<h2 id="3-关键词"><a href="#3-关键词" class="headerlink" title="3. 关键词"></a>3. 关键词</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> <span class="keyword">double</span> <span class="keyword">int</span> <span class="class"><span class="keyword">struct</span> <span class="title">break</span> <span class="title">else</span> <span class="title">long</span> <span class="title">switch</span></span></span><br><span class="line"><span class="class"> </span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">enum</span> <span class="title">register</span> <span class="title">typedef</span> <span class="title">char</span> <span class="title">extern</span> <span class="title">return</span> <span class="title">union</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">const</span> <span class="title">float</span> <span class="title">short</span> <span class="title">unsigned</span> <span class="title">continue</span> <span class="title">for</span> <span class="title">signed</span> <span class="title">void</span></span></span><br><span class="line"><span class="class"> </span></span><br><span class="line"><span class="class"><span class="title">default</span> <span class="title">goto</span> <span class="title">sizeof</span> <span class="title">volatile</span> <span class="title">do</span> <span class="title">if</span> <span class="title">while</span> <span class="title">static</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="4-标识符"><a href="#4-标识符" class="headerlink" title="4. 标识符"></a>4. 标识符</h2><p><strong>定义</strong></p>
+<ol>
+<li>标识符，从字面上理解就是用来标识某些东西的符号，标识的目的就是为了将这些东西区分开来。其实，标识符的作用就跟人类的名字差不多，为了区分每个人，就在每个人出生的时候起了个名字。</li>
+<li>C语言是由函数构成的，一个C程序中可能会有多个函数，为了区分这些函数，就给每一个函数都起了个名称。函数的名称就是标识符的一种。除了函数，变量的名称也是标识符。</li>
+</ol>
+<p><strong>标识符的命名规则</strong></p>
+<ol>
+<li>只能由26个英文字母的大小写、10个阿拉伯数字0~9、下划线_组成。</li>
+<li>严格区分大小写，同一段英文字母的大写和小写是两个不同的标识符。</li>
+<li>不能以数字开头。</li>
+<li>不可以使用关键字作为标识符。</li>
+</ol>
+<h2 id="5-printf"><a href="#5-printf" class="headerlink" title="5. printf"></a>5. printf</h2><h3 id="5-1-基本使用"><a href="#5-1-基本使用" class="headerlink" title="5.1 基本使用"></a>5.1 基本使用</h3><p>与 Java 当中的 sout 和 Android 中的 Log 不同，printf 用于输出变量时，需要制定输出的格式，比如是十进制还是八进制？</p>
+<p>这种写法是<strong>错误的：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0x1D</span>; </span><br><span class="line">    <span class="built_in">printf</span>(a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种写法是<strong>正确的</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> a = <span class="number">0x1D</span>; </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"变量a的值为%d"</span>, a);   </span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>常用类型：</p>
+<ol>
+<li>d 以十进制形式输出<strong>带符号</strong>整数(正数不输出符号)</li>
+<li>o 以八进制形式输出<strong>无符号</strong>整数(不输出前缀0)</li>
+<li>x,X 以十六进制形式输出<strong>无符号</strong>整数(不输出前缀Ox)</li>
+<li>u 以十进制形式输出<strong>无符号</strong>整数</li>
+<li>f 以小数形式输出单、双精度实数</li>
+<li>e,E 以指数形式输出单、双精度实数</li>
+<li>g,G 以%f或%e中较短的输出宽度输出单、双精度实数</li>
+<li>c 输出单个字符</li>
+<li>s 输出字符串</li>
+<li>p 输出地址</li>
+</ol>
+<h3 id="5-2-精细控制"><a href="#5-2-精细控制" class="headerlink" title="5.2 精细控制"></a>5.2 精细控制</h3><h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fyzbqtwj1oj30bh0i3gnj.jpg" alt=""></p>
+<h2 id="6-变量"><a href="#6-变量" class="headerlink" title="6. 变量"></a>6. 变量</h2><p><strong>占用的存储空间</strong></p>
+<p>一个变量所占用的存储空间，不仅跟变量类型有关，而且还跟编译器环境有关系。同一种类型的变量，在不同编译器环境下所占用的存储空间又是不一样的。我们都知道操作系统是有不同位数的，比如 Win7 有分 32 位、64 位，编译器也是一样的，也有不同位数：16 位、32 位、64 位（Mac 系统下的 clang 编译器是 64bit 的）。由于我们是 Mac 系统下开发，就以 64 位编译器为标准。</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d766162835.png" alt=""></p>
+<p>当定义一个变量时，系统就会为这个变量分配一定的存储空间。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> a = <span class="string">'A'</span>; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1&gt; 在 64bit 编译器环境下，系统为变量 a、b 分别分配 1 个字节、4 个字节的存储单元。也就是说：</p>
+<ul>
+<li>变量 b 中的 10 是用 4 个字节来存储的，4 个字节共 32 位，因此变量 b 在内存中的存储形式应该是 0000 0000 0000 0000 0000 0000 0000 1010。</li>
+<li>变量 a 中的’A’是用 1 个字节来存储的，1 个字节共 8 位，变量 a 在内存中的存储形式是 0100 0001，至于为什么’A’的二进制是这样呢，后面再讨论。</li>
+</ul>
+<p>2&gt; 上述变量 a、b 在内存中的存储情况大致如下表所示：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d76619262b.png" alt="img"></p>
+<p>（注：”存储的内容” 那一列的一个小格子就代表一个字节，”地址” 那一列是指每个字节的地址）</p>
+<ul>
+<li>从图中可以看出，变量 b 占用了内存地址从 ffc1~ffc4 的 4 个字节，变量 a 占用了内存地址为 ffc5 的 1 个字节。每个字节都有自己的地址，其实变量也有地址。变量存储单元的第一个字节的地址就是该变量的地址。变量 a 的地址是 ffc5，变量 b 的地址是 ffc1。</li>
+<li><strong>内存寻址是从大到小的</strong>，也就是说做什么事都会先从内存地址较大的字节开始，因此系统会优先分配地址值较大的字节给变量。由于是先定义变量 a、后定义变量 b，因此你会看到变量 a 的地址 ffc5 比变量 b 的地址 ffc1 大。</li>
+<li>注意看表格中变量 b 存储的内容，变量 b 的二进制形式是：0000 0000 0000 0000 0000 0000 0000 1010。由于内存寻址是从大到小的，所以是从内存地址最大的字节开始存储数据，存放顺序是 ffc4 -&gt; ffc3 -&gt; ffc2 -&gt; ffc1，所以把前面的 0000 0000 都放在 ffc2~ffc4 中，最后面的八位 0000 1010 放在 ffc1 中。</li>
+</ul>
+<p><strong>负数占用的存储空间</strong></p>
+<p>其实任何数值在内存中都是以补码的形式存储的。</p>
+<ul>
+<li>正数的补码与原码相同。比如 9 的原码和补码都是 1001</li>
+<li>负数的补码等于它正数的原码取反后再 + 1。（取反的意思就是 0 变 1、1 变 0）</li>
+</ul>
+<p>那么 - 10 的补码计算过程如下：</p>
+<p>1&gt; 先算出 10 的二进制形式：0000 0000 0000 0000 0000 0000 0000 1010</p>
+<p>2&gt; 对 10 的二进制进行取反：1111 1111 1111 1111 1111 1111 1111 0101</p>
+<p>3&gt; 对取反后的结果 + 1：1111 1111 1111 1111 1111 1111 1111 0110</p>
+<p>因此，整数 - 10 在内存中的二进制形式是：1111 1111 1111 1111 1111 1111 1111 0110</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d7661a5c5f.png" alt="img"></p>
+<p><strong>默认值</strong></p>
+<p>在不同位置下定义的int类型变量，它的初始值是不同的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> i1;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> i2;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i3;</span><br><span class="line">    <span class="keyword">static</span> i4;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"i1,i2,i3,i4默认的初始值是: %d,%d,%d,%d\n"</span>,i1,i2,i3,i4);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">#i1,i2,i3,i4默认的初始值是: <span class="number">0</span>,<span class="number">0</span>,<span class="number">405938230</span>,<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p><strong>全局int变量，初始值是0，局部int变量，非static初始值为0，static初始值为随机值</strong></p>
+<p><strong>自动类型提升</strong></p>
+<p>char -&gt; int -&gt; float -&gt; double</p>
+<p>低向高</p>
+<p><strong>强制类型转换</strong></p>
+<p>long -&gt; int ; float -&gt; int ; int -&gt; char</p>
+<p>高向低</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="number">2</span> </span><br><span class="line"><span class="number">3</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">4 </span>&#123;</span><br><span class="line">   	  #C语言的语法限制不严格，这么写是可以的，java中需要显示强制类型转换</span><br><span class="line"><span class="number">5</span>     <span class="keyword">int</span> i = <span class="number">10.7</span>;</span><br><span class="line"><span class="number">6</span>     </span><br><span class="line"><span class="number">7</span>     <span class="built_in">printf</span>(<span class="string">"%d \n"</span>, i);</span><br><span class="line"><span class="number">8</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">9</span> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="7-说明符"><a href="#7-说明符" class="headerlink" title="7. 说明符"></a>7. 说明符</h2><p>1&gt; 我们已经知道，在 64bit 编译器环境下，1 个 int 类型变量取值范围是 - 231 ~ 231 - 1，最大值是 231-1。有时候，我们要使用的整数可能比 231-1 还大，比如 234 这个整数，如果还坚持用 int 类型变量来存储这个值的话，就会损失精度，得到的是垃圾数据。为了解决这个问题，C 语言允许我们给 int 类型的变量加一些说明符，某些说明符可以增大 int 类型变量的长度，这样的话，int 类型变量能存储的数据范围就变大了。</p>
+<p>2&gt; C 语言提供了以下 4 种说明符，4 个都属于关键字：</p>
+<ul>
+<li>short  短型</li>
+<li>long  长型</li>
+<li>signed  有符号型</li>
+<li>unsigned  无符号型</li>
+</ul>
+<p>按照用途进行分类，short 和 long 是一类，signed 和 unsigned 是一类。</p>
+<p><strong>用法</strong></p>
+<p>这些说明符一般是用于修饰 int 类型的， 所以在使用时可以省略 int</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="comment">// 下面两种写法是等价的</span></span><br><span class="line"> <span class="number">2</span>  <span class="keyword">short</span> <span class="keyword">int</span> s1 = <span class="number">1</span>;</span><br><span class="line"> <span class="number">3</span>  <span class="keyword">short</span> s2 = <span class="number">1</span>;</span><br><span class="line"> <span class="number">4</span>  </span><br><span class="line"> <span class="number">5</span>  <span class="comment">// 下面两种写法是等价的</span></span><br><span class="line"> <span class="number">6</span>  <span class="keyword">long</span> <span class="keyword">int</span> l1 = <span class="number">2</span>;</span><br><span class="line"> <span class="number">7</span>  <span class="keyword">long</span> l2 = <span class="number">2</span>;</span><br><span class="line"> <span class="number">8</span>  </span><br><span class="line"> <span class="number">9</span>  <span class="comment">// 可以连续使用2个long</span></span><br><span class="line"><span class="number">10</span>  <span class="keyword">long</span> <span class="keyword">long</span> ll = <span class="number">10</span>;</span><br><span class="line"><span class="number">11</span>  </span><br><span class="line"><span class="number">12</span>  <span class="comment">// 下面两种写法是等价的</span></span><br><span class="line"><span class="number">13</span>  <span class="keyword">signed</span> <span class="keyword">int</span> si1 = <span class="number">3</span>;</span><br><span class="line"><span class="number">14</span>  <span class="keyword">signed</span> si2 = <span class="number">3</span>;</span><br><span class="line"><span class="number">15</span>  </span><br><span class="line"><span class="number">16</span>  <span class="comment">// 下面两种写法是等价的</span></span><br><span class="line"><span class="number">17</span>  <span class="keyword">unsigned</span> <span class="keyword">int</span> us1 = <span class="number">4</span>;</span><br><span class="line"><span class="number">18</span>  <span class="keyword">unsigned</span> us2 = <span class="number">4</span>;</span><br><span class="line"><span class="number">19</span>  </span><br><span class="line"><span class="number">20</span>  <span class="comment">// 也可以同时使用2种修饰符</span></span><br><span class="line"><span class="number">21</span>  <span class="keyword">signed</span> <span class="keyword">short</span> <span class="keyword">int</span> ss = <span class="number">5</span>;</span><br><span class="line"><span class="number">22</span>  <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">int</span> ul = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>short 和 long</strong></p>
+<p>1&gt;在 64bit 编译器环境下</p>
+<p>int 占用 4 个字节（32bit），取值范围是 - 231~231-1；</p>
+<p>short 占用 2 个字节（16bit），取值范围是 - 215~215-1；</p>
+<p>long 占用 8 个字节（64bit），取值范围是 - 263~263-1</p>
+<p>2&gt;可以连续使用 2 个 long，也就是 long long。<strong>一般来说，long long 的范围是不小于 long 的，比如在 32bit 编译器环境下，long long 占用 8 个字节，long 占用 4 个字节。不过在 64bit 编译器环境下，long long 跟 long 是一样的，都占用 8 个字节。</strong></p>
+<p>3&gt;short int 等价于 short，long int 等价于 long，long long int 等价于 long long</p>
+<p><strong>long 使用注意</strong></p>
+<p>long 和 int 都能够存储整型常量，为了区分 long 和 int，一般会在整型常量后面加个小写字母 l，比如 100l，表示 long 类型的常量。如果是 long long 类型呢，就加 2 个 l，比如 100ll。如果什么都不加，就是 int 类型的常量。因此，100 是 int 类型的常量，100l 是 long 类型的常量，100ll 是 long long 类型的常量。</p>
+<p>使用 printf 输出时，long 用 %ld ， long long 用 %lld </p>
+<p><strong>signed 和 unsigned</strong></p>
+<p>1&gt; 首先要明确的：signed int 等价于 signed，unsigned int 等价于 unsigned</p>
+<p>2&gt; signed 和 unsigned 的区别就是它们的最高位是否要当做符号位，并不会像 short 和 long 那样改变数据的长度，即所占的字节数。</p>
+<ul>
+<li>signed：表示有符号，也就是说最高位要当做符号位，所以包括正数、负数和 0。其实 int 的最高位本来就是符号位，已经包括了正负数和 0 了，因此 signed 和 int 是一样的，signed 等价于 signed int，也等价于 int。signed 的取值范围是 - 231 ~ 231 - 1</li>
+<li>unsigned：表示无符号，也就是说最高位并不当做符号位，所以不包括负数。在 64bit 编译器环境下面，int 占用 4 个字节（32bit），因此 unsigned 的取值范围是：0000 0000 0000 0000 0000 0000 0000 0000 ~ 1111 1111 1111 1111 1111 1111 1111 1111，也就是 0 ~ 232 - 1</li>
+</ul>
+<h2 id="8-C-语言中的函数"><a href="#8-C-语言中的函数" class="headerlink" title="8. C 语言中的函数"></a>8. C 语言中的函数</h2><ol>
+<li>c 中没有「方法重写」 的概念，所以下面的函数定义是<strong>错误的</strong>：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function">2 </span>&#123;</span><br><span class="line"><span class="number">3</span> </span><br><span class="line"><span class="number">4</span> &#125;</span><br><span class="line"><span class="number">5</span> </span><br><span class="line"><span class="number">6</span> <span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function">7 </span>&#123;</span><br><span class="line"><span class="number">8</span>     <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line"><span class="number">9</span> &#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>函数都应该独立定义，不能嵌套定义，所以下面的写法是错误的：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">2 </span>&#123;</span><br><span class="line"><span class="number">3</span>     <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function">4     </span>&#123;</span><br><span class="line"><span class="number">5</span>     </span><br><span class="line"><span class="number">6</span>     &#125;</span><br><span class="line"><span class="number">7</span>     </span><br><span class="line"><span class="number">8</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">9</span> &#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><p>在 C 语言中，函数的定义顺序是有讲究的：默认情况下，只有后面定义的函数才可以调用前面定义过的函数</p>
+</li>
+<li><p>如果想把函数的定义写在 main 函数后面，而且 main 函数能正常调用这些函数，那就必须在 main 函数的前面进行函数的声明</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="comment">// 只是做个函数声明，并不用实现</span></span><br><span class="line"> <span class="number">2</span> <span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"> <span class="number">3</span> </span><br><span class="line"> <span class="number">4</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> 5 </span>&#123;</span><br><span class="line"> <span class="number">6</span>     <span class="keyword">int</span> c = sum(<span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"> <span class="number">7</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> <span class="number">8</span> &#125;</span><br><span class="line"> <span class="number">9</span> </span><br><span class="line"><span class="number">10</span> <span class="comment">// 函数的定义(实现)</span></span><br><span class="line"><span class="number">11</span> <span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line"><span class="number">12</span>     <span class="keyword">return</span> a + b;</span><br><span class="line"><span class="number">13</span> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="9-include"><a href="#9-include" class="headerlink" title="9. #include"></a>9. #include</h2><h3 id="9-1-include-的作用"><a href="#9-1-include-的作用" class="headerlink" title="9.1 include 的作用"></a>9.1 include 的作用</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="number">2</span> </span><br><span class="line"><span class="number">3</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">4 </span>&#123;</span><br><span class="line"><span class="number">5</span>     <span class="built_in">printf</span>(<span class="string">"Hello, World!\n"</span>);</span><br><span class="line"><span class="number">6</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">7</span> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>include 是 C 语言的预处理指令之一，所谓预处理，就是在编译之前做的处理，预处理指令一般以 # 开头</p>
+</li>
+<li><p>include 指令后面会跟着一个文件名，预处理器发现 #include 指令后，就会根据文件名去查找文件，并把这个文件的内容包含到当前文件中。被包含文件中的文本将替换源文件中的 #include 指令，就像你把被包含文件中的全部内容拷贝到这个 #include 指令所在的位置一样。所以第一行指令的作用是将 stdio.h 文件里面的所有内容拷贝到第一行中。</p>
+</li>
+<li><p>如果被包含的文件拓展名为. h，我们称之为 “头文件”(Header File)，头文件可以用来声明函数，要想使用这些函数，就必须先用 #include 指令包含函数所在的头文件<br>-#include 指令不仅仅限于. h 头文件，可以包含任何编译器能识别的 C/C++ 代码文件，包括. c、.hpp、.cpp 等，甚至. txt、.abc 等等都可以</p>
+<p>也就是说你完全可以将第 3 行~ 第 7 行的代码放到其他文件中，然后用 #include 指令包含进来, 比如：</p>
+<p>1&gt; 将第 3 行~ 第 7 行的代码放到 my.txt 中</p>
+<p>2&gt; 在 main.c 源文件中包含 my.txt 文件</p>
+<p>编译链接后，程序还是可以照常运行的，因为 #include 的功能就是将文件内容完全拷贝到 #include 指令所在的位置</p>
+</li>
+</ul>
+<h3 id="9-2-include-lt-gt-include”-“-区别"><a href="#9-2-include-lt-gt-include”-“-区别" class="headerlink" title="9.2 #include&lt;&gt; #include” “ 区别"></a>9.2 #include&lt;&gt; #include” “ 区别</h3><p>1&gt; <strong>对于使用双引号 “” 来 include 文件</strong>，搜索的时候按以下顺序：</p>
+<ul>
+<li>先在这条 include 指令的父文件所在文件夹内搜索，所谓的父文件，就是这条 include 指令所在的文件</li>
+<li>如果上一步找不到，则在父文件的父文件所在文件夹内搜索；</li>
+<li>如果上一步找不到，则在编译器设置的 include 路径内搜索；</li>
+<li>如果上一步找不到，则在系统的 INCLUDE 环境变量内搜索</li>
+</ul>
+<p>2&gt; <strong>对于使用尖括号 &lt;&gt; 来 include 文件</strong>，搜索的时候按以下顺序：</p>
+<ul>
+<li>在编译器设置的 include 路径内搜索；</li>
+<li>如果上一步找不到，则在系统的 INCLUDE 环境变量内搜索</li>
+</ul>
+<h3 id="9-3-stdio-h"><a href="#9-3-stdio-h" class="headerlink" title="9.3 stdio.h"></a>9.3 stdio.h</h3><ul>
+<li>stdio.h 是 C 语言函数库中的一个头文件，里面声明了一些常用的输入输出函数，比如往屏幕上输出内容的 printf 函数</li>
+<li>这里之所以包含 stdio.h 文件，是因为在第 5 行中用到了在 stdio.h 内部声明的 printf 函数，这个函数可以向屏幕输出数据，第 7 行代码输出的内容是：Hello, World!</li>
+<li>注意：stdio.h 里面只有 printf 函数的声明。前面已经提到：只要知道函数的声明，就可以调用这个函数，就能编译成功。不过想要这个程序能够运行成功，必须保证在链接的时候能找到函数的定义。其实链接除了会将所有的目标文件组合在一起，还会关联 C 语言的函数库，函数库中就有 printf 函数的定义。因此前面的程序是可以链接成功的。</li>
+</ul>
+<h2 id="10-数组"><a href="#10-数组" class="headerlink" title="10. 数组"></a>10. 数组</h2><h3 id="10-1-一维数组"><a href="#10-1-一维数组" class="headerlink" title="10.1 一维数组"></a>10.1 一维数组</h3><p><strong>定义</strong></p>
+<ul>
+<li><p>定义的形式为：类型  数组名 [元素个数] </p>
+</li>
+<li><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>只能放在数组名的后面，下面的都是错误写法:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[<span class="number">5</span>] a; <span class="comment">// 错误</span></span><br><span class="line"><span class="keyword">int</span>[] b; <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>里面的个数必须是一个固定值，可以是常量 (比如 6、8)、常量表达式 (比如 3+4、5*7)。绝对不能使用变量或者变量表达式来表示元素个数，大多数情况下不要省略元素个数（当数组作为函数的形参和数组初始化时除外）</p>
+<p>下面的都是正确写法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>  a[<span class="number">5</span>];   <span class="comment">// 整型常量</span></span><br><span class="line"><span class="keyword">int</span>  b[<span class="string">'A'</span>];  <span class="comment">// 字符常量，其实就是65</span></span><br><span class="line"><span class="keyword">int</span>  c[<span class="number">3</span>*<span class="number">4</span>];  <span class="comment">// 整型常量表达式</span></span><br></pre></td></tr></table></figure>
+<p>下面的都是错误写法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[]; <span class="comment">// 没有指定元素个数，错误</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">int</span> a[i]; <span class="comment">// 用变量做元素个数，错误</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>一维数组的存储</strong></p>
+<p>定义数组时，系统将按照数组类型和个数分配一段连续的存储空间来存储数组元素，如 int a[3] 占据了连续的 6 字节存储空间（在 16 位编译器环境下，一个 int 类型占用 2 个字节）。要注意的是，数组名代表着整个数组的地址，也就是数组的起始地址。</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d76702c4db.png" alt="img"></p>
+<p>注意：其实 a 不算是变量，是个常量，它代表着数组的地址。上图把 a 放到变量一栏是为了方便大家理解数组结构。</p>
+<p>数组 a 的地址是 ffc1，a[0] 的地址是 ffc1，a[1] 的地址是 ffc3，a[2] 的地址是 ffc5。因此 a == &amp;a[0]，即第一个元素的地址就是整个数组的地址</p>
+<p><strong>一维数组初始化</strong></p>
+<ul>
+<li>初始化的一般形式是：类型  数组名 [元素个数] = {元素 1, 元素 2, …};</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>] = &#123;<span class="number">8</span>, <span class="number">10</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>其实相当于：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">0</span>] = <span class="number">8</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>注意的是：C 语言中编译器是不会对数组下标越界进行检查的，所以自己访问数组元素时要小心</p>
+<ul>
+<li>元素值列表可以是数组所有元素的初值，也可以是前面部分元素的初值</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">4</span>] = &#123;<span class="number">2</span>, <span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>当数组为整型时，初始化未确定初值的元素，默认为 0，所以上面的 a[2]、a[3] 都为 0</p>
+<ul>
+<li>当对全部数组元素都赋初值时，可以省略元素个数</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[] = &#123;<span class="number">2</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>说明数组 a 的元素个数是 3</p>
+<ul>
+<li>数组初始化时的赋值方式只能用于数组的定义，定义之后只能一个元素一个元素地赋值</li>
+</ul>
+<p>下面的写法是错误的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">int</span> a[<span class="number">3</span>];</span><br><span class="line"><span class="number">2</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// 错误</span></span><br><span class="line"><span class="number">3</span> a = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
+<p>其实为什么是错误的写法呢？我们可以简要分析一下。</p>
+<p>1&gt; 第 2 行的 a[3] 代表着访问数组的第 4 个元素，首先这里已经是数组下标越界了；就算没有越界，给 a[3] 赋值时也应该赋一个 int 类型的整数，不应该是 {}。</p>
+<p>2&gt; 第 3 行的 a 是数组名，代表着数组的地址，它是个常量！给常量赋值，那肯定错了！</p>
+<p><strong>注意：函数参数为数组类型时，这时候是「引用传递」,也就是说，形参数组被修改时，实参数组也被修改了。</strong></p>
+<p><strong>一维数组求长度</strong></p>
+<p>TODO//…………</p>
+<h3 id="10-2-二维数组"><a href="#10-2-二维数组" class="headerlink" title="10.2 二维数组"></a>10.2 二维数组</h3><p><strong>定义</strong></p>
+<p>定义形式：类型  数组名 [行数][列数]</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">3</span>]; <span class="comment">// 共2行3列，6个元素</span></span><br></pre></td></tr></table></figure>
+<p><strong>存储</strong></p>
+<ul>
+<li>C 语言把二维数组当作是一维数组的集合，即二维数组是一个特殊的一维数组：它的元素是一维数组。例如 int a[2][3] 可以看作由一维数组 a[0] 和一维数组 a[1] 组成，这两个一维数组都包含了 3 个 int 类型的元素</li>
+</ul>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d7670624f0.png" alt="img"></p>
+<ul>
+<li>二维数组的存放顺序是按行存放的，先存放第一行的元素，再存放第 2 行的元素。例如 int a[2][3] 的存放顺序是：a[0][0] → a[0][1] → a[0][2] → a[1][0] → a[1][1] → a[1][2]</li>
+<li>再来看看在内存中的存储情况，例如 int a[2][2]</li>
+</ul>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d767072d32.png" alt="img"></p>
+<p>(注意：a[0]、a[1] 也是数组，是一维数组，而且 a[0]、a[1] 就是数组名，因此 a[0]、a[1] 就代表着这个一维数组的地址)</p>
+<p>1&gt; 数组 a 的地址是 ffc1，数组 a[0] 的地址也是 ffc1，即 a = a[0]；</p>
+<p>2&gt; 元素 a[0][0] 的地址是 ffc1，所以数组 a[0] 的地址和元素 a[0][0] 的地址相同，即 a[0] = &amp;a[0][0]；</p>
+<p>3&gt; 最终可以得出结论：a = a[0] = &amp;a[0][0]，以此类推，可以得出 a[1] = &amp;a[1][0]</p>
+<p><strong>初始化</strong></p>
+<ul>
+<li>按行进行初始化</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">3</span>] = &#123; &#123;<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125; &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>按存储顺序进行初始化 (先存放第 1 行，再存放第 2 行)</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">3</span>] = &#123;<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对部分元素进行初始化</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">3</span>] = &#123; &#123;<span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125; &#125;;</span><br><span class="line"><span class="keyword">int</span> b[<span class="number">3</span>][<span class="number">3</span>] = &#123; &#123; &#125;, &#123; , , <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果只初始化了部分元素，<strong>可以省略行数，但是不可以省略列数</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[][<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> a[][<span class="number">3</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">3</span>, <span class="number">5</span>&#125;, &#123;&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p>有些人可能想不明白，为什么可以省略行数，但不可以省略列数。也有人可能会问，可不可以只指定行数，但是省略列数？</p>
+<p>其实这个问题很简单，如果我们这样写：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;; <span class="comment">// 错误写法</span></span><br></pre></td></tr></table></figure>
+<p>大家都知道，二维数组会先存放第 1 行的元素，由于不确定列数，也就是不确定第 1 行要存放多少个元素，所以这里会产生很多种情况，可能 1、2 是属于第 1 行的，也可能 1、2、3、4 是第一行的，甚至 1、2、3、4、5、6 全部都是属于第 1 行的</p>
+<h2 id="11-字符串"><a href="#11-字符串" class="headerlink" title="11. 字符串"></a>11. 字符串</h2><h3 id="11-1-字符串内存结构"><a href="#11-1-字符串内存结构" class="headerlink" title="11.1 字符串内存结构"></a>11.1 字符串内存结构</h3><p><strong>Java 中使用 String 来代表数组， 但是 C 中没有这个对象， C 用「字符数组」来表示一个字符串。</strong></p>
+<ul>
+<li>字符串可以看做是一个特殊的字符数组，为了跟普通的字符数组区分开来，应该在字符串的尾部添加了一个结束标志’\0’。’\0’是一个 ASCII 码值为 0 的字符，是一个空操作符，表示什么也不干。所以采用字符数组存放字符串，赋值时应包含结束标志’\0’。</li>
+<li>字符串 “mj” 的存储情况如下 (假设用字符数组 char a[] 来存储)：</li>
+</ul>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d76711d263.png" alt="img"></p>
+<p>注意了，尾部有个’\0’，如果没有这个结束标记，说明这个字符数组存储的并不是字符串</p>
+<h3 id="11-2-字符串的初始化"><a href="#11-2-字符串的初始化" class="headerlink" title="11.2 字符串的初始化"></a>11.2 字符串的初始化</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="keyword">char</span> a[<span class="number">3</span>] = &#123;<span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>&#125;;</span><br><span class="line"> <span class="number">2</span> </span><br><span class="line"> <span class="number">3</span> <span class="keyword">char</span> b[<span class="number">3</span>];</span><br><span class="line"> <span class="number">4</span> b[<span class="number">0</span>] = <span class="string">'m'</span>;</span><br><span class="line"> <span class="number">5</span> b[<span class="number">1</span>] = <span class="string">'j'</span>;</span><br><span class="line"> <span class="number">6</span> b[<span class="number">2</span>] = <span class="string">'\0'</span>;</span><br><span class="line"> <span class="number">7</span> </span><br><span class="line"> <span class="number">8</span> <span class="keyword">char</span> c[<span class="number">3</span>] = <span class="string">"mj"</span>;</span><br><span class="line"> <span class="number">9</span> </span><br><span class="line"><span class="number">10</span> <span class="keyword">char</span> d[] = <span class="string">"mj"</span>;</span><br><span class="line"><span class="number">11</span> </span><br><span class="line"><span class="number">12</span> <span class="keyword">char</span> e[<span class="number">20</span>] = <span class="string">"mj"</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="11-3-字符串输出"><a href="#11-3-字符串输出" class="headerlink" title="11.3 字符串输出"></a>11.3 字符串输出</h3><p><strong>printf 输出</strong></p>
+<ul>
+<li><p>用格式符 %s 表示需要输出一个字符串</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">3</span>] = &#123;<span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%s"</span>, a);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d76712c64d.png" alt="img"></p>
+<p>最后面那个 \ 0 是不可能输出的，它只是个空字符，只是字符串结束的标记。</p>
+</li>
+<li><p>如果把 ‘\0’ 去掉</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">3</span>] = &#123;<span class="string">'m'</span>, <span class="string">'j'</span>&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%s"</span>, a);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d76712c64d.png" alt="img"></p>
+<p>跟上面添加了 \ 0 的输出结果是一样的。</p>
+<p>这样单独输出是看上去是一样的，但是在地址空间连续的情况下，输出就会出错。</p>
+</li>
+<li><p>会出错的情况</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">char</span> a[<span class="number">3</span>] = &#123;<span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>&#125;; <span class="comment">// 添加了结束符\0</span></span><br><span class="line"><span class="number">2</span> </span><br><span class="line"><span class="number">3</span> <span class="keyword">char</span> b[] = &#123;<span class="string">'i'</span>, <span class="string">'s'</span>&#125;; <span class="comment">// 假设忘记添加结束符\0</span></span><br><span class="line"><span class="number">4</span> </span><br><span class="line"><span class="number">5</span> <span class="built_in">printf</span>(<span class="string">"字符串a：%s"</span>, a); <span class="comment">// 输出字符串a</span></span><br><span class="line"><span class="number">6</span> </span><br><span class="line"><span class="number">7</span> <span class="built_in">printf</span>(<span class="string">"\n"</span>); <span class="comment">// 换行</span></span><br><span class="line"><span class="number">8</span> </span><br><span class="line"><span class="number">9</span> <span class="built_in">printf</span>(<span class="string">"字符串b：%s"</span>, b); <span class="comment">// 输出字符串b</span></span><br></pre></td></tr></table></figure>
+<p>第 3 行的字符数组 b 后面没有添加结束符 \ 0，因此 b 不算是个正宗的字符串。</p>
+<p>按照你的猜想，字符串 b 的输出应该就是 “is”，但是输出结果为：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d7671426c2.png" alt="img"></p>
+<p>可以看出，当我们尝试输出 b 的时候，把 a 也输出了。</p>
+<p>要搞清楚为什么，首先要看看 a 和 b 的内存地址：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"a的地址：%x"</span>, a);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"b的地址：%x"</span>, b);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d7671540fe.png" alt="img"></p>
+<p>由这个数据我们可以分析出 a 和 b 的内存存储情况如下：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d7671687f3.png" alt="img"></p>
+<p>可以看出来，数组 b 和 a 的内存地址是连续的。我们再回到输出 b 的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"字符串b：%s"</span>, b); <span class="comment">// 输出字符串b</span></span><br></pre></td></tr></table></figure>
+<p>%s 表示期望输出一个字符串，因此 printf 函数会从 b 的首地址开始按顺序输出字符，一直到 \ 0 字符为止，因为 \ 0 是字符串的结束标记。</p>
+<p>所以，如果想要创建一个字符串，记得加上结束符 \ 0，不然后果很严重，会访问到一些垃圾数据。 </p>
+<p><strong>puts 输出</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">char</span> a[] = <span class="string">"mj"</span>;</span><br><span class="line"><span class="number">2</span> <span class="built_in">puts</span>(a);</span><br><span class="line"><span class="number">3</span> </span><br><span class="line"><span class="number">4</span> <span class="built_in">puts</span>(<span class="string">"lmj"</span>);</span><br></pre></td></tr></table></figure>
+<p>看第 2 行代码，puts 函数会从 a 的首地址开始输出字符，一直到 \ 0 字符为止。</p>
+<p>输出结果：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d76717ed83.png" alt="img"></p>
+<ul>
+<li><p>puts 函数输出一个字符串后会自动换行。</p>
+</li>
+<li><p>puts 函数一次只能输出一个字符串，printf 函数则可以同时输出多个字符串</p>
+</li>
+</ul>
+<h3 id="11-4-字符串输入"><a href="#11-4-字符串输入" class="headerlink" title="11.4 字符串输入"></a>11.4 字符串输入</h3><p><strong>scanf函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char a[10];</span><br><span class="line">scanf(&quot;%s&quot;, a);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>scanf 函数会从 a 的首地址开始存放用户输入的字符，存放完毕后，系统会自动在尾部加上一个结束标记 \ 0</p>
+</li>
+<li><p>注意，不要写成 scanf(“%s”, &amp;a)，因为 a 已经代表了数组的地址，没必要再加上 &amp; 这个地址运算符。</p>
+</li>
+<li><p><strong>scanf 不能用来读取空格、tab</strong></p>
+</li>
+</ul>
+<p><strong>gets()函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char a[10];</span><br><span class="line">gets(a);</span><br></pre></td></tr></table></figure>
+<p>gets 跟 scanf 一样，会从 a 的首地址开始存放用户输入的字符，存放完毕后，系统会自动在尾部加上一个结束标记 \ 0。</p>
+<ul>
+<li>gets 一次只能读取一个字符串，scanf 则可以同时读取多个字符串</li>
+<li><strong>gets 可以读入包含空格、tab 的字符串，直到遇到回车为止</strong>；</li>
+</ul>
+<h3 id="11-3-字符串数组"><a href="#11-3-字符串数组" class="headerlink" title="11.3 字符串数组"></a>11.3 字符串数组</h3><ul>
+<li>一维字符数组中存放一个字符串，比如一个名字 char name[20] = “mj”</li>
+<li>如果要存储多个字符串，比如一个班所有学生的名字，则需要二维字符数组，char names[15][20] 可以存放 15 个学生的姓名 (假设姓名不超过 20 字符)</li>
+<li>如果要存储两个班的学生姓名，那么可以用三维字符数组 char names[2][15][20]</li>
+</ul>
+<h2 id="12-字符和字符串的常用处理函数"><a href="#12-字符和字符串的常用处理函数" class="headerlink" title="12. 字符和字符串的常用处理函数"></a>12. 字符和字符串的常用处理函数</h2><h3 id="12-1-字符处理"><a href="#12-1-字符处理" class="headerlink" title="12.1 字符处理"></a>12.1 字符处理</h3><blockquote>
+<p>声明在 stdio.h 头文件中</p>
+</blockquote>
+<p>​    <strong>字符输出函数 putchar</strong></p>
+<p>​    <strong>字符输入函数 getchar</strong></p>
+<h3 id="12-2-字符串处理"><a href="#12-2-字符串处理" class="headerlink" title="12.2 字符串处理"></a>12.2 字符串处理</h3><blockquote>
+<p>声明在 string.h 头文件中</p>
+</blockquote>
+<p>​    <strong>strlen 函数</strong></p>
+<ul>
+<li>这个函数可以用来测量字符串的字符个数，不包括 \ 0</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">int</span> size = <span class="built_in">strlen</span>(<span class="string">"mj"</span>); <span class="comment">// 长度为2</span></span><br><span class="line"><span class="number">2</span>  </span><br><span class="line"><span class="number">3</span> <span class="keyword">char</span> s1[] = <span class="string">"lmj"</span>;</span><br><span class="line"><span class="number">4</span> <span class="keyword">int</span> size1 = <span class="built_in">strlen</span>(s1); <span class="comment">// 长度为3</span></span><br><span class="line"><span class="number">5</span>  </span><br><span class="line"><span class="number">6</span> <span class="keyword">char</span> s2[] = &#123;<span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>&#125;;</span><br><span class="line"><span class="number">7</span> <span class="keyword">int</span> size2 = <span class="built_in">strlen</span>(s2); <span class="comment">// 长度为2</span></span><br></pre></td></tr></table></figure>
+<p>看一下第 7 行，strlen 函数会从 s2 的首地址开始计算字符个数，直到遇到空字符 \ 0 为止。因为 s2 的第 1 个 \ 0 之前只有 mj 这 2 个字符，所以长度为 2。</p>
+<p>​    <strong>strcpy函数</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">char</span> s[<span class="number">10</span>];</span><br><span class="line"><span class="number">2</span> <span class="built_in">strcpy</span>(s, <span class="string">"lmj"</span>);</span><br></pre></td></tr></table></figure>
+<p>strcpy 函数会将右边的 “lmj” 字符串拷贝到字符数组 s 中。从 s 的首地址开始，逐个字符拷贝，直到拷贝到 \ 0 为止。当然，在 s 的尾部肯定会保留一个 \ 0。</p>
+<ul>
+<li>假设右边的字符串中有好几个 \ 0，strcpy 函数只会拷贝第 1 个 \ 0 之前的内容，后面的内容不拷贝</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">char</span> s[<span class="number">10</span>];</span><br><span class="line"><span class="number">2</span> <span class="keyword">char</span> c[] = &#123;<span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>&#125;;</span><br><span class="line"><span class="number">3</span> <span class="built_in">strcpy</span>(s, c);</span><br></pre></td></tr></table></figure>
+<p>最后字符串 s 中的内容为：mj</p>
+<p>​    <strong>strcat函数</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> s1[<span class="number">30</span>] = <span class="string">"LOVE"</span>;</span><br><span class="line"><span class="built_in">strcat</span>(s1, <span class="string">"OC"</span>);</span><br></pre></td></tr></table></figure>
+<p>strcat 函数会将右边的 “OC” 字符串拼接到 s1 的尾部，最后 s1 的内容就变成了 “LOVEOC”</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d7671e0358.png" alt="img"></p>
+<p>strcat 函数会从 s1 的第 1 个 \ 0 字符开始连接字符串，s1 的第 1 个 \ 0 字符会被右边的字符串覆盖，连接完毕后在 s1 的尾部保留一个 \ 0</p>
+<ul>
+<li>注意下面的情况</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">char</span> s1[<span class="number">30</span>] = &#123;<span class="string">'L'</span>, <span class="string">'m'</span>, <span class="string">'j'</span>, <span class="string">'\0'</span>, <span class="string">'L'</span>, <span class="string">'o'</span>, <span class="string">'v'</span>, <span class="string">'e'</span>, <span class="string">'\0'</span>&#125;;</span><br><span class="line"><span class="number">2</span> <span class="built_in">strcat</span>(s1, <span class="string">"OC"</span>);</span><br><span class="line"><span class="number">3</span> <span class="built_in">printf</span>(<span class="string">"%s"</span>, s1);</span><br></pre></td></tr></table></figure>
+<p>第 1 行初始化的 s1 有 2 个 \ 0，经过第 2 行的 strcat 函数后，输出结果：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d7671f34bb.png" alt="img"></p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d76721044c.png" alt="img"></p>
+<p>​    <strong>strcmp函数</strong></p>
+<ul>
+<li>这个函数可以用来比较 2 个字符串的大小</li>
+<li>调用形式为：strcmp(字符串 1, 字符串 2)</li>
+<li>两个字符串从左至右逐个字符比较（按照字符的 ASCII 码值的大小），直到字符不相同或者遇见’\0’为止。如果全部字符都相同，则返回值为 0。如果不相同，则返回两个字符串中第一个不相同的字符 ASCII 码值的差。即字符串 1 大于字符串 2 时函数返回值为正，否则为负。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">char</span> s1[] = <span class="string">"abc"</span>;</span><br><span class="line"><span class="number">2</span> <span class="keyword">char</span> s2[] = <span class="string">"abc"</span>;</span><br><span class="line"><span class="number">3</span> <span class="keyword">char</span> s3[] = <span class="string">"aBc"</span>;</span><br><span class="line"><span class="number">4</span> <span class="keyword">char</span> s4[] = <span class="string">"ccb"</span>;</span><br><span class="line"><span class="number">5</span> </span><br><span class="line"><span class="number">6</span> <span class="built_in">printf</span>(<span class="string">"%d, %d, %d"</span>, <span class="built_in">strcmp</span>(s1, s2), <span class="built_in">strcmp</span>(s1, s3), <span class="built_in">strcmp</span>(s1, s4));</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="https://box.kancloud.cn/2016-05-07_572d767223bb6.png" alt="img"></p>
+<p>- </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/31/2018summary/" rel="next" title="2018 年终总结 + 12 月份面试总结">
+                <i class="fa fa-chevron-left"></i> 2018 年终总结 + 12 月份面试总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/14/C learning pointer/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  <div class="theme-info">
+   <div class="powered-by"></div>
+   <span class="post-count">共字</span>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_z.jpg" alt="BIGZ">
+            
+              <p class="site-author-name" itemprop="name">BIGZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zengfanyu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zengfanyunb@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-编译器"><span class="nav-number">1.</span> <span class="nav-text">1. 编译器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-编译流程"><span class="nav-number">2.</span> <span class="nav-text">2. 编译流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-关键词"><span class="nav-number">3.</span> <span class="nav-text">3. 关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-标识符"><span class="nav-number">4.</span> <span class="nav-text">4. 标识符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-printf"><span class="nav-number">5.</span> <span class="nav-text">5. printf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-基本使用"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-精细控制"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 精细控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符优先级"><span class="nav-number">6.</span> <span class="nav-text">运算符优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-变量"><span class="nav-number">7.</span> <span class="nav-text">6. 变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-说明符"><span class="nav-number">8.</span> <span class="nav-text">7. 说明符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-C-语言中的函数"><span class="nav-number">9.</span> <span class="nav-text">8. C 语言中的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-include"><span class="nav-number">10.</span> <span class="nav-text">9. #include</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-include-的作用"><span class="nav-number">10.1.</span> <span class="nav-text">9.1 include 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-include-lt-gt-include”-“-区别"><span class="nav-number">10.2.</span> <span class="nav-text">9.2 #include&lt;&gt; #include” “ 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-stdio-h"><span class="nav-number">10.3.</span> <span class="nav-text">9.3 stdio.h</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-数组"><span class="nav-number">11.</span> <span class="nav-text">10. 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-一维数组"><span class="nav-number">11.1.</span> <span class="nav-text">10.1 一维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-二维数组"><span class="nav-number">11.2.</span> <span class="nav-text">10.2 二维数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-字符串"><span class="nav-number">12.</span> <span class="nav-text">11. 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-1-字符串内存结构"><span class="nav-number">12.1.</span> <span class="nav-text">11.1 字符串内存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-2-字符串的初始化"><span class="nav-number">12.2.</span> <span class="nav-text">11.2 字符串的初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-3-字符串输出"><span class="nav-number">12.3.</span> <span class="nav-text">11.3 字符串输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-4-字符串输入"><span class="nav-number">12.4.</span> <span class="nav-text">11.4 字符串输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-3-字符串数组"><span class="nav-number">12.5.</span> <span class="nav-text">11.3 字符串数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-字符和字符串的常用处理函数"><span class="nav-number">13.</span> <span class="nav-text">12. 字符和字符串的常用处理函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-字符处理"><span class="nav-number">13.1.</span> <span class="nav-text">12.1 字符处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-2-字符串处理"><span class="nav-number">13.2.</span> <span class="nav-text">12.2 字符串处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BIGZ</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Every little makes a mickel</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+.gt-container a{border-bottom: none;}
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("YbNmOD8tolbrONHtHJyWdEq7-gzGzoHsz", "PTVGwiHfE44yKqqU8xYjhJOJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
