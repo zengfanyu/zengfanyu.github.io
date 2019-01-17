@@ -83,7 +83,7 @@
 <meta name="keywords" content="C语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言基础学习---基础法语">
-<meta property="og:url" content="http://zengfanyu.top/2019/01/17/C learning grammar/index.html">
+<meta property="og:url" content="http://zengfanyu.top/2019/01/13/C learning grammar/index.html">
 <meta property="og:site_name" content="CODE FRAMER BIGZ">
 <meta property="og:description" content="1. 编译器gcc支持多种编程语言：C语言、C++、Objective-C、Java等。在后来，苹果公司自己开发了一款叫做clang的编译器 2. 编译流程源文件 xxx.c 对它进行预处理，生成 xxx.i ，对与处理文件进行编译，生成汇编文件 xxx.s，对汇编文件进行编译生成目标文件 xxx.o，对目标文件进行链接生成可执行文件。 123456#生成 HelloC.o 目标文件cc -c">
 <meta property="og:locale" content="zh-Hans">
@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d7671f34bb.png">
 <meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d76721044c.png">
 <meta property="og:image" content="https://box.kancloud.cn/2016-05-07_572d767223bb6.png">
-<meta property="og:updated_time" content="2019-01-17T08:57:44.509Z">
+<meta property="og:updated_time" content="2019-01-17T08:59:49.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言基础学习---基础法语">
 <meta name="twitter:description" content="1. 编译器gcc支持多种编程语言：C语言、C++、Objective-C、Java等。在后来，苹果公司自己开发了一款叫做clang的编译器 2. 编译流程源文件 xxx.c 对它进行预处理，生成 xxx.i ，对与处理文件进行编译，生成汇编文件 xxx.s，对汇编文件进行编译生成目标文件 xxx.o，对目标文件进行链接生成可执行文件。 123456#生成 HelloC.o 目标文件cc -c">
@@ -141,7 +141,7 @@
 
 
 
-  <link rel="canonical" href="http://zengfanyu.top/2019/01/17/C learning grammar/">
+  <link rel="canonical" href="http://zengfanyu.top/2019/01/13/C learning grammar/">
 
 
 
@@ -274,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2019/01/17/C learning grammar/">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2019/01/13/C learning grammar/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BIGZ">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T15:32:16+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-13T15:32:16+08:00">
+                2019-01-13
               </time>
             
 
@@ -353,7 +353,7 @@
 
           
           
-             <span id="/2019/01/17/C learning grammar/" class="leancloud_visitors" data-flag-title="C语言基础学习---基础法语">
+             <span id="/2019/01/13/C learning grammar/" class="leancloud_visitors" data-flag-title="C语言基础学习---基础法语">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -387,7 +387,7 @@
         <p><img src="https://csharp-station.com/wp-content/uploads/2018/05/C-language.jpg" alt=""></p>
 <h2 id="1-编译器"><a href="#1-编译器" class="headerlink" title="1. 编译器"></a>1. 编译器</h2><p>gcc支持多种编程语言：C语言、C++、Objective-C、Java等。在后来，苹果公司自己开发了一款叫做clang的编译器</p>
 <h2 id="2-编译流程"><a href="#2-编译流程" class="headerlink" title="2. 编译流程"></a>2. 编译流程</h2><p>源文件 xxx.c 对它进行预处理，生成 xxx.i ，对与处理文件进行编译，生成汇编文件 xxx.s，对汇编文件进行编译生成目标文件 xxx.o，对目标文件进行链接生成可执行文件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">生成 HelloC.o 目标文件</span></span><br><span class="line">cc -c HelloC.c</span><br><span class="line"><span class="meta">#</span><span class="bash">链接目标文件并将生成的可执行文件命名为 HelloC</span></span><br><span class="line">cc -o HelloC HelloC.o</span><br><span class="line"><span class="meta">#</span><span class="bash">编译并链接 Hello.c 源文件，并将最终生成的可执行文件命名为 HelloC。中间会生成 HelloC.o 目标文件，但它在链接完成后会被删除</span></span><br><span class="line">cc -o HelloC HelloC.c</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>生成 HelloC.o 目标文件</span><br><span class="line">cc -c HelloC.c</span><br><span class="line"><span class="meta">#</span>链接目标文件并将生成的可执行文件命名为 HelloC</span><br><span class="line">cc -o HelloC HelloC.o</span><br><span class="line"><span class="meta">#</span>编译并链接 Hello.c 源文件，并将最终生成的可执行文件命名为 HelloC。中间会生成 HelloC.o 目标文件，但它在链接完成后会被删除</span><br><span class="line">cc -o HelloC HelloC.c</span><br></pre></td></tr></table></figure>
 <p>链接：源文件编译成功后，会生成一个.o目标文件，这就是一个二进制文件，但是，还是不能运行。目标文件不能运行的主要原因有2个：</p>
 <p>1，在开发过程中，不可能将所有的代码都写在一个.c文件中，为了模块化开发，一般会将不同的功能写到不同的源文件中。源文件编译之后，每个源文件都有对应的.o文件，比如two.c生成了two.o、three.c生成了three.o，这些.o文件都不能单独运行，它们之间都有密不可分的关系，需要将所有相关联的.o目标文件组合在一起。</p>
 <p>2，除开组合所有的目标文件之后，还需要将C语言的函数库包含进来，才能生成可执行文件。</p>
@@ -777,8 +777,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/13/C learning pointer/" rel="next" title="C语言基础学习---指针">
-                <i class="fa fa-chevron-left"></i> C语言基础学习---指针
+              <a href="/2018/12/31/2018summary/" rel="next" title="2018 年终总结 + 12 月份面试总结">
+                <i class="fa fa-chevron-left"></i> 2018 年终总结 + 12 月份面试总结
               </a>
             
           </div>
@@ -786,6 +786,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/17/C learning pointer/" rel="prev" title="C语言基础学习---指针">
+                C语言基础学习---指针 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
