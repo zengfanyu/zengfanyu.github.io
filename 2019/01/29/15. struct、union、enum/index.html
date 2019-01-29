@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C语言,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="15. 结构、联合、枚举结构是具有不同类型的值得集合，联合和结构类似，不同之处在于联合的成员共享同一存储空间，这样的结果是，联合可以每次存储一个成员，但是无法同时存储全部成员。枚举是一种证书类型，值由程序员来命名。 结构有点像Java中类的概念。 15.1 结构变量15.1.1 结构变量声明12345struct&amp;#123;    int number;    char name [25 + 1">
+<meta name="keywords" content="C语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言基础学习---结构、联合、枚举">
+<meta property="og:url" content="http://zengfanyu.top/2019/01/29/15. struct、union、enum/index.html">
+<meta property="og:site_name" content="CODE FRAMER BIGZ">
+<meta property="og:description" content="15. 结构、联合、枚举结构是具有不同类型的值得集合，联合和结构类似，不同之处在于联合的成员共享同一存储空间，这样的结果是，联合可以每次存储一个成员，但是无法同时存储全部成员。枚举是一种证书类型，值由程序员来命名。 结构有点像Java中类的概念。 15.1 结构变量15.1.1 结构变量声明12345struct&amp;#123;    int number;    char name [25 + 1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://csharp-station.com/wp-content/uploads/2018/05/C-language.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fzhib4yfqnj30e20nmk65.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fznanzwy6gj30je0l0aqc.jpg">
+<meta property="og:updated_time" content="2019-01-29T06:27:31.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C语言基础学习---结构、联合、枚举">
+<meta name="twitter:description" content="15. 结构、联合、枚举结构是具有不同类型的值得集合，联合和结构类似，不同之处在于联合的成员共享同一存储空间，这样的结果是，联合可以每次存储一个成员，但是无法同时存储全部成员。枚举是一种证书类型，值由程序员来命名。 结构有点像Java中类的概念。 15.1 结构变量15.1.1 结构变量声明12345struct&amp;#123;    int number;    char name [25 + 1">
+<meta name="twitter:image" content="https://csharp-station.com/wp-content/uploads/2018/05/C-language.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zengfanyu.top/2019/01/29/15. struct、union、enum/">
+
+
+
+
+
+  <title>C语言基础学习---结构、联合、枚举 | CODE FRAMER BIGZ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE FRAMER BIGZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Every little makes a mickel</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zengfanyu.top/2019/01/29/15. struct、union、enum/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BIGZ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_z.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE FRAMER BIGZ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C语言基础学习---结构、联合、枚举</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+           
+             <span class="post-letters-count">
+              &nbsp; | &nbsp;
+           <span> 字</span>
+               &nbsp; | &nbsp;
+           <span> min</span>
+            </span>
+           
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T11:32:16+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/29/15. struct、union、enum/" class="leancloud_visitors" data-flag-title="C语言基础学习---结构、联合、枚举">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://csharp-station.com/wp-content/uploads/2018/05/C-language.jpg" alt=""></p>
+<h2 id="15-结构、联合、枚举"><a href="#15-结构、联合、枚举" class="headerlink" title="15. 结构、联合、枚举"></a>15. 结构、联合、枚举</h2><p>结构是具有不同类型的值得集合，联合和结构类似，不同之处在于联合的成员共享同一存储空间，这样的结果是，联合可以每次存储一个成员，但是无法同时存储全部成员。枚举是一种证书类型，值由程序员来命名。</p>
+<p>结构有点像Java中类的概念。</p>
+<h3 id="15-1-结构变量"><a href="#15-1-结构变量" class="headerlink" title="15.1 结构变量"></a>15.1 结构变量</h3><h4 id="15-1-1-结构变量声明"><a href="#15-1-1-结构变量声明" class="headerlink" title="15.1.1 结构变量声明"></a>15.1.1 结构变量声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="keyword">char</span> name [<span class="number">25</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> on_hand;</span><br><span class="line">&#125;part1,part2;</span><br></pre></td></tr></table></figure>
+<p>struct{}指明了类型，part1 part2 是具有这种类型的变量。</p>
+<p>结构的成员在内存中是按照声明的顺序存储的。</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fzhib4yfqnj30e20nmk65.jpg" alt=""></p>
+<h4 id="15-1-2-结构变量初始化"><a href="#15-1-2-结构变量初始化" class="headerlink" title="15.1.2 结构变量初始化"></a>15.1.2 结构变量初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="keyword">char</span> name [<span class="number">25</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> on_hand;</span><br><span class="line">&#125;part1 = &#123;<span class="number">31231</span>,<span class="string">"Disk driver"</span>,<span class="number">10</span>&#125;,</span><br><span class="line"> part2 = &#123;<span class="number">4323</span>,<span class="string">"Printer cable"</span>,<span class="number">34</span>&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//或者指定初始化</span></span><br><span class="line">&#123;.number=<span class="number">23423</span>, .name = <span class="string">"xxx"</span>, .on_hand = <span class="number">333</span>;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="15-1-3-对结构的操作"><a href="#15-1-3-对结构的操作" class="headerlink" title="15.1.3 对结构的操作"></a>15.1.3 对结构的操作</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"Part numer is: %d"</span>,part.number);</span><br></pre></td></tr></table></figure>
+<p>类似于 Java 操作类的成员变量的方式。</p>
+<p>但是C语言没有提供其他用于整个结构的操作，特别是不能够使用运算符 <code>== !=</code> 来判定两个结构是相等的还是不等。</p>
+<h3 id="15-2-结构类型"><a href="#15-2-结构类型" class="headerlink" title="15.2 结构类型"></a>15.2 结构类型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="keyword">char</span> name [<span class="number">25</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> on_hand;</span><br><span class="line">&#125;part1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="keyword">char</span> name [<span class="number">25</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> on_hand;</span><br><span class="line">&#125;part2;</span><br></pre></td></tr></table></figure>
+<p>Part1 和 part2 不具有兼容的类型，因此不可以吧 part1 给 part2。</p>
+<p>解决方法：声明「结构标记」，或者使用「typedef」来定义类型名</p>
+<h4 id="15-2-1-结构标记的声明"><a href="#15-2-1-结构标记的声明" class="headerlink" title="15.2.1 结构标记的声明"></a>15.2.1 结构标记的声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">part</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="keyword">char</span> name [<span class="number">25</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> on_hand;</span><br><span class="line">&#125;; <span class="comment">//这里分号不能省略</span></span><br><span class="line"><span class="comment">//part 就是结构标记，可以用它声明变量</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">part</span> <span class="title">part1</span>,<span class="title">part2</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//有点像Java当中类的定义和实例化</span></span><br></pre></td></tr></table></figure>
+<h4 id="15-2-2-结构类型的定义"><a href="#15-2-2-结构类型的定义" class="headerlink" title="15.2.2 结构类型的定义"></a>15.2.2 结构类型的定义</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="keyword">char</span> name [<span class="number">25</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> on_hand;</span><br><span class="line">&#125; Part;<span class="comment">//这里定义的就是Part类型</span></span><br><span class="line"><span class="comment">//可以向使用内置类型一样使用Part</span></span><br><span class="line">Part part1,part2;</span><br></pre></td></tr></table></figure>
+<h4 id="15-2-3-结构数组初始化"><a href="#15-2-3-结构数组初始化" class="headerlink" title="15.2.3 结构数组初始化"></a>15.2.3 结构数组初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dialing_code</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> *contruy;</span><br><span class="line">    <span class="keyword">int</span> code;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化方式1</span></span><br><span class="line"><span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">dialing_code</span> <span class="title">country_codes</span>[] = &#123;</span></span><br><span class="line">    &#123;<span class="string">"aaa"</span>,<span class="number">1</span>&#125;, &#123;<span class="string">"bb"</span>,<span class="number">2</span>&#125;, &#123;<span class="string">"vvv"</span>,<span class="number">3</span>&#125;, &#123;<span class="string">"eee"</span>,<span class="number">4</span>&#125;, &#123;<span class="string">"www"</span>,<span class="number">5</span>&#125;,</span><br><span class="line">     &#123;<span class="string">"dfd"</span>,<span class="number">356</span>&#125;, &#123;<span class="string">"vds"</span>,<span class="number">24</span>&#125;, &#123;<span class="string">"efs"</span>,<span class="number">76</span>&#125;, &#123;<span class="string">"qwe"</span>,<span class="number">234</span>&#125;, &#123;<span class="string">"fe"</span>,<span class="number">3</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//初始化方式2  C99</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">part</span> <span class="title">inventory</span>[100] = &#123;</span>[<span class="number">0</span>].number = <span class="number">1</span>,[<span class="number">0</span>].on_hand = <span class="number">122</span>, [<span class="number">0</span>].name = <span class="string">"dwqq"</span>&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="15-2-联合"><a href="#15-2-联合" class="headerlink" title="15.2 联合"></a>15.2 联合</h3><p>联合也是有一个或者多个成员构成，这些成员可以有不同的类型，<strong>但是编译器只为联合中最大的成员分配足够的内存空间，联合的成员在这个空间内彼此覆盖。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">&#125;u;</span><br><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">&#125;s;</span><br></pre></td></tr></table></figure>
+<p>结构变量 s 和联合变量 u 在内存中情况如下：</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fznanzwy6gj30je0l0aqc.jpg" alt=""></p>
+<p>联合的性质和结构性质几乎一致。<strong>在初始化联合的时候，只有联合的第一个成员可以获得初始值。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">&#125;u=&#123;<span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>C99可以指定和结构一样指定初始化，指定初始化允许我们指定需要对联合中的哪个成员进行初始化，但是不一定是第一个。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">&#125;u=&#123;.d = <span class="number">10.0</span>&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="15-2-1-用联合节省空间"><a href="#15-2-1-用联合节省空间" class="headerlink" title="15.2.1 用联合节省空间"></a>15.2.1 用联合节省空间</h4><p>统计礼品册售出的商品信息，有三种商品</p>
+<ul>
+<li>书籍：书名，作者，页数</li>
+<li>杯子：设计</li>
+<li>衬衫：设计、可选颜色、可选尺寸</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">catalog_item</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> stock_number;</span><br><span class="line">    <span class="keyword">float</span> price;</span><br><span class="line">    <span class="keyword">int</span> item_type;</span><br><span class="line">    <span class="keyword">char</span> title[TITLE_LEN + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">char</span> author[AUTHOR_LEN + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> num_pages;</span><br><span class="line">    <span class="keyword">char</span> desigon[DESIGN_LEN + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> colors;</span><br><span class="line">    <span class="keyword">int</span> sizes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>成员 item_type 是 BOOK MUG SHIRT 之一。但是这样会浪费大量的空间。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">catalog_item</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> sock_number;</span><br><span class="line">	<span class="keyword">float</span> price;</span><br><span class="line">    <span class="keyword">int</span> item_type;</span><br><span class="line">    <span class="keyword">union</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">             <span class="keyword">char</span> title[TITLE_LEN + <span class="number">1</span>];</span><br><span class="line">  			 <span class="keyword">char</span> author[AUTHOR_LEN + <span class="number">1</span>];</span><br><span class="line">   			 <span class="keyword">int</span> num_pages;</span><br><span class="line">        &#125;book;</span><br><span class="line">        </span><br><span class="line">        <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">             <span class="keyword">char</span> desigon[DESIGN_LEN + <span class="number">1</span>];</span><br><span class="line">        &#125;mug;</span><br><span class="line">        </span><br><span class="line">        <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">           <span class="keyword">char</span> desigon[DESIGN_LEN + <span class="number">1</span>];</span><br><span class="line">           <span class="keyword">int</span> colors;</span><br><span class="line">  		   <span class="keyword">int</span> sizes;  </span><br><span class="line">        &#125;shirt;</span><br><span class="line">        </span><br><span class="line">    &#125;item; <span class="comment">//联合 item 是结构 catalog_item 的成员。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>根据联合的性质， catalog_item 这个结构就不会浪费空间。</p>
+<p><strong>联合的两个或多个成员是结构，二这些结构最初的一个或者多个成员是相匹配的「成员顺序应该相同吗，类型也箭筒，名字可以不一样」，如果当前某个结构有效，则其他结构中的匹配成员也有效。</strong></p>
+<h4 id="15-2-2-用联合来构造混合数据结构的数组"><a href="#15-2-2-用联合来构造混合数据结构的数组" class="headerlink" title="15.2.2 用联合来构造混合数据结构的数组"></a>15.2.2 用联合来构造混合数据结构的数组</h4><p>假设需要一个数组既可以存储int类型，也可以存储doubel类型，可以这么写：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> unio&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">&#125;Number;</span><br><span class="line"></span><br><span class="line">Number number_array[<span class="number">1000</span>];</span><br><span class="line">number_array[<span class="number">0</span>].i = <span class="number">5</span>;</span><br><span class="line">number_array[<span class="number">1</span>].d = <span class="number">8.545</span>;</span><br></pre></td></tr></table></figure>
+<p>但是这种方式没办法确定，一个 Number 中经过多次修改之后，最后包含的到底是 int 还是 double。解决方法：<strong>将联合嵌入一个结构中，结构中还有另外一个标记成员变量。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> kind;</span><br><span class="line">    unio&#123;</span><br><span class="line">          <span class="keyword">int</span> i;</span><br><span class="line">          <span class="keyword">double</span> d;</span><br><span class="line">    &#125;u;</span><br><span class="line">&#125; Number;</span><br><span class="line"></span><br><span class="line">n.kind = INT_KIND;</span><br><span class="line">n.u.i = <span class="number">82</span>;</span><br><span class="line"><span class="comment">//这么一来，通过 kind 标记量就可以分辨出当前 u 联合中存储的是什么类型的变量了</span></span><br></pre></td></tr></table></figure>
+<h3 id="15-3-枚举"><a href="#15-3-枚举" class="headerlink" title="15.3 枚举"></a>15.3 枚举</h3><ul>
+<li>命名枚举两种方法：通过声明标记的方法，或者使用 typedef 来创建第一无二的类型名。</li>
+<li>默认情况下，编译器会把整数0，1，2，3，赋给特定枚举类型中的常量；可以为枚举常量自由选择不同的值；两个或者多个枚举常量具有相同的值也是合法的；当没有为枚举常量指定值时，它的值比前一个常量的值大1，第一个枚举常量的默认值为0.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> suit&#123;CLUBS,DIAMONDS,HEARTS,SPADES&#125;;</span><br><span class="line"><span class="keyword">enum</span> suit s1, s2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;CLUBS,DIAMONDS,HEARTS,SPADES&#125; Suit;</span><br><span class="line">Suit s1,s2</span><br><span class="line"></span><br><span class="line"><span class="comment">//CLUBS =0, HEARTS = 79</span></span><br><span class="line"><span class="keyword">enum</span> suit&#123;CLUBS,DIAMONDS=<span class="number">78</span>,HEARTS,SPADES=<span class="number">34</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/22/14. Preprocessor/" rel="next" title="C语言基础学习---预处理器">
+                <i class="fa fa-chevron-left"></i> C语言基础学习---预处理器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  <div class="theme-info">
+   <div class="powered-by"></div>
+   <span class="post-count">共字</span>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_z.jpg" alt="BIGZ">
+            
+              <p class="site-author-name" itemprop="name">BIGZ</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zengfanyu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zengfanyunb@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#15-结构、联合、枚举"><span class="nav-number">1.</span> <span class="nav-text">15. 结构、联合、枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-结构变量"><span class="nav-number">1.1.</span> <span class="nav-text">15.1 结构变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#15-1-1-结构变量声明"><span class="nav-number">1.1.1.</span> <span class="nav-text">15.1.1 结构变量声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-1-2-结构变量初始化"><span class="nav-number">1.1.2.</span> <span class="nav-text">15.1.2 结构变量初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-1-3-对结构的操作"><span class="nav-number">1.1.3.</span> <span class="nav-text">15.1.3 对结构的操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-结构类型"><span class="nav-number">1.2.</span> <span class="nav-text">15.2 结构类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2-1-结构标记的声明"><span class="nav-number">1.2.1.</span> <span class="nav-text">15.2.1 结构标记的声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2-2-结构类型的定义"><span class="nav-number">1.2.2.</span> <span class="nav-text">15.2.2 结构类型的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2-3-结构数组初始化"><span class="nav-number">1.2.3.</span> <span class="nav-text">15.2.3 结构数组初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-联合"><span class="nav-number">1.3.</span> <span class="nav-text">15.2 联合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2-1-用联合节省空间"><span class="nav-number">1.3.1.</span> <span class="nav-text">15.2.1 用联合节省空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2-2-用联合来构造混合数据结构的数组"><span class="nav-number">1.3.2.</span> <span class="nav-text">15.2.2 用联合来构造混合数据结构的数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-3-枚举"><span class="nav-number">1.4.</span> <span class="nav-text">15.3 枚举</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BIGZ</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Every little makes a mickel</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+.gt-container a{border-bottom: none;}
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("YbNmOD8tolbrONHtHJyWdEq7-gzGzoHsz", "PTVGwiHfE44yKqqU8xYjhJOJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
